@@ -1,0 +1,12 @@
+# Ignore compiled binaries
+*.o
+vtest
+canny_rv
+*.out
+
+# Ignore raw image data
+*.raw
+
+# Ignore the huge toolchain folders if you moved them here
+riscv-toolchain/
+qemu/
