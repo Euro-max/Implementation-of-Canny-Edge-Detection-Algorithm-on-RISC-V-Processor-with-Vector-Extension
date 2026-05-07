@@ -2,44 +2,56 @@
 HOST_CXX  = g++
 RV_CXX    = riscv64-unknown-elf-g++
 QEMU      = qemu-riscv64
-VLEN      ?= 128   # Use: make run VLEN=256
-
-# --- Flags ---
-# Use -O3 for Phase 4 optimization requirements later [cite: 61]
-HOST_FLAGS  = -std=c++17 -O3 -Wall
-RV_FLAGS    = -std=c++17 -O3 -march=rv64gcv -mabi=lp64d -static
-
-# --- GoogleTest ---
-# Adjust GTEST_DIR if yours is different (e.g., /usr/local)
-GTEST_FLAGS = -lgtest -lgtest_main -lpthread
+VLEN      ?= 128
 
 # --- Directories ---
+SRC_DIR    = src
+INC_DIR    = include
+TEST_DIR   = tests
 BUILD_HOST = build_host
 BUILD_RV   = build_rv
+
+# --- Flags ---
+# -I$(INC_DIR) tells the compiler to look in the include/ folder for headers
+COMMON_FLAGS = -std=c++17 -O3 -Wall -I$(INC_DIR)
+RV_FLAGS     = $(COMMON_FLAGS) -march=rv64gcv -mabi=lp64d -static
+GTEST_FLAGS  = -lgtest -lgtest_main -lpthread
+
+# --- Source Discovery ---
+# Finds all .cpp files in src/
+SRCS        = $(wildcard $(SRC_DIR)/*.cpp)
+# Finds all .cpp files in tests/
+TEST_SRCS   = $(wildcard $(TEST_DIR)/*.cpp)
+
+# Filter out main.cpp when building tests to avoid "multiple definition of main"
+SRCS_NO_MAIN = $(filter-out $(SRC_DIR)/main.cpp, $(SRCS))
 
 # --- Targets ---
 .PHONY: all test canny_rv run clean directories
 
 all: directories canny_rv test
 
-# Ensure build directories exist 
+# Create build folders
 directories:
 	@mkdir -p $(BUILD_HOST) $(BUILD_RV)
 
-# Host-side GoogleTest suite [cite: 39, 53]
+# 1. Build & Run Host-side Tests
+# Uses all source files EXCEPT main.cpp, plus the test files
 test: directories
-	$(HOST_CXX) $(HOST_FLAGS) tests/test_env.cpp -o $(BUILD_HOST)/test_runner $(GTEST_FLAGS)
+	$(HOST_CXX) $(COMMON_FLAGS) $(SRCS_NO_MAIN) $(TEST_SRCS) -o $(BUILD_HOST)/test_runner $(GTEST_FLAGS)
 	@echo "--- Running Host Tests ---"
 	./$(BUILD_HOST)/test_runner
 
-# Cross-compile for RISC-V [cite: 29, 30]
+# 2. Build RISC-V Binary
+# Uses ALL source files including main.cpp
 canny_rv: directories
-	$(RV_CXX) $(RV_FLAGS) runner.cpp -o $(BUILD_RV)/canny_rv
+	$(RV_CXX) $(RV_FLAGS) $(SRCS) -o $(BUILD_RV)/canny_rv
 
-# Run on QEMU [cite: 35, 69]
+# 3. Execute on QEMU
 run: canny_rv
 	@echo "--- Running on QEMU (VLEN=$(VLEN)) ---"
 	$(QEMU) -cpu rv64,v=true,vlen=$(VLEN) ./$(BUILD_RV)/canny_rv
 
+# 4. Clean up
 clean:
 	rm -rf $(BUILD_HOST) $(BUILD_RV)
