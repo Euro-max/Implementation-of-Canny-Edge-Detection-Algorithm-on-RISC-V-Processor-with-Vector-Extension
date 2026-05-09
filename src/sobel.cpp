@@ -1,31 +1,25 @@
 #include "sobel.h"
-#include <cmath>
 
-void applySobel(const Image& input, Image& output) {
-    int w = input.width;
-    int h = input.height;
-    
-    // Initialize output
-    output.width = w;
-    output.height = h;
-    output.magnitudes.assign(w * h, 0.0f);//w*h is number of pixels in the input image, based on that number, memory is reserved and each memory slot is initalised to 0
-    output.angles.assign(w * h, 0.0f);
+void compute_sobel(const uint8_t* input, int16_t* gx, int16_t* gy, int width, int height) {
+    const int8_t Kx[3][3] = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
+    const int8_t Ky[3][3] = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}};
 
-    // Loop through pixels, not calculating at edges. That is why y starts at 1 and ends at h-2 to avoid segmentation fault since there is no pixel at -1
-    for (int y = 1; y < h - 1; ++y) {
-        for (int x = 1; x < w - 1; ++x) {
-            // Gx Kernel (Vertical edges)
-            float gx = -1.0f * input.pixels[(y-1)*w + (x-1)] + 1.0f * input.pixels[(y-1)*w + (x+1)]
-                     - 2.0f * input.pixels[(y)*w   + (x-1)] + 2.0f * input.pixels[(y)*w   + (x+1)]
-                     - 1.0f * input.pixels[(y+1)*w + (x-1)] + 1.0f * input.pixels[(y+1)*w + (x+1)];
-
-            // Gy Kernel (Horizontal edges)
-            float gy =   1.0f * input.pixels[(y-1)*w + (x-1)] + 2.0f * input.pixels[(y-1)*w + (x)] + 1.0f * input.pixels[(y-1)*w + (x+1)]
-                       - 1.0f * input.pixels[(y+1)*w + (x-1)] - 2.0f * input.pixels[(y+1)*w + (x)] - 1.0f * input.pixels[(y+1)*w + (x+1)];
-
-            // Calculate Magnitude and Angle
-            output.magnitudes[y * w + x] = std::sqrt(gx * gx + gy * gy);
-            output.angles[y * w + x] = std::atan2(gy, gx);
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            int32_t sumX = 0, sumY = 0;
+            for (int ky = -1; ky <= 1; ++ky) {
+                for (int kx = -1; kx <= 1; ++kx) {
+                    int iy = y + ky;
+                    int ix = x + kx;
+                    if (iy >= 0 && iy < height && ix >= 0 && ix < width) {
+                        uint8_t pixel = input[iy * width + ix];
+                        sumX += pixel * Kx[ky + 1][kx + 1];
+                        sumY += pixel * Ky[ky + 1][kx + 1];
+                    }
+                }
+            }
+            gx[y * width + x] = (int16_t)sumX; // Store in SoA [cite: 78]
+            gy[y * width + x] = (int16_t)sumY;
         }
     }
 }
