@@ -1,27 +1,34 @@
-#include "common.h"
-#include <cmath> // For std::abs
+#include "direction.h"
+#include <cmath>
+#include <algorithm>
 
-/**
- * Quantizes gradient direction into four values using integer arithmetic.
- * Uses cross-multiplication (ay * 5 < ax * 2) as an embedded optimization.
- */
-void compute_direction(const int16_t* Gx, const int16_t* Gy, uint8_t* direction, int width, int height) {
-    for (int i = 0; i < width * height; ++i) {
-        int32_t ax = std::abs(Gx[i]);
-        int32_t ay = std::abs(Gy[i]);
+void compute_direction(const int16_t* gx, const int16_t* gy, uint8_t* output, int width, int height) {
+    int size = width * height;
 
-        // Use cross-multiplication with 2/5 (tan 22.5) and 12/5 (tan 67.5)
+    for (int i = 0; i < size; ++i) {
+        int16_t ix = gx[i];
+        int16_t iy = gy[i];
+
+        // Use absolute values for comparison
+        int16_t ax = std::abs(ix);
+        int16_t ay = std::abs(iy);
+
+        // Optimization from Guide: Use integer cross-multiplication instead of tan()
+        // tan(22.5) approx 2/5, tan(67.5) approx 12/5 
+        
+        uint8_t dir = 0;
         if (ay * 5 < ax * 2) {
-            direction[i] = DIR_0;   // Horizontal
+            dir = 0; // Horizontal gradient (Vertical edge) 
         } else if (ay * 2 > ax * 5) {
-            direction[i] = DIR_90;  // Vertical
+            dir = 2; // Vertical gradient (Horizontal edge) 
         } else {
-            // Check signs to distinguish 45° from 135°
-            if ((Gx[i] > 0 && Gy[i] > 0) || (Gx[i] < 0 && Gy[i] < 0)) {
-                direction[i] = DIR_45;
+            // Diagonal cases: Check if signs of Gx and Gy are same or different
+            if ((ix > 0 && iy > 0) || (ix < 0 && iy < 0)) {
+                dir = 1; // 45 degrees 
             } else {
-                direction[i] = DIR_135;
+                dir = 3; // 135 degrees 
             }
         }
+        output[i] = dir;
     }
 }
