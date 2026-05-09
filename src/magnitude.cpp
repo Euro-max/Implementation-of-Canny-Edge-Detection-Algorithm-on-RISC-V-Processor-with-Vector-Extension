@@ -1,8 +1,24 @@
+/**
+ * @file magnitude.cpp
+ * @brief Implementation of L1 and L2 gradient magnitude computation
+ * @ingroup canny
+ * 
+ * Implements two-pass normalization for both magnitude calculation methods.
+ */
+
 #include "magnitude.h"
 #include <cmath>
 #include <algorithm>
 #include <vector>
 
+/**
+ * @brief L1 magnitude computation with two-pass histogram normalization
+ * @param gx      Horizontal gradients
+ * @param gy      Vertical gradients
+ * @param output  Normalized magnitude output
+ * @param width   Image width
+ * @param height  Image height
+ */
 void compute_magnitude_l1(const int16_t* gx, const int16_t* gy, 
                           uint8_t* output, int width, int height) {
     int32_t max_mag = 0;
@@ -22,6 +38,14 @@ void compute_magnitude_l1(const int16_t* gx, const int16_t* gy,
     }
 }
 
+/**
+ * @brief L2 (Euclidean) magnitude computation with sqrt normalization
+ * @param gx      Horizontal gradients
+ * @param gy      Vertical gradients
+ * @param output  Normalized magnitude output
+ * @param width   Image width
+ * @param height  Image height
+ */
 void compute_magnitude_l2(const int16_t* gx, const int16_t* gy, 
                           uint8_t* output, int width, int height) {
     int size = width * height;

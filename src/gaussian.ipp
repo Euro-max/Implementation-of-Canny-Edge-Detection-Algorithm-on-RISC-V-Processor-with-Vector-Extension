@@ -1,5 +1,32 @@
+/**
+ * @file gaussian.ipp
+ * @brief Template implementation of 5x5 Gaussian blur
+ * @ingroup canny
+ * 
+ * Inline implementation file for the Gaussian blur template.
+ * Includes boundary handling with zero-padding.
+ */
+
 #include <algorithm>
 
+/**
+ * @brief Template specialization of 5x5 Gaussian convolution
+ * 
+ * Implementation performs:
+ * 1. Nested loops over output pixels
+ * 2. 5x5 convolution with kernel coefficients
+ * 3. Zero-padding for boundary pixels
+ * 4. Integer division by 273 for normalization
+ * 
+ * @tparam T_in  Input pixel type (convertible to T_acc)
+ * @tparam T_out Output pixel type (from T_acc via cast)
+ * @tparam T_acc Accumulator type (large enough to avoid overflow)
+ * 
+ * @param input   Source image data
+ * @param output  Destination image data
+ * @param width   Image width
+ * @param height  Image height
+ */
 template <typename T_in, typename T_out, typename T_acc>
 void gaussian_blur_5x5(const T_in* input, T_out* output, int width, int height) {
     const int16_t kernel[5][5] = {
@@ -20,7 +47,7 @@ void gaussian_blur_5x5(const T_in* input, T_out* output, int width, int height) 
                     }
                 }
             }
-            output[y * width + x] = (T_out)(sum / 273); // [cite: 64]
+            output[y * width + x] = (T_out)(sum / 273); 
         }
     }
 }

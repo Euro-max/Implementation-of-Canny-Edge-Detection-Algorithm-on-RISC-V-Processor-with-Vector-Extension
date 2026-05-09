@@ -1,5 +1,30 @@
+/**
+ * @file sobel.cpp
+ * @brief Implementation of Sobel gradient computation
+ * @ingroup canny
+ * 
+ * Implements 3x3 Sobel convolution with zero-padding boundary handling.
+ */
+
 #include "sobel.h"
 
+/**
+ * @brief Convolves image with Sobel kernels to compute gradients
+ * 
+ * Implementation details:
+ * - Uses 3x3 separable kernels (but implemented as full convolution)
+ * - Zero-padding for boundary pixels (outside pixels treated as 0)
+ * - Results stored as int16_t (safe for 8-bit input range)
+ * - Memory layout: separate Gx and Gy arrays (SoA format)
+ * 
+ * Complexity: O(9 × width × height) operations
+ * 
+ * @param input   Source grayscale image
+ * @param gx      Destination for horizontal gradients
+ * @param gy      Destination for vertical gradients
+ * @param width   Image width
+ * @param height  Image height
+ */
 void compute_sobel(const uint8_t* input, int16_t* gx, int16_t* gy, int width, int height) {
     const int8_t Kx[3][3] = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
     const int8_t Ky[3][3] = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}};

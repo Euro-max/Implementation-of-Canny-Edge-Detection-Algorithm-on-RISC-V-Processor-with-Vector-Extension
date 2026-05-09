@@ -1,7 +1,34 @@
+/**
+ * @file direction.cpp
+ * @brief Implementation of gradient direction quantization
+ * @ingroup canny
+ * 
+ * Implements a fast integer-based gradient direction quantization
+ * using cross-multiplication instead of arctangent calculations.
+ */
+
 #include "direction.h"
 #include <cmath>
 #include <algorithm>
 
+/**
+ * @brief Computes gradient direction using integer arithmetic optimization
+ * 
+ * Implementation details:
+ * - Uses absolute values for magnitude comparison
+ * - Integer cross-multiplication avoids float division
+ * - Thresholds: |Gy| * 5 < |Gx| * 2 → near-horizontal
+ * - Thresholds: |Gy| * 2 > |Gx| * 5 → near-vertical
+ * - Diagonal cases use sign comparison for orientation
+ * 
+ * Complexity: O(width × height) with all integer operations
+ * 
+ * @param gx      Horizontal Sobel gradients (Sx)
+ * @param gy      Vertical Sobel gradients (Sy)
+ * @param output  Output direction map (0-3 per pixel)
+ * @param width   Image width
+ * @param height  Image height
+ */
 void compute_direction(const int16_t* gx, const int16_t* gy, uint8_t* output, int width, int height) {
     int size = width * height;
 
