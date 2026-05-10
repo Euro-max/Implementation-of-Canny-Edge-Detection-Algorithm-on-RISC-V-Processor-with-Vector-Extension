@@ -1,37 +1,18 @@
-Hey team 👋
+# Canny Edge Detection - feature/gtest Branch
 
-I've pushed my work to the new branch: The_GOAT
+## What's been accomplished:✅ **Complete Canny edge detection pipeline**
 
-Here's what I did:
+- Gaussian blur (5x5 kernel)
+- Sobel gradient computation (Gx, Gy)
+- L1 & L2 gradient magnitude with normalization
+- Gradient direction quantization (4 bins: 0°, 45°, 90°, 135°)
 
-✅ Gaussian Blur (gaussian.h / gaussian.ipp)
-- 5x5 kernel with correct sum of 273
-- Zero-padding boundary handling
-- Template design (T_in, T_out, T_acc)
+✅ **Comprehensive testing**
+- Google Test suites for all components
+- Simple assertion-based tests
+- Edge case coverage (zero gradients, boundaries, minimum sizes)
 
-✅ Magnitude (magnitude.h / magnitude.cpp)
-- L1 norm: |Gx| + |Gy|
-- L2 norm: sqrt(Gx² + Gy²)
-- Two-pass normalization to [0, 255]
+✅ **Documentation**
+- Doxygen documentation for all source files
+- GitHub Pages ready (docs/html/)
 
-✅ Unit Tests (tests/ folder)
-- test_gaussian.cpp → 4/4 passing
-- test_magnitude.cpp → 4/4 passing
-- test_sobel.cpp → 4/4 passing
-- test_direction.cpp → 4/4 passing
-- test_image_io.cpp → 4/4 passing
-- Total: 20/20 tests passing ✅
-
-✅ Full pipeline tested natively on a real image (GOAT.jpg 720x900) and produced correct edge detection output
-
-✅ Makefile updated with:
-- make test_gaussian
-- make test_magnitude
-- make test_sobel
-- make test_direction
-- make test_image_io
-- make test_all (runs everything at once)
-
-Please pull from The_GOAT branch and let me know if anything conflicts with your work!
-
-Adham 🐐
