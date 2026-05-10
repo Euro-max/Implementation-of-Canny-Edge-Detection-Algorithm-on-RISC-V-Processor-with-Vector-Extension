@@ -14,5 +14,5 @@
 
 ✅ **Documentation**
 - Doxygen documentation for all source files
-- GitHub Pages ready (docs/html/)
+- GitHub Pages ready (docs/index.html)
 
