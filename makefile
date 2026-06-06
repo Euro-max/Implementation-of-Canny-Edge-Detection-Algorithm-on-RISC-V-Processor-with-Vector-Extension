@@ -1,248 +1,149 @@
-# ─── Compilers ───────────────────────────────────────────────────
+# ─── Compilers ───────────────────────────────────────────────────────────────
+# HOST compiler  : native g++ on your Ubuntu machine (for tests)
+# RV compiler    : cross-compiler that produces RISC-V binaries
 HOST_CXX  = g++
-#RV_CXX    = riscv64-unknown-elf-g++
-#QEMU      = qemu-riscv64
-VLEN      ?= 128
-RV_CXX  = riscv64-linux-gnu-g++
-RV_FLAGS = -std=c++17 -O2 -march=rv64gc -mabi=lp64d -I src -I include
-QEMU     = qemu-riscv64
-QEMU_FLAGS = -L /usr/riscv64-linux-gnu
-# ─── Flags ───────────────────────────────────────────────────────
+RV_CXX    = riscv64-linux-gnu-g++
+
+# ─── Flags ───────────────────────────────────────────────────────────────────
+# rv64gc  = RISC-V 64-bit + standard extensions (no vector yet)
+# lp64d   = 64-bit pointers, double-precision float ABI
 HOST_FLAGS = -std=c++17 -O2 -Wall -I src -I include
-#RV_FLAGS   = -std=c++17 -O2 -march=rv64gcv -mabi=lp64d -I src -I include
+RV_FLAGS   = -std=c++17 -O2 -march=rv64gc -mabi=lp64d -I src -I include
 
-# ─── GoogleTest ──────────────────────────────────────────────────
-GTEST_DIR   = $(HOME)/googletest-install
-GTEST_FLAGS = -I$(GTEST_DIR)/include -L$(GTEST_DIR)/lib \
-              -lgtest -lgtest_main -lpthread
+# ─── QEMU ────────────────────────────────────────────────────────────────────
+# -L flag tells QEMU where the RISC-V Linux libraries are on your Ubuntu machine
+QEMU       = qemu-riscv64
+QEMU_FLAGS = -L /usr/riscv64-linux-gnu
 
-# ─── Targets ─────────────────────────────────────────────────────
-.PHONY: all test_gaussian canny_rv run clean
+# ─── Source files (all pipeline stages) ──────────────────────────────────────
+SRCS = src/main.cpp src/image_io.cpp src/sobel.cpp src/magnitude.cpp src/direction.cpp
+
+# ─── Image settings (override with: make run IMG=myfile.raw W=320 H=240) ─────
+IMG ?= test_input.raw
+# Auto-read size from last convert — override with W=xxx H=xxx if needed
+_SIZE := $(shell cat .img_size 2>/dev/null || echo "640 480")
+W     ?= $(word 1,$(_SIZE))
+H     ?= $(word 2,$(_SIZE))
+
+# ─── Default target ───────────────────────────────────────────────────────────
+.PHONY: all run sweep sweep_O0 sweep_O2 sweep_O3 sizes convert view clean help
+
+all: build_rv/canny_rv
+
 help:
-	@echo "Available commands:"
-	@echo "  make canny_rv  → cross-compile for RISC-V"
-	@echo "  make run       → run on QEMU (default VLEN=128)"
-	@echo "  make run VLEN=256 → run with VLEN=256"
-	@echo "  make run VLEN=512 → run with VLEN=512"
-	@echo "  make test_{gaussian,sobel,magnitude,direction,image_io,all}      → build and run host-side tests"
-	@echo "  make clean     → remove all build files"
-all: canny_rv
+	@echo ""
+	@echo "╔══════════════════════════════════════════════════════╗"
+	@echo "║           Canny Edge Detection - RISC-V              ║"
+	@echo "╠══════════════════════════════════════════════════════╣"
+	@echo "║  make run              → build O2 and run on QEMU    ║"
+	@echo "║  make sweep            → run O0 / O2 / O3 and table  ║"
+	@echo "║  make convert IMG=x.jpg→ convert photo to .raw       ║"
+	@echo "║  make view             → view output as PNG           ║"
+	@echo "║  make clean            → remove build files           ║"
+	@echo "╚══════════════════════════════════════════════════════╝"
+	@echo ""
 
-# Test Gaussian blur on host
-test_gaussian:
-	$(HOST_CXX) $(HOST_FLAGS) \
-	  tests/test_gaussian.cpp \
-	  -o build_host/test_gaussian
-	./build_host/test_gaussian
-	
-	
-test_magnitude:
-	$(HOST_CXX) $(HOST_FLAGS) \
-	  tests/test_magnitude.cpp src/magnitude.cpp \
-	  -o build_host/test_magnitude
-	./build_host/test_magnitude
+# ─── Build (O2, default) ──────────────────────────────────────────────────────
+build_rv/canny_rv: $(SRCS)
+	@mkdir -p build_rv
+	@echo "[ BUILD ] Compiling for RISC-V with -O2 ..."
+	$(RV_CXX) $(RV_FLAGS) $(SRCS) -o $@
+	@echo "[ OK    ] build_rv/canny_rv ready"
 
-test_sobel:
-	$(HOST_CXX) $(HOST_FLAGS) \
-	  tests/test_sobel.cpp src/sobel.cpp \
-	  -o build_host/test_sobel
-	./build_host/test_sobel
+# ─── Run on QEMU ─────────────────────────────────────────────────────────────
+run: build_rv/canny_rv
+	@echo ""
+	@echo "[ QEMU  ] Running on RISC-V emulator ..."
+	@echo "[ INPUT ] $(IMG)  $(W)x$(H)"
+	@echo ""
+	$(QEMU) $(QEMU_FLAGS) ./build_rv/canny_rv ./$(IMG) ./out.raw $(W) $(H)
 
-
-test_direction:
-	$(HOST_CXX) $(HOST_FLAGS) \
-	  tests/test_direction.cpp src/direction.cpp \
-	  -o build_host/test_direction
-	./build_host/test_direction
-
-
-test_image_io:
-	$(HOST_CXX) $(HOST_FLAGS) \
-	  tests/test_image_io.cpp src/image_io.cpp \
-	  -o build_host/test_image_io
-	./build_host/test_image_io
-
-
-test_all: test_gaussian test_magnitude test_sobel test_direction test_image_io
-
-# ─── GoogleTest suites (google_tests/ folder) ────────────────────
-
-gtest_gaussian:
-	$(HOST_CXX) $(HOST_FLAGS) \
-	  google_tests/gtest_gaussian.cpp \
-	  -o build_host/gtest_gaussian \
-	  $(GTEST_FLAGS)
-	./build_host/gtest_gaussian
-
-gtest_magnitude:
-	$(HOST_CXX) $(HOST_FLAGS) \
-	  google_tests/gtest_magnitude.cpp src/magnitude.cpp \
-	  -o build_host/gtest_magnitude \
-	  $(GTEST_FLAGS)
-	./build_host/gtest_magnitude
-
-gtest_sobel:
-	$(HOST_CXX) $(HOST_FLAGS) \
-	  google_tests/gtest_sobel.cpp src/sobel.cpp \
-	  -o build_host/gtest_sobel \
-	  $(GTEST_FLAGS)
-	./build_host/gtest_sobel
-
-gtest_direction:
-	$(HOST_CXX) $(HOST_FLAGS) \
-	  google_tests/gtest_direction.cpp src/direction.cpp \
-	  -o build_host/gtest_direction \
-	  $(GTEST_FLAGS)
-	./build_host/gtest_direction
-
-gtest_image_io:
-	$(HOST_CXX) $(HOST_FLAGS) \
-	  google_tests/gtest_image_io.cpp src/image_io.cpp \
-	  -o build_host/gtest_image_io \
-	  $(GTEST_FLAGS)
-	./build_host/gtest_image_io
-
-# ─── Run all GoogleTest suites ───────────────────────────────────
-gtest_all: gtest_gaussian gtest_magnitude gtest_sobel gtest_direction gtest_image_io
-
-# ─── Build all GoogleTest binaries without running ───────────────
-gtest:
-	$(HOST_CXX) $(HOST_FLAGS) \
-	  google_tests/gtest_gaussian.cpp \
-	  -o build_host/gtest_gaussian \
-	  $(GTEST_FLAGS)
-	$(HOST_CXX) $(HOST_FLAGS) \
-	  google_tests/gtest_magnitude.cpp src/magnitude.cpp \
-	  -o build_host/gtest_magnitude \
-	  $(GTEST_FLAGS)
-	$(HOST_CXX) $(HOST_FLAGS) \
-	  google_tests/gtest_sobel.cpp src/sobel.cpp \
-	  -o build_host/gtest_sobel \
-	  $(GTEST_FLAGS)
-	$(HOST_CXX) $(HOST_FLAGS) \
-	  google_tests/gtest_direction.cpp src/direction.cpp \
-	  -o build_host/gtest_direction \
-	  $(GTEST_FLAGS)
-	$(HOST_CXX) $(HOST_FLAGS) \
-	  google_tests/gtest_image_io.cpp src/image_io.cpp \
-	  -o build_host/gtest_image_io \
-	  $(GTEST_FLAGS)
-# Host-side unit tests using GoogleTest
-test:
-	$(HOST_CXX) $(HOST_FLAGS) \
-	    -o build/host/canny_test \
-	    tests/test_pipeline.cpp \
-	    src/sobel.cpp \
-	    src/magnitude.cpp \
-	    src/direction.cpp \
-	    src/image_io.cpp \
-	    -lgtest -lgtest_main -lpthread
-	./build/host/canny_test
-
-# Cross-compile for RISC-V
-canny_rv: 
-	$(RV_CXX) $(RV_FLAGS) \
-	  src/main.cpp src/image_io.cpp \
-	  src/sobel.cpp src/magnitude.cpp \
-	  src/direction.cpp \
-	  -o build_rv/canny_rv
-
-# Run on QEMU
-run: canny_rv
-	$(QEMU) $(QEMU_FLAGS) \
-	  ./build_rv/canny_rv ./test_input.raw out.raw 640 480
-# ─── Optimization Sweep ──────────────────────────────────────────
-sweep: sweep_O0 sweep_O2 sweep_O3
+# ─── Optimization Sweep ──────────────────────────────────────────────────────
+sweep: sweep_O0 sweep_O2 sweep_O3 sizes
+	@echo ""
+	@echo "[ DONE  ] Sweep complete. Check the table above."
 
 sweep_O0:
-	$(RV_CXX) -std=c++17 -O0 -march=rv64gcv -mabi=lp64d -I src -I include \
-	  src/main.cpp src/image_io.cpp src/sobel.cpp src/magnitude.cpp src/direction.cpp \
-	  -o build_rv/canny_O0
-	@echo "\n--- O0 ---"
-	$(QEMU) -cpu rv64,v=true,vlen=128 ./build_rv/canny_O0 test_input.raw out_O0.raw 640 480
+	@mkdir -p build_rv
+	@echo ""
+	@echo "[ BUILD ] Compiling -O0 (no optimization) ..."
+	@$(RV_CXX) -std=c++17 -O0 -march=rv64gc -mabi=lp64d -I src -I include \
+	  $(SRCS) -o build_rv/canny_O0
+	@echo "[ RUN   ] -O0 binary on QEMU ..."
+	@$(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O0 ./$(IMG) ./out_O0.raw $(W) $(H)
 
 sweep_O2:
-	$(RV_CXX) -std=c++17 -O2 -march=rv64gcv -mabi=lp64d -I src -I include \
-	  src/main.cpp src/image_io.cpp src/sobel.cpp src/magnitude.cpp src/direction.cpp \
-	  -o build_rv/canny_O2
-	@echo "\n--- O2 ---"
-	$(QEMU) -cpu rv64,v=true,vlen=128 ./build_rv/canny_O2 test_input.raw out_O2.raw 640 480
+	@mkdir -p build_rv
+	@echo ""
+	@echo "[ BUILD ] Compiling -O2 (standard optimization) ..."
+	@$(RV_CXX) -std=c++17 -O2 -march=rv64gc -mabi=lp64d -I src -I include \
+	  $(SRCS) -o build_rv/canny_O2
+	@echo "[ RUN   ] -O2 binary on QEMU ..."
+	@$(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O2 ./$(IMG) ./out_O2.raw $(W) $(H)
 
 sweep_O3:
-	$(RV_CXX) -std=c++17 -O3 -march=rv64gcv -mabi=lp64d -I src -I include \
-	  src/main.cpp src/image_io.cpp src/sobel.cpp src/magnitude.cpp src/direction.cpp \
-	  -o build_rv/canny_O3
-	@echo "\n--- O3 ---"
-	$(QEMU) -cpu rv64,v=true,vlen=128 ./build_rv/canny_O3 test_input.raw out_O3.raw 640 480
-
-# Binary sizes
-sizes:
-	@echo "\n=== Binary Sizes ==="
-	@ls -lh build_rv/canny_O0 build_rv/canny_O2 build_rv/canny_O3 2>/dev/null | awk '{print $$5, $$9}'
-
-clean:
-	rm -rf build_host/* build_rv/*
-	@echo "Cleaned build directories"
-	
-	
-# ─── Image Processing ────────────────────────────────────────────
-IMG     ?= image.jpg
-WIDTH   ?= 640
-HEIGHT  ?= 480
-
-convert:
-	python3 -c "\
-	from PIL import Image; import numpy as np; \
-	img = Image.open('$(IMG)').convert('L'); \
-	arr = np.array(img); \
-	arr.tofile('test_input.raw'); \
-	print(f'Size: {arr.shape[1]}x{arr.shape[0]}')"
-
-view:
-	python3 -c "\
-	import numpy as np; from PIL import Image; \
-	arr = np.fromfile('out.raw', dtype=np.uint8).reshape($(HEIGHT), $(WIDTH)); \
-	img = Image.fromarray(arr); \
-	img.save('out.png')"
-	eog out.png
-
-process:
-	./build_host/canny_host \
-	./test_input.raw \
-	./out.raw \
-	$(WIDTH) $(HEIGHT)
-	
-# ── FULL PIPELINE: convert photo → run → view ──
-photo: canny_rv
+	@mkdir -p build_rv
 	@echo ""
-	@echo "Step 1: Converting $(IMG) to RAW ($(WIDTH)x$(HEIGHT))..."
-	python3 -c "\
+	@echo "[ BUILD ] Compiling -O3 (aggressive optimization) ..."
+	@$(RV_CXX) -std=c++17 -O3 -march=rv64gc -mabi=lp64d -I src -I include \
+	  $(SRCS) -o build_rv/canny_O3
+	@echo "[ RUN   ] -O3 binary on QEMU ..."
+	@$(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O3 ./$(IMG) ./out_O3.raw $(W) $(H)
+
+sizes:
+	@echo ""
+	@echo "┌─────────────────────────────────────┐"
+	@echo "│         Binary Size Summary          │"
+	@echo "├──────────────────┬──────────────────┤"
+	@echo "│ Flag             │ Size             │"
+	@echo "├──────────────────┼──────────────────┤"
+	@printf "│ -O0              │ %-16s │\n" $$(ls -lh build_rv/canny_O0 | awk '{print $$5}')
+	@printf "│ -O2              │ %-16s │\n" $$(ls -lh build_rv/canny_O2 | awk '{print $$5}')
+	@printf "│ -O3              │ %-16s │\n" $$(ls -lh build_rv/canny_O3 | awk '{print $$5}')
+	@echo "└──────────────────┴──────────────────┘"
+
+# ─── Image conversion ─────────────────────────────────────────────────────────
+# Usage: make convert IMG=photo.jpg
+# This converts any photo to the raw grayscale format our pipeline needs
+convert:
+	@echo "[ CONV  ] Converting $(IMG) to raw grayscale ..."
+	@python3 -c "\
 from PIL import Image; import numpy as np; \
-img = Image.open('$(IMG)').convert('L').resize(($(WIDTH), $(HEIGHT))); \
+img = Image.open('$(IMG)').convert('L'); \
 arr = np.array(img); \
 arr.tofile('test_input.raw'); \
-print(f'Saved test_input.raw: {arr.shape[1]}x{arr.shape[0]} pixels')"
-	@echo ""
-	@echo "Step 2: Running Canny pipeline on QEMU (VLEN=$(VLEN))..."
-	$(QEMU) -cpu rv64,v=true,vlen=$(VLEN) \
-	    ./build_rv/canny_rv \
-	    test_input.raw out.raw $(WIDTH) $(HEIGHT)
-	@echo ""
-	@echo "Step 3: Saving comparison PNG..."
-	python3 -c "\
-import numpy as np; from PIL import Image; \
-inp = np.fromfile('test_input.raw', dtype=np.uint8).reshape($(HEIGHT), $(WIDTH)); \
-out = np.fromfile('out.raw',        dtype=np.uint8).reshape($(HEIGHT), $(WIDTH)); \
-side = Image.new('L', ($(WIDTH)*2+10, $(HEIGHT)), 128); \
-side.paste(Image.fromarray(inp), (0, 0)); \
-side.paste(Image.fromarray(out), ($(WIDTH)+10, 0)); \
-side.save('comparison.png'); \
-print(f'Edge pixels: {(out>0).sum()} / {$(WIDTH)*$(HEIGHT)} ({100*(out>0).mean():.1f}%)'); \
-print('Saved: comparison.png')"
-	@echo ""
-	@echo "============================================"
-	@echo " Done! View result in Windows Explorer:"
-	@echo " \\\\wsl.localhost\\Ubuntu\\home\\$$USER\\canny-edge\\comparison.png"
-	@echo "============================================"
-	
+h, w = arr.shape; \
+open('.img_size', 'w').write(str(w)+' '+str(h)); \
+print('[ OK    ] Saved test_input.raw  size: {}x{}'.format(w, h)); \
+print('[ INFO  ] Now just run: make run')"
 
+# ─── View output ──────────────────────────────────────────────────────────────
+# Converts out.raw back to PNG so you can see the edge detection result
+view:
+	@echo "[ VIEW  ] Converting out.raw to out.png ..."
+	@python3 -c "\
+import numpy as np; from PIL import Image; \
+arr = np.fromfile('out.raw', dtype=np.uint8).reshape($(H), $(W)); \
+Image.fromarray(arr).save('out.png'); \
+print('[ OK    ] Saved out.png')"
+	@echo "[ OPEN  ] Opening image ..."
+	@eog out.png 2>/dev/null || xdg-open out.png 2>/dev/null || \
+	  echo "[ INFO  ] Cannot open GUI. Copy out.png to Windows and open it."
+
+# ─── Verify outputs match ─────────────────────────────────────────────────────
+verify:
+	@echo "[ CHECK ] Verifying O0 == O2 == O3 (correctness check) ..."
+	@python3 -c "\
+import numpy as np; \
+o0=np.fromfile('out_O0.raw',dtype=np.uint8); \
+o2=np.fromfile('out_O2.raw',dtype=np.uint8); \
+o3=np.fromfile('out_O3.raw',dtype=np.uint8); \
+print('  O0 vs O2:', 'IDENTICAL ✓' if np.array_equal(o0,o2) else 'DIFFER ✗  max diff='+str(np.max(np.abs(o0.astype(int)-o2.astype(int))))); \
+print('  O0 vs O3:', 'IDENTICAL ✓' if np.array_equal(o0,o3) else 'DIFFER ✗  max diff='+str(np.max(np.abs(o0.astype(int)-o3.astype(int))))); \
+print('  Non-zero pixels (edges found):', np.count_nonzero(o0), 'out of', len(o0))"
+
+# ─── Clean ────────────────────────────────────────────────────────────────────
+clean:
+	@rm -rf build_rv/* build_host/*
+	@rm -f out.raw out_O0.raw out_O2.raw out_O3.raw out.png
+	@echo "[ OK    ] Cleaned all build files"
