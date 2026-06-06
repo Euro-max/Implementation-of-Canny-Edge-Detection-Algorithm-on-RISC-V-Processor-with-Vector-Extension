@@ -178,13 +178,28 @@ int main(int argc, char** argv) {
     uint64_t cyc_dir = (c1 - c0) / REPS;
     std::cout << "[ OK  ] Done — " << cyc_dir << " cycles avg\n\n";
 
-    // ── Save output ───────────────────────────────────────────────────────────
+// ── Save output image ─────────────────────────────────────────────────────
     std::cout << "[ 6/6 ] Saving output to " << argv[2] << " ...\n";
     save_raw(argv[2], img_mag, W, H);
     std::cout << "[ OK  ] Saved\n";
 
     // ── Print results table ───────────────────────────────────────────────────
     print_table(cyc_gaussian, cyc_sobel, cyc_mag, cyc_dir, REPS);
+
+    // ── Optionally save cycle counts to file (for summary table) ─────────────
+    // Called with 5th argument: ./canny in.raw out.raw W H cycles_O2.txt
+    // Writes 4 lines: Gaussian, Sobel, Magnitude, Direction cycles
+    if (argc >= 6) {
+        FILE* cf = fopen(argv[5], "w");
+        if (cf) {
+            fprintf(cf, "%llu\n", (unsigned long long)cyc_gaussian);
+            fprintf(cf, "%llu\n", (unsigned long long)cyc_sobel);
+            fprintf(cf, "%llu\n", (unsigned long long)cyc_mag);
+            fprintf(cf, "%llu\n", (unsigned long long)cyc_dir);
+            fclose(cf);
+            std::cout << "[ OK  ] Cycles saved to " << argv[5] << "\n";
+        }
+    }
 
     return 0;
 }

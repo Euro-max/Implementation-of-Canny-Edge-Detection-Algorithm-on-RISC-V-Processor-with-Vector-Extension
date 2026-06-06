@@ -59,37 +59,48 @@ run: build_rv/canny_rv
 	$(QEMU) $(QEMU_FLAGS) ./build_rv/canny_rv ./$(IMG) ./out.raw $(W) $(H)
 
 # ─── Optimization Sweep ──────────────────────────────────────────────────────
-sweep: sweep_O0 sweep_O2 sweep_O3 sizes
-	@echo ""
-	@echo "[ DONE  ] Sweep complete. Check the table above."
-
 sweep_O0:
-	@mkdir -p build_rv
-	@echo ""
-	@echo "[ BUILD ] Compiling -O0 (no optimization) ..."
+	@mkdir -p build_rv build_host
+	@echo "[ BUILD ] Compiling -O0 ..."
 	@$(RV_CXX) -std=c++17 -O0 -march=rv64gc -mabi=lp64d -I src -I include \
 	  $(SRCS) -o build_rv/canny_O0
-	@echo "[ RUN   ] -O0 binary on QEMU ..."
-	@$(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O0 ./$(IMG) ./out_O0.raw $(W) $(H)
+	@echo "[ RUN   ] -O0 on QEMU ($(W)x$(H)) ..."
+	@$(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O0 \
+	  ./test_input.raw ./out_O0.raw $(W) $(H) cycles_O0.txt
 
 sweep_O2:
-	@mkdir -p build_rv
-	@echo ""
-	@echo "[ BUILD ] Compiling -O2 (standard optimization) ..."
+	@mkdir -p build_rv build_host
+	@echo "[ BUILD ] Compiling -O2 ..."
 	@$(RV_CXX) -std=c++17 -O2 -march=rv64gc -mabi=lp64d -I src -I include \
 	  $(SRCS) -o build_rv/canny_O2
-	@echo "[ RUN   ] -O2 binary on QEMU ..."
-	@$(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O2 ./$(IMG) ./out_O2.raw $(W) $(H)
+	@echo "[ RUN   ] -O2 on QEMU ($(W)x$(H)) ..."
+	@$(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O2 \
+	  ./test_input.raw ./out_O2.raw $(W) $(H) cycles_O2.txt
 
 sweep_O3:
-	@mkdir -p build_rv
-	@echo ""
-	@echo "[ BUILD ] Compiling -O3 (aggressive optimization) ..."
+	@mkdir -p build_rv build_host
+	@echo "[ BUILD ] Compiling -O3 ..."
 	@$(RV_CXX) -std=c++17 -O3 -march=rv64gc -mabi=lp64d -I src -I include \
 	  $(SRCS) -o build_rv/canny_O3
-	@echo "[ RUN   ] -O3 binary on QEMU ..."
-	@$(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O3 ./$(IMG) ./out_O3.raw $(W) $(H)
+	@echo "[ RUN   ] -O3 on QEMU ($(W)x$(H)) ..."
+	@$(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O3 \
+	  ./test_input.raw ./out_O3.raw $(W) $(H) cycles_O3.txt
 
+# Build the summary binary (host-side, reads saved cycle files)
+build_host/summary:
+	@mkdir -p build_host
+	$(HOST_CXX) $(HOST_FLAGS) src/summary.cpp -o build_host/summary
+
+# Run sweep then immediately print comparison table
+sweep: sweep_O0 sweep_O2 sweep_O3 build_host/summary sizes
+	@echo ""
+	@./build_host/summary cycles_O0.txt cycles_O2.txt cycles_O3.txt
+	@echo "[ DONE  ] Sweep complete."
+
+# Print table from last sweep (no re-running!)
+table: build_host/summary
+	@echo "[ TABLE ] Reading results from last sweep..."
+	@./build_host/summary cycles_O0.txt cycles_O2.txt cycles_O3.txt
 sizes:
 	@echo ""
 	@echo "┌─────────────────────────────────────┐"
@@ -147,3 +158,5 @@ clean:
 	@rm -rf build_rv/* build_host/*
 	@rm -f out.raw out_O0.raw out_O2.raw out_O3.raw out.png
 	@echo "[ OK    ] Cleaned all build files"
+	
+	
