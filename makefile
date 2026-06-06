@@ -1,12 +1,15 @@
 # ─── Compilers ───────────────────────────────────────────────────
 HOST_CXX  = g++
-RV_CXX    = riscv64-unknown-elf-g++
-QEMU      = qemu-riscv64
+#RV_CXX    = riscv64-unknown-elf-g++
+#QEMU      = qemu-riscv64
 VLEN      ?= 128
-
+RV_CXX  = riscv64-linux-gnu-g++
+RV_FLAGS = -std=c++17 -O2 -march=rv64gc -mabi=lp64d -I src -I include
+QEMU     = qemu-riscv64
+QEMU_FLAGS = -L /usr/riscv64-linux-gnu
 # ─── Flags ───────────────────────────────────────────────────────
 HOST_FLAGS = -std=c++17 -O2 -Wall -I src -I include
-RV_FLAGS   = -std=c++17 -O2 -march=rv64gcv -mabi=lp64d -I src -I include
+#RV_FLAGS   = -std=c++17 -O2 -march=rv64gcv -mabi=lp64d -I src -I include
 
 # ─── GoogleTest ──────────────────────────────────────────────────
 GTEST_DIR   = $(HOME)/googletest-install
@@ -146,8 +149,36 @@ canny_rv:
 
 # Run on QEMU
 run: canny_rv
-	$(QEMU) -cpu rv64,v=true,vlen=$(VLEN) \
-	  ./build_rv/canny_rv test_input.raw out.raw 64 64
+	$(QEMU) $(QEMU_FLAGS) \
+	  ./build_rv/canny_rv ./test_input.raw out.raw 640 480
+# ─── Optimization Sweep ──────────────────────────────────────────
+sweep: sweep_O0 sweep_O2 sweep_O3
+
+sweep_O0:
+	$(RV_CXX) -std=c++17 -O0 -march=rv64gcv -mabi=lp64d -I src -I include \
+	  src/main.cpp src/image_io.cpp src/sobel.cpp src/magnitude.cpp src/direction.cpp \
+	  -o build_rv/canny_O0
+	@echo "\n--- O0 ---"
+	$(QEMU) -cpu rv64,v=true,vlen=128 ./build_rv/canny_O0 test_input.raw out_O0.raw 640 480
+
+sweep_O2:
+	$(RV_CXX) -std=c++17 -O2 -march=rv64gcv -mabi=lp64d -I src -I include \
+	  src/main.cpp src/image_io.cpp src/sobel.cpp src/magnitude.cpp src/direction.cpp \
+	  -o build_rv/canny_O2
+	@echo "\n--- O2 ---"
+	$(QEMU) -cpu rv64,v=true,vlen=128 ./build_rv/canny_O2 test_input.raw out_O2.raw 640 480
+
+sweep_O3:
+	$(RV_CXX) -std=c++17 -O3 -march=rv64gcv -mabi=lp64d -I src -I include \
+	  src/main.cpp src/image_io.cpp src/sobel.cpp src/magnitude.cpp src/direction.cpp \
+	  -o build_rv/canny_O3
+	@echo "\n--- O3 ---"
+	$(QEMU) -cpu rv64,v=true,vlen=128 ./build_rv/canny_O3 test_input.raw out_O3.raw 640 480
+
+# Binary sizes
+sizes:
+	@echo "\n=== Binary Sizes ==="
+	@ls -lh build_rv/canny_O0 build_rv/canny_O2 build_rv/canny_O3 2>/dev/null | awk '{print $$5, $$9}'
 
 clean:
 	rm -rf build_host/* build_rv/*
@@ -213,3 +244,5 @@ print('Saved: comparison.png')"
 	@echo " Done! View result in Windows Explorer:"
 	@echo " \\\\wsl.localhost\\Ubuntu\\home\\$$USER\\canny-edge\\comparison.png"
 	@echo "============================================"
+	
+
