@@ -1,4 +1,4 @@
-# Phase 5: Compiler Optimization Sweep
+# Phase 4: Compiler Optimization Sweep
 
 ## What We Did In This Phase
 
@@ -151,6 +151,4 @@ Speedup vs O0   = 12.0x × 3.7x  = ~44x total
 
 ---
 
-## Important Limitation to Mention in Report
-
-> QEMU does not simulate real hardware cycles. It does not model cache misses, pipeline stalls, or branch misprediction. The **absolute numbers** (e.g. "33M cycles") are not what a real RISC-V chip would produce. However, the **relative ratios** (O0 vs O3 = 12x, scalar vs RVV later) are valid because the instruction count genuinely changes between optimization levels.
+AH
