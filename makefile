@@ -50,11 +50,12 @@ build_rv/canny_rv: $(SRCS)
 run: build_rv/canny_rv
 	$(QEMU) $(QEMU_FLAGS) ./build_rv/canny_rv ./$(IMG) ./out.raw $(W) $(H)
 
-sweep_O0: ; @mkdir -p build_rv; $(RV_CXX) -std=c++17 -O0 -march=rv64gcv -mabi=lp64d -I src -I include $(SRCS) -o build_rv/canny_O0; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O0 ./test_input.raw ./out_O0.raw 640 480 cycles_O0.txt
-sweep_O2: ; @mkdir -p build_rv; $(RV_CXX) -std=c++17 -O2 -march=rv64gcv -mabi=lp64d -I src -I include $(SRCS) -o build_rv/canny_O2; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O2 ./test_input.raw ./out_O2.raw 640 480 cycles_O2.txt
-sweep_O3: ; @mkdir -p build_rv; $(RV_CXX) -std=c++17 -O3 -march=rv64gcv -mabi=lp64d -I src -I include $(SRCS) -o build_rv/canny_O3; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O3 ./test_input.raw ./out_O3.raw 640 480 cycles_O3.txt
-sweep_Os: ; @mkdir -p build_rv; $(RV_CXX) -std=c++17 -Os -march=rv64gcv -mabi=lp64d -I src -I include $(SRCS) -o build_rv/canny_Os; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_Os ./test_input.raw ./out_Os.raw 640 480 cycles_Os.txt
-sweep_Ofast: ; @mkdir -p build_rv; $(RV_CXX) -std=c++17 -Ofast -march=rv64gcv -mabi=lp64d -I src -I include $(SRCS) -o build_rv/canny_Ofast; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_Ofast ./test_input.raw ./out_Ofast.raw 640 480 cycles_Ofast.txt
+# Optimization Sweep Targets (with verbose logging)
+sweep_O0: ; @echo "\n>>> [SWEEP] Running -O0 <<<"; mkdir -p build_rv; $(RV_CXX) -std=c++17 -O0 -march=rv64gcv -mabi=lp64d -I src -I include $(SRCS) -o build_rv/canny_O0; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O0 ./test_input.raw ./out_O0.raw $(W) $(H) cycles_O0.txt
+sweep_O2: ; @echo "\n>>> [SWEEP] Running -O2 <<<"; mkdir -p build_rv; $(RV_CXX) -std=c++17 -O2 -march=rv64gcv -mabi=lp64d -I src -I include $(SRCS) -o build_rv/canny_O2; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O2 ./test_input.raw ./out_O2.raw $(W) $(H) cycles_O2.txt
+sweep_O3: ; @echo "\n>>> [SWEEP] Running -O3 <<<"; mkdir -p build_rv; $(RV_CXX) -std=c++17 -O3 -march=rv64gcv -mabi=lp64d -I src -I include $(SRCS) -o build_rv/canny_O3; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O3 ./test_input.raw ./out_O3.raw $(W) $(H) cycles_O3.txt
+sweep_Os: ; @echo "\n>>> [SWEEP] Running -Os <<<"; mkdir -p build_rv; $(RV_CXX) -std=c++17 -Os -march=rv64gcv -mabi=lp64d -I src -I include $(SRCS) -o build_rv/canny_Os; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_Os ./test_input.raw ./out_Os.raw $(W) $(H) cycles_Os.txt
+sweep_Ofast: ; @echo "\n>>> [SWEEP] Running -Ofast <<<"; mkdir -p build_rv; $(RV_CXX) -std=c++17 -Ofast -march=rv64gcv -mabi=lp64d -I src -I include $(SRCS) -o build_rv/canny_Ofast; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_Ofast ./test_input.raw ./out_Ofast.raw $(W) $(H) cycles_Ofast.txt
 
 build_host/summary: src/summary.cpp
 	@mkdir -p build_host
