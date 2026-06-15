@@ -1,0 +1,519 @@
+src/gaussian.ipp:10:23: missed: couldn't vectorize loop
+src/gaussian.ipp:10:23: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+src/gaussian.ipp:11:27: missed: couldn't vectorize loop
+src/gaussian.ipp:11:27: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+src/gaussian.ipp:13:34: missed: couldn't vectorize loop
+src/gaussian.ipp:4:6: missed: not vectorized: unsupported use in stmt.
+src/gaussian.ipp:13:34: missed: couldn't vectorize loop
+src/gaussian.ipp:4:6: missed: not vectorized: unsupported use in stmt.
+src/gaussian.ipp:13:34: missed: couldn't vectorize loop
+src/gaussian.ipp:4:6: missed: not vectorized: unsupported use in stmt.
+src/gaussian.ipp:4:6: note: vectorized 0 loops in function.
+src/gaussian.ipp:5:19: missed: not vectorized: more than one data ref in stmt: kernel = *.LC0;
+src/gaussian.ipp:23:30: note: ***** Analysis failed with vector mode RVVM1QI
+src/gaussian.ipp:23:30: note: ***** The result for vector mode RVVM1QI would be the same
+src/gaussian.ipp:23:30: note: ***** Re-trying analysis with vector mode RVVMF2QI
+src/gaussian.ipp:23:30: note: ***** Analysis failed with vector mode RVVMF2QI
+src/gaussian.ipp:23:30: note: ***** Re-trying analysis with vector mode RVVMF4QI
+src/gaussian.ipp:23:30: note: ***** Analysis failed with vector mode RVVMF4QI
+src/gaussian.ipp:23:30: note: ***** Re-trying analysis with vector mode RVVMF8QI
+src/gaussian.ipp:23:30: note: ***** Analysis failed with vector mode RVVMF8QI
+src/gaussian.ipp:23:30: note: ***** Re-trying analysis with vector mode V16QI
+src/gaussian.ipp:19:29: note: ***** Analysis succeeded with vector mode V16QI
+src/gaussian.ipp:19:29: note: SLPing BB part
+src/gaussian.ipp:19:29: note: Costing subgraph: 
+src/gaussian.ipp:19:29: note: node 0x1ce79278 (max_nunits=2, refcnt=1) vector(2) int
+src/gaussian.ipp:19:29: note: op template: _409 = _513 * _117;
+src/gaussian.ipp:19:29: note: 	stmt 0 _409 = _513 * _117;
+src/gaussian.ipp:19:29: note: 	stmt 1 _491 = _69 * _407;
+src/gaussian.ipp:19:29: note: 	children 0x1ce7a628 0x1ce7c6c8
+src/gaussian.ipp:19:29: note: node 0x1ce7a628 (max_nunits=2, refcnt=1) vector(2) int
+src/gaussian.ipp:19:29: note: op template: _513 = (int) _512;
+src/gaussian.ipp:19:29: note: 	stmt 0 _513 = (int) _512;
+src/gaussian.ipp:19:29: note: 	stmt 1 _69 = (int) _488;
+src/gaussian.ipp:19:29: note: 	children 0x1ce79ae8
+src/gaussian.ipp:19:29: note: node (external) 0x1ce79ae8 (max_nunits=1, refcnt=1) vector(2) unsigned char
+src/gaussian.ipp:19:29: note: 	{ _512, _488 }
+src/gaussian.ipp:19:29: note: node 0x1ce7c6c8 (max_nunits=2, refcnt=1) vector(2) int
+src/gaussian.ipp:19:29: note: op template: _117 = (int) _515;
+src/gaussian.ipp:19:29: note: 	stmt 0 _117 = (int) _515;
+src/gaussian.ipp:19:29: note: 	stmt 1 _407 = (int) _44;
+src/gaussian.ipp:19:29: note: 	children 0x1ce7a508
+src/gaussian.ipp:19:29: note: node (external) 0x1ce7a508 (max_nunits=1, refcnt=1) vector(2) short int
+src/gaussian.ipp:19:29: note: 	{ _515, _44 }
+src/gaussian.ipp:19:29: note: Cost model analysis: 
+src/gaussian.ipp:19:29: note: Cost model analysis for part in loop 2:
+  Vector cost: 21
+  Scalar cost: 4
+src/gaussian.ipp:19:29: missed: not vectorized: vectorization is not profitable.
+src/gaussian.ipp:19:29: note: ***** Re-trying analysis with vector mode V8QI
+src/gaussian.ipp:19:29: note: ***** Analysis succeeded with vector mode V8QI
+src/gaussian.ipp:19:29: note: SLPing BB part
+src/gaussian.ipp:19:29: note: Costing subgraph: 
+src/gaussian.ipp:19:29: note: node 0x1ce7d3b8 (max_nunits=2, refcnt=1) vector(2) int
+src/gaussian.ipp:19:29: note: op template: _409 = _513 * _117;
+src/gaussian.ipp:19:29: note: 	stmt 0 _409 = _513 * _117;
+src/gaussian.ipp:19:29: note: 	stmt 1 _491 = _69 * _407;
+src/gaussian.ipp:19:29: note: 	children 0x1ce7a8f8 0x1ce79668
+src/gaussian.ipp:19:29: note: node 0x1ce7a8f8 (max_nunits=2, refcnt=1) vector(2) int
+src/gaussian.ipp:19:29: note: op template: _513 = (int) _512;
+src/gaussian.ipp:19:29: note: 	stmt 0 _513 = (int) _512;
+src/gaussian.ipp:19:29: note: 	stmt 1 _69 = (int) _488;
+src/gaussian.ipp:19:29: note: 	children 0x1ce7b948
+src/gaussian.ipp:19:29: note: node (external) 0x1ce7b948 (max_nunits=1, refcnt=1) vector(2) unsigned char
+src/gaussian.ipp:19:29: note: 	{ _512, _488 }
+src/gaussian.ipp:19:29: note: node 0x1ce79668 (max_nunits=2, refcnt=1) vector(2) int
+src/gaussian.ipp:19:29: note: op template: _117 = (int) _515;
+src/gaussian.ipp:19:29: note: 	stmt 0 _117 = (int) _515;
+src/gaussian.ipp:19:29: note: 	stmt 1 _407 = (int) _44;
+src/gaussian.ipp:19:29: note: 	children 0x1ce79c98
+src/gaussian.ipp:19:29: note: node (external) 0x1ce79c98 (max_nunits=1, refcnt=1) vector(2) short int
+src/gaussian.ipp:19:29: note: 	{ _515, _44 }
+src/gaussian.ipp:19:29: note: Cost model analysis: 
+src/gaussian.ipp:19:29: note: Cost model analysis for part in loop 2:
+  Vector cost: 21
+  Scalar cost: 4
+src/gaussian.ipp:19:29: missed: not vectorized: vectorization is not profitable.
+src/gaussian.ipp:19:29: note: ***** Re-trying analysis with vector mode V4QI
+src/gaussian.ipp:19:29: note: ***** Analysis succeeded with vector mode V4QI
+src/gaussian.ipp:19:29: note: SLPing BB part
+src/gaussian.ipp:19:29: note: Costing subgraph: 
+src/gaussian.ipp:19:29: note: node 0x1ce7c128 (max_nunits=2, refcnt=1) vector(2) int
+src/gaussian.ipp:19:29: note: op template: _409 = _513 * _117;
+src/gaussian.ipp:19:29: note: 	stmt 0 _409 = _513 * _117;
+src/gaussian.ipp:19:29: note: 	stmt 1 _491 = _69 * _407;
+src/gaussian.ipp:19:29: note: 	children 0x1ce7c908 0x1ce7be58
+src/gaussian.ipp:19:29: note: node 0x1ce7c908 (max_nunits=2, refcnt=1) vector(2) int
+src/gaussian.ipp:19:29: note: op template: _513 = (int) _512;
+src/gaussian.ipp:19:29: note: 	stmt 0 _513 = (int) _512;
+src/gaussian.ipp:19:29: note: 	stmt 1 _69 = (int) _488;
+src/gaussian.ipp:19:29: note: 	children 0x1ce79c08
+src/gaussian.ipp:19:29: note: node (external) 0x1ce79c08 (max_nunits=1, refcnt=1) vector(2) unsigned char
+src/gaussian.ipp:19:29: note: 	{ _512, _488 }
+src/gaussian.ipp:19:29: note: node 0x1ce7be58 (max_nunits=2, refcnt=1) vector(2) int
+src/gaussian.ipp:19:29: note: op template: _117 = (int) _515;
+src/gaussian.ipp:19:29: note: 	stmt 0 _117 = (int) _515;
+src/gaussian.ipp:19:29: note: 	stmt 1 _407 = (int) _44;
+src/gaussian.ipp:19:29: note: 	children 0x1ce79158
+src/gaussian.ipp:19:29: note: node (external) 0x1ce79158 (max_nunits=1, refcnt=1) vector(2) short int
+src/gaussian.ipp:19:29: note: 	{ _515, _44 }
+src/gaussian.ipp:19:29: note: Cost model analysis: 
+src/gaussian.ipp:19:29: note: Cost model analysis for part in loop 2:
+  Vector cost: 21
+  Scalar cost: 4
+src/gaussian.ipp:19:29: missed: not vectorized: vectorization is not profitable.
+src/gaussian.ipp:19:29: note: ***** Re-trying analysis with vector mode V2QI
+src/gaussian.ipp:19:29: note: ***** Analysis succeeded with vector mode V2QI
+src/gaussian.ipp:19:29: note: SLPing BB part
+src/gaussian.ipp:19:29: note: Costing subgraph: 
+src/gaussian.ipp:19:29: note: node 0x1ce7b048 (max_nunits=2, refcnt=1) vector(2) int
+src/gaussian.ipp:19:29: note: op template: _409 = _513 * _117;
+src/gaussian.ipp:19:29: note: 	stmt 0 _409 = _513 * _117;
+src/gaussian.ipp:19:29: note: 	stmt 1 _491 = _69 * _407;
+src/gaussian.ipp:19:29: note: 	children 0x1ce79398 0x1ce7b558
+src/gaussian.ipp:19:29: note: node 0x1ce79398 (max_nunits=2, refcnt=1) vector(2) int
+src/gaussian.ipp:19:29: note: op template: _513 = (int) _512;
+src/gaussian.ipp:19:29: note: 	stmt 0 _513 = (int) _512;
+src/gaussian.ipp:19:29: note: 	stmt 1 _69 = (int) _488;
+src/gaussian.ipp:19:29: note: 	children 0x1ce7afb8
+src/gaussian.ipp:19:29: note: node (external) 0x1ce7afb8 (max_nunits=1, refcnt=1) vector(2) unsigned char
+src/gaussian.ipp:19:29: note: 	{ _512, _488 }
+src/gaussian.ipp:19:29: note: node 0x1ce7b558 (max_nunits=2, refcnt=1) vector(2) int
+src/gaussian.ipp:19:29: note: op template: _117 = (int) _515;
+src/gaussian.ipp:19:29: note: 	stmt 0 _117 = (int) _515;
+src/gaussian.ipp:19:29: note: 	stmt 1 _407 = (int) _44;
+src/gaussian.ipp:19:29: note: 	children 0x1ce7a1a8
+src/gaussian.ipp:19:29: note: node (external) 0x1ce7a1a8 (max_nunits=1, refcnt=1) vector(2) short int
+src/gaussian.ipp:19:29: note: 	{ _515, _44 }
+src/gaussian.ipp:19:29: note: Cost model analysis: 
+src/gaussian.ipp:19:29: note: Cost model analysis for part in loop 2:
+  Vector cost: 21
+  Scalar cost: 4
+src/gaussian.ipp:19:29: missed: not vectorized: vectorization is not profitable.
+src/gaussian.ipp:19:29: note: ***** Re-trying analysis with vector mode V1QI
+src/gaussian.ipp:19:29: note: ***** Analysis succeeded with vector mode V1QI
+src/gaussian.ipp:19:29: note: SLPing BB part
+src/gaussian.ipp:19:29: note: Costing subgraph: 
+src/gaussian.ipp:19:29: note: node 0x1ce7bf78 (max_nunits=1, refcnt=1) vector(1) int
+src/gaussian.ipp:19:29: note: op template: _409 = _513 * _117;
+src/gaussian.ipp:19:29: note: 	stmt 0 _409 = _513 * _117;
+src/gaussian.ipp:19:29: note: 	stmt 1 _491 = _69 * _407;
+src/gaussian.ipp:19:29: note: 	children 0x1ce7b3a8 0x1ce79b78
+src/gaussian.ipp:19:29: note: node 0x1ce7b3a8 (max_nunits=1, refcnt=1) vector(1) int
+src/gaussian.ipp:19:29: note: op template: _513 = (int) _512;
+src/gaussian.ipp:19:29: note: 	stmt 0 _513 = (int) _512;
+src/gaussian.ipp:19:29: note: 	stmt 1 _69 = (int) _488;
+src/gaussian.ipp:19:29: note: 	children 0x1ce7ab38
+src/gaussian.ipp:19:29: note: node (external) 0x1ce7ab38 (max_nunits=1, refcnt=1) vector(1) unsigned char
+src/gaussian.ipp:19:29: note: 	{ _512, _488 }
+src/gaussian.ipp:19:29: note: node 0x1ce79b78 (max_nunits=1, refcnt=1) vector(1) int
+src/gaussian.ipp:19:29: note: op template: _117 = (int) _515;
+src/gaussian.ipp:19:29: note: 	stmt 0 _117 = (int) _515;
+src/gaussian.ipp:19:29: note: 	stmt 1 _407 = (int) _44;
+src/gaussian.ipp:19:29: note: 	children 0x1ce79038
+src/gaussian.ipp:19:29: note: node (external) 0x1ce79038 (max_nunits=1, refcnt=1) vector(1) short int
+src/gaussian.ipp:19:29: note: 	{ _515, _44 }
+src/gaussian.ipp:19:29: note: Cost model analysis: 
+src/gaussian.ipp:19:29: note: Cost model analysis for part in loop 2:
+  Vector cost: 22
+  Scalar cost: 4
+src/gaussian.ipp:19:29: missed: not vectorized: vectorization is not profitable.
+src/main.cpp:132:23: missed: couldn't vectorize loop
+src/main.cpp:133:26: missed: statement clobbers memory: compute_direction (gx_70, gy_72, _76, W_52, H_54);
+src/main.cpp:124:23: missed: couldn't vectorize loop
+src/main.cpp:125:29: missed: statement clobbers memory: compute_magnitude_l1 (gx_70, gy_72, _74, W_52, H_54);
+src/main.cpp:116:23: missed: couldn't vectorize loop
+src/main.cpp:117:22: missed: statement clobbers memory: compute_sobel (_68, gx_70, gy_72, W_52, H_54);
+src/main.cpp:108:23: missed: couldn't vectorize loop
+src/main.cpp:109:53: missed: statement clobbers memory: gaussian_blur_5x5<unsigned char, unsigned char, int> (_66, _68, W_52, H_54);
+src/main.cpp:63:5: note: vectorized 0 loops in function.
+src/main.cpp:70:17: missed: statement clobbers memory: W_52 = atoi (_5);
+src/main.cpp:71:17: missed: statement clobbers memory: H_54 = atoi (_6);
+src/main.cpp:73:11: missed: statement clobbers memory: __builtin_putchar (10);
+src/main.cpp:74:11: missed: statement clobbers memory: __builtin_puts (&"+----------------------------------------------+"[0]);
+src/main.cpp:75:11: missed: statement clobbers memory: __builtin_puts (&"|       Canny Edge Detection Pipeline          |"[0]);
+src/main.cpp:76:11: missed: statement clobbers memory: __builtin_puts (&"|       Running on RISC-V via QEMU             |"[0]);
+src/main.cpp:77:11: missed: statement clobbers memory: __builtin_puts (&"+----------------------------------------------+"[0]);
+src/main.cpp:78:11: missed: statement clobbers memory: printf ("|  Input : %-35s|\n", _7);
+src/main.cpp:79:11: missed: statement clobbers memory: printf ("|  Output: %-35s|\n", _8);
+src/main.cpp:81:35: missed: statement clobbers memory: _9 = snprintf (0B, 0, "%dx%d", W_52, H_54);
+src/main.cpp:80:11: missed: statement clobbers memory: printf ("|  Size  : %dx%d%-*s|\n", W_52, H_54, _10, "");
+src/main.cpp:82:11: missed: statement clobbers memory: __builtin_puts (&"+----------------------------------------------+\n"[0]);
+src/main.cpp:84:40: missed: statement clobbers memory: _66 = allocate_buffer (W_52, H_54);
+src/main.cpp:85:40: missed: statement clobbers memory: _68 = allocate_buffer (W_52, H_54);
+src/main.cpp:86:48: missed: statement clobbers memory: gx_70 = aligned_alloc (64, _13);
+src/main.cpp:87:48: missed: statement clobbers memory: gy_72 = aligned_alloc (64, _13);
+src/main.cpp:88:40: missed: statement clobbers memory: _74 = allocate_buffer (W_52, H_54);
+src/main.cpp:89:40: missed: statement clobbers memory: _76 = allocate_buffer (W_52, H_54);
+src/main.cpp:96:11: missed: statement clobbers memory: __builtin_puts (&"[ 1/6 ] Loading image ..."[0]);
+src/main.cpp:97:18: missed: statement clobbers memory: _79 = load_raw (_25, _66, W_52, H_54);
+src/main.cpp:101:11: missed: statement clobbers memory: printf ("[ OK  ] Image loaded (%d pixels)\n\n", _11);
+src/main.cpp:106:11: missed: statement clobbers memory: __builtin_puts (&"[ 2/6 ] Gaussian blur (5x5) ..."[0]);
+src/main.cpp:12:5: missed: statement clobbers memory: __asm__ __volatile__("rdcycle %0" : "=r" c_124);
+src/main.cpp:109:53: missed: statement clobbers memory: gaussian_blur_5x5<unsigned char, unsigned char, int> (_66, _68, W_52, H_54);
+src/main.cpp:12:5: missed: statement clobbers memory: __asm__ __volatile__("rdcycle %0" : "=r" c_126);
+src/main.cpp:112:11: missed: statement clobbers memory: printf ("[ OK  ] Done - %llu cycles avg\n\n", cyc_gaussian_83);
+src/main.cpp:114:11: missed: statement clobbers memory: __builtin_puts (&"[ 3/6 ] Sobel gradient (Gx and Gy) ..."[0]);
+src/main.cpp:12:5: missed: statement clobbers memory: __asm__ __volatile__("rdcycle %0" : "=r" c_125);
+src/main.cpp:117:22: missed: statement clobbers memory: compute_sobel (_68, gx_70, gy_72, W_52, H_54);
+src/main.cpp:12:5: missed: statement clobbers memory: __asm__ __volatile__("rdcycle %0" : "=r" c_128);
+src/main.cpp:120:11: missed: statement clobbers memory: printf ("[ OK  ] Done - %llu cycles avg\n\n", cyc_sobel_86);
+src/main.cpp:122:11: missed: statement clobbers memory: __builtin_puts (&"[ 4/6 ] Gradient magnitude (L1 norm) ..."[0]);
+src/main.cpp:12:5: missed: statement clobbers memory: __asm__ __volatile__("rdcycle %0" : "=r" c_127);
+src/main.cpp:125:29: missed: statement clobbers memory: compute_magnitude_l1 (gx_70, gy_72, _74, W_52, H_54);
+src/main.cpp:12:5: missed: statement clobbers memory: __asm__ __volatile__("rdcycle %0" : "=r" c_130);
+src/main.cpp:128:11: missed: statement clobbers memory: printf ("[ OK  ] Done - %llu cycles avg\n\n", cyc_mag_89);
+src/main.cpp:130:11: missed: statement clobbers memory: __builtin_puts (&"[ 5/6 ] Gradient direction ..."[0]);
+src/main.cpp:12:5: missed: statement clobbers memory: __asm__ __volatile__("rdcycle %0" : "=r" c_129);
+src/main.cpp:133:26: missed: statement clobbers memory: compute_direction (gx_70, gy_72, _76, W_52, H_54);
+src/main.cpp:12:5: missed: statement clobbers memory: __asm__ __volatile__("rdcycle %0" : "=r" c_131);
+src/main.cpp:136:11: missed: statement clobbers memory: printf ("[ OK  ] Done - %llu cycles avg\n\n", cyc_dir_92);
+src/main.cpp:138:11: missed: statement clobbers memory: printf ("[ 6/6 ] Saving output to %s ...\n", _33);
+src/main.cpp:139:13: missed: statement clobbers memory: save_raw (_34, _74, W_52, H_54);
+src/main.cpp:140:11: missed: statement clobbers memory: __builtin_puts (&"[ OK  ] Saved"[0]);
+src/main.cpp:30:11: missed: statement clobbers memory: __builtin_putchar (10);
+src/main.cpp:31:11: missed: statement clobbers memory: __builtin_puts (&"+--------------+----------------+--------+--------------+"[0]);
+src/main.cpp:32:11: missed: statement clobbers memory: __builtin_puts (&"|       Canny Pipeline - Cycle Count Results            |"[0]);
+src/main.cpp:33:11: missed: statement clobbers memory: printf ("|              (average over %d runs)                 |\n", 100);
+src/main.cpp:34:11: missed: statement clobbers memory: __builtin_puts (&"+--------------+----------------+--------+--------------+"[0]);
+src/main.cpp:35:11: missed: statement clobbers memory: printf ("| Stage        | Cycles         |   %%    | Bottleneck?  |\n");
+src/main.cpp:36:11: missed: statement clobbers memory: __builtin_puts (&"+--------------+----------------+--------+--------------+"[0]);
+src/main.cpp:44:5: missed: statement clobbers memory: printf ("| %-12s | %14llu | %5.1f%% | %-12s |\n", "Gaussian", cyc_gaussian_83, _141, iftmp.5_142);
+src/main.cpp:45:5: missed: statement clobbers memory: printf ("| %-12s | %14llu | %5.1f%% | %-12s |\n", "Sobel", cyc_sobel_86, _145, iftmp.6_146);
+src/main.cpp:46:5: missed: statement clobbers memory: printf ("| %-12s | %14llu | %5.1f%% | %-12s |\n", "Magnitude", cyc_mag_89, _149, iftmp.7_150);
+src/main.cpp:47:5: missed: statement clobbers memory: printf ("| %-12s | %14llu | %5.1f%% | %-12s |\n", "Direction", cyc_dir_92, _153, iftmp.8_154);
+src/main.cpp:50:11: missed: statement clobbers memory: __builtin_puts (&"+--------------+----------------+--------+--------------+"[0]);
+src/main.cpp:51:11: missed: statement clobbers memory: printf ("| %-12s | %14llu | 100.0%% |              |\n", "TOTAL", total_134);
+src/main.cpp:53:11: missed: statement clobbers memory: __builtin_puts (&"+--------------+----------------+--------+--------------+"[0]);
+src/main.cpp:54:11: missed: statement clobbers memory: __builtin_putchar (10);
+src/main.cpp:55:11: missed: statement clobbers memory: __builtin_puts (&"  Amdahl\'s Law - Optimization priority:"[0]);
+src/main.cpp:56:11: missed: statement clobbers memory: printf ("  Gaussian  %.1f%% -> vectorize with RVV\n", _141);
+src/main.cpp:57:11: missed: statement clobbers memory: printf ("  Sobel     %.1f%% -> check if worth it\n", _145);
+src/main.cpp:58:11: missed: statement clobbers memory: printf ("  Magnitude %.1f%% -> vectorize with RVV\n", _149);
+src/main.cpp:59:11: missed: statement clobbers memory: printf ("  Direction %.1f%% -> NOT worth optimizing\n", _153);
+src/main.cpp:60:11: missed: statement clobbers memory: __builtin_putchar (10);
+src/main.cpp:145:25: missed: statement clobbers memory: _99 = fopen (_35, "w");
+src/main.cpp:147:20: missed: statement clobbers memory: fprintf (_99, "%llu\n", cyc_gaussian_83);
+src/main.cpp:148:20: missed: statement clobbers memory: fprintf (_99, "%llu\n", cyc_sobel_86);
+src/main.cpp:149:20: missed: statement clobbers memory: fprintf (_99, "%llu\n", cyc_mag_89);
+src/main.cpp:150:20: missed: statement clobbers memory: fprintf (_99, "%llu\n", cyc_dir_92);
+src/main.cpp:151:19: missed: statement clobbers memory: fclose (_99);
+src/main.cpp:152:19: missed: statement clobbers memory: printf ("[ OK  ] Cycles saved to %s\n", _36);
+src/main.cpp:156:9: missed: statement clobbers memory: free (_66);
+src/main.cpp:156:24: missed: statement clobbers memory: free (_68);
+src/main.cpp:157:9: missed: statement clobbers memory: free (gx_70);
+src/main.cpp:157:24: missed: statement clobbers memory: free (gy_72);
+src/main.cpp:158:9: missed: statement clobbers memory: free (_74);
+src/main.cpp:158:24: missed: statement clobbers memory: free (_76);
+src/main.cpp:98:16: missed: statement clobbers memory: fprintf (_27, "ERROR: Could not open: %s\n", _28);
+src/main.cpp:92:16: missed: statement clobbers memory: __builtin_fwrite ("ERROR: Memory allocation failed!\n", 1, 33, _24);
+src/main.cpp:65:16: missed: statement clobbers memory: __builtin_fwrite ("Usage: ./canny <input.raw> <output.raw> <width> <height>\n", 1, 57, _2);
+src/main.cpp:66:16: missed: statement clobbers memory: __builtin_fwrite ("Example: ./canny test_input.raw out.raw 458 260\n", 1, 48, _4);
+src/main.cpp:20:5: note: ***** Analysis failed with vector mode RVVM1DI
+src/main.cpp:20:5: note: ***** The result for vector mode RVVM1QI would be the same
+src/main.cpp:20:5: note: ***** Re-trying analysis with vector mode RVVMF2QI
+src/main.cpp:20:5: note: ***** Analysis failed with vector mode RVVMF2QI
+src/main.cpp:20:5: note: ***** Re-trying analysis with vector mode RVVMF4QI
+src/main.cpp:20:5: note: ***** Analysis failed with vector mode RVVMF4QI
+src/main.cpp:20:5: note: ***** Re-trying analysis with vector mode RVVMF8QI
+src/main.cpp:20:5: note: ***** Analysis failed with vector mode RVVMF8QI
+src/main.cpp:20:5: note: ***** Re-trying analysis with vector mode V16QI
+src/main.cpp:19:5: note: ***** Analysis succeeded with vector mode V16QI
+src/main.cpp:19:5: note: SLPing BB part
+src/main.cpp:19:5: note: Costing subgraph: 
+src/main.cpp:19:5: note: node 0x1cec92c8 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+src/main.cpp:19:5: note: op template: cyc_dir_92 = _32 / 100;
+src/main.cpp:19:5: note: 	[l] stmt 0 cyc_dir_92 = _32 / 100;
+src/main.cpp:19:5: note: 	stmt 1 cyc_mag_89 = _31 / 100;
+src/main.cpp:19:5: note: 	stmt 2 cyc_gaussian_83 = _29 / 100;
+src/main.cpp:19:5: note: 	stmt 3 cyc_sobel_86 = _30 / 100;
+src/main.cpp:19:5: note: 	children 0x1cec9628 0x1cec9508
+src/main.cpp:19:5: note: node (external) 0x1cec9628 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+src/main.cpp:19:5: note: 	{ _32, _31, _29, _30 }
+src/main.cpp:19:5: note: node (constant) 0x1cec9508 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+src/main.cpp:19:5: note: 	{ 100, 100, 100, 100 }
+src/main.cpp:19:5: note: node 0x1cec96b8 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+src/main.cpp:19:5: note: op template: cyc_mag_89 = _31 / 100;
+src/main.cpp:19:5: note: 	stmt 0 cyc_mag_89 = _31 / 100;
+src/main.cpp:19:5: note: 	stmt 1 cyc_gaussian_83 = _29 / 100;
+src/main.cpp:19:5: note: 	children 0x1cec9988 0x1cec9868
+src/main.cpp:19:5: note: node (external) 0x1cec9988 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+src/main.cpp:19:5: note: 	{ _31, _29 }
+src/main.cpp:19:5: note: node (constant) 0x1cec9868 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+src/main.cpp:19:5: note: 	{ 100, 100 }
+src/main.cpp:19:5: note: Cost model analysis: 
+src/main.cpp:19:5: note: Cost model analysis for part in loop 0:
+  Vector cost: 38
+  Scalar cost: 6
+src/main.cpp:19:5: missed: not vectorized: vectorization is not profitable.
+src/main.cpp:19:5: note: ***** Re-trying analysis with vector mode V8QI
+src/main.cpp:19:5: note: ***** Analysis succeeded with vector mode V8QI
+src/main.cpp:19:5: note: SLPing BB part
+src/main.cpp:19:5: note: Costing subgraph: 
+src/main.cpp:19:5: note: node 0x1cec8ed8 (max_nunits=1, refcnt=1) vector(1) long unsigned int
+src/main.cpp:19:5: note: op template: cyc_dir_92 = _32 / 100;
+src/main.cpp:19:5: note: 	[l] stmt 0 cyc_dir_92 = _32 / 100;
+src/main.cpp:19:5: note: 	stmt 1 cyc_mag_89 = _31 / 100;
+src/main.cpp:19:5: note: 	stmt 2 cyc_gaussian_83 = _29 / 100;
+src/main.cpp:19:5: note: 	stmt 3 cyc_sobel_86 = _30 / 100;
+src/main.cpp:19:5: note: 	children 0x1cec9748 0x1cec9238
+src/main.cpp:19:5: note: node (external) 0x1cec9748 (max_nunits=1, refcnt=1) vector(1) long unsigned int
+src/main.cpp:19:5: note: 	{ _32, _31, _29, _30 }
+src/main.cpp:19:5: note: node (constant) 0x1cec9238 (max_nunits=1, refcnt=1) vector(1) long unsigned int
+src/main.cpp:19:5: note: 	{ 100, 100, 100, 100 }
+src/main.cpp:19:5: note: node 0x1cec8ff8 (max_nunits=1, refcnt=1) vector(1) long unsigned int
+src/main.cpp:19:5: note: op template: cyc_mag_89 = _31 / 100;
+src/main.cpp:19:5: note: 	stmt 0 cyc_mag_89 = _31 / 100;
+src/main.cpp:19:5: note: 	stmt 1 cyc_gaussian_83 = _29 / 100;
+src/main.cpp:19:5: note: 	children 0x1cec97d8 0x1cec8c98
+src/main.cpp:19:5: note: node (external) 0x1cec97d8 (max_nunits=1, refcnt=1) vector(1) long unsigned int
+src/main.cpp:19:5: note: 	{ _31, _29 }
+src/main.cpp:19:5: note: node (constant) 0x1cec8c98 (max_nunits=1, refcnt=1) vector(1) long unsigned int
+src/main.cpp:19:5: note: 	{ 100, 100 }
+src/main.cpp:19:5: note: Cost model analysis: 
+src/main.cpp:19:5: note: Cost model analysis for part in loop 0:
+  Vector cost: 37
+  Scalar cost: 6
+src/main.cpp:19:5: missed: not vectorized: vectorization is not profitable.
+src/main.cpp:19:5: note: ***** Re-trying analysis with vector mode V4QI
+src/main.cpp:91:56: note: ***** Analysis failed with vector mode V4QI
+src/main.cpp:91:56: note: ***** Re-trying analysis with vector mode V2QI
+src/main.cpp:19:5: note: ***** Analysis succeeded with vector mode V2QI
+src/main.cpp:19:5: note: SLPing BB part
+src/main.cpp:19:5: note: Costing subgraph: 
+src/main.cpp:19:5: note: node 0x1cec97d8 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+src/main.cpp:19:5: note: op template: cyc_dir_92 = _32 / 100;
+src/main.cpp:19:5: note: 	[l] stmt 0 cyc_dir_92 = _32 / 100;
+src/main.cpp:19:5: note: 	stmt 1 cyc_mag_89 = _31 / 100;
+src/main.cpp:19:5: note: 	stmt 2 cyc_gaussian_83 = _29 / 100;
+src/main.cpp:19:5: note: 	stmt 3 cyc_sobel_86 = _30 / 100;
+src/main.cpp:19:5: note: 	children 0x1cec93e8 0x1cec8b78
+src/main.cpp:19:5: note: node (external) 0x1cec93e8 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+src/main.cpp:19:5: note: 	{ _32, _31, _29, _30 }
+src/main.cpp:19:5: note: node (constant) 0x1cec8b78 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+src/main.cpp:19:5: note: 	{ 100, 100, 100, 100 }
+src/main.cpp:19:5: note: node 0x1cec91a8 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+src/main.cpp:19:5: note: op template: cyc_mag_89 = _31 / 100;
+src/main.cpp:19:5: note: 	stmt 0 cyc_mag_89 = _31 / 100;
+src/main.cpp:19:5: note: 	stmt 1 cyc_gaussian_83 = _29 / 100;
+src/main.cpp:19:5: note: 	children 0x1cec8d28 0x1cec9988
+src/main.cpp:19:5: note: node (external) 0x1cec8d28 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+src/main.cpp:19:5: note: 	{ _31, _29 }
+src/main.cpp:19:5: note: node (constant) 0x1cec9988 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+src/main.cpp:19:5: note: 	{ 100, 100 }
+src/main.cpp:19:5: note: Cost model analysis: 
+src/main.cpp:19:5: note: Cost model analysis for part in loop 0:
+  Vector cost: 38
+  Scalar cost: 6
+src/main.cpp:19:5: missed: not vectorized: vectorization is not profitable.
+src/main.cpp:19:5: note: ***** Re-trying analysis with vector mode V1QI
+src/main.cpp:19:5: note: ***** Analysis succeeded with vector mode V1QI
+src/main.cpp:19:5: note: SLPing BB part
+src/main.cpp:19:5: note: Costing subgraph: 
+src/main.cpp:19:5: note: node 0x1cec8ff8 (max_nunits=1, refcnt=1) vector(1) long unsigned int
+src/main.cpp:19:5: note: op template: cyc_dir_92 = _32 / 100;
+src/main.cpp:19:5: note: 	[l] stmt 0 cyc_dir_92 = _32 / 100;
+src/main.cpp:19:5: note: 	stmt 1 cyc_mag_89 = _31 / 100;
+src/main.cpp:19:5: note: 	stmt 2 cyc_gaussian_83 = _29 / 100;
+src/main.cpp:19:5: note: 	stmt 3 cyc_sobel_86 = _30 / 100;
+src/main.cpp:19:5: note: 	children 0x1cec9478 0x1cec9118
+src/main.cpp:19:5: note: node (external) 0x1cec9478 (max_nunits=1, refcnt=1) vector(1) long unsigned int
+src/main.cpp:19:5: note: 	{ _32, _31, _29, _30 }
+src/main.cpp:19:5: note: node (constant) 0x1cec9118 (max_nunits=1, refcnt=1) vector(1) long unsigned int
+src/main.cpp:19:5: note: 	{ 100, 100, 100, 100 }
+src/main.cpp:19:5: note: node 0x1cec8c98 (max_nunits=1, refcnt=1) vector(1) long unsigned int
+src/main.cpp:19:5: note: op template: cyc_mag_89 = _31 / 100;
+src/main.cpp:19:5: note: 	stmt 0 cyc_mag_89 = _31 / 100;
+src/main.cpp:19:5: note: 	stmt 1 cyc_gaussian_83 = _29 / 100;
+src/main.cpp:19:5: note: 	children 0x1cec92c8 0x1cec9508
+src/main.cpp:19:5: note: node (external) 0x1cec92c8 (max_nunits=1, refcnt=1) vector(1) long unsigned int
+src/main.cpp:19:5: note: 	{ _31, _29 }
+src/main.cpp:19:5: note: node (constant) 0x1cec9508 (max_nunits=1, refcnt=1) vector(1) long unsigned int
+src/main.cpp:19:5: note: 	{ 100, 100 }
+src/main.cpp:19:5: note: Cost model analysis: 
+src/main.cpp:19:5: note: Cost model analysis for part in loop 0:
+  Vector cost: 37
+  Scalar cost: 6
+src/main.cpp:19:5: missed: not vectorized: vectorization is not profitable.
+src/syscalls.cpp:58:19: missed: failed: base not addressable.
+src/syscalls.cpp:59:19: missed: failed: base not addressable.
+src/syscalls.cpp:60:19: missed: failed: base not addressable.
+src/syscalls.cpp:61:19: missed: failed: base not addressable.
+src/syscalls.cpp:62:19: missed: failed: base not addressable.
+src/syscalls.cpp:63:5: missed: statement clobbers memory: __asm__ __volatile__("ecall" : "=r" _a0 : "r" _n, "r" _a1, "r" _a2, "r" _a3, "0" _a0 : "memory");
+src/syscalls.cpp:64:12: missed: failed: base not addressable.
+src/syscalls.cpp:77:45: note: ***** Analysis failed with vector mode VOID
+src/syscalls.cpp:34:19: missed: failed: base not addressable.
+src/syscalls.cpp:35:19: missed: failed: base not addressable.
+src/syscalls.cpp:36:5: missed: statement clobbers memory: __asm__ __volatile__("ecall" : "=r" _a0 : "r" _n, "0" _a0 : "memory");
+src/syscalls.cpp:37:12: missed: failed: base not addressable.
+src/syscalls.cpp:82:35: note: ***** Analysis failed with vector mode VOID
+src/syscalls.cpp:49:19: missed: failed: base not addressable.
+src/syscalls.cpp:50:19: missed: failed: base not addressable.
+src/syscalls.cpp:51:19: missed: failed: base not addressable.
+src/syscalls.cpp:52:19: missed: failed: base not addressable.
+src/syscalls.cpp:53:5: missed: statement clobbers memory: __asm__ __volatile__("ecall" : "=r" _a0 : "r" _n, "r" _a1, "r" _a2, "0" _a0 : "memory");
+src/syscalls.cpp:54:12: missed: failed: base not addressable.
+src/syscalls.cpp:87:49: note: ***** Analysis failed with vector mode VOID
+src/syscalls.cpp:49:19: missed: failed: base not addressable.
+src/syscalls.cpp:50:19: missed: failed: base not addressable.
+src/syscalls.cpp:51:19: missed: failed: base not addressable.
+src/syscalls.cpp:52:19: missed: failed: base not addressable.
+src/syscalls.cpp:53:5: missed: statement clobbers memory: __asm__ __volatile__("ecall" : "=r" _a0 : "r" _n, "r" _a1, "r" _a2, "0" _a0 : "memory");
+src/syscalls.cpp:54:12: missed: failed: base not addressable.
+src/syscalls.cpp:92:50: note: ***** Analysis failed with vector mode VOID
+src/syscalls.cpp:49:19: missed: failed: base not addressable.
+src/syscalls.cpp:50:19: missed: failed: base not addressable.
+src/syscalls.cpp:51:19: missed: failed: base not addressable.
+src/syscalls.cpp:52:19: missed: failed: base not addressable.
+src/syscalls.cpp:53:5: missed: statement clobbers memory: __asm__ __volatile__("ecall" : "=r" _a0 : "r" _n, "r" _a1, "r" _a2, "0" _a0 : "memory");
+src/syscalls.cpp:54:12: missed: failed: base not addressable.
+src/syscalls.cpp:97:65: note: ***** Analysis failed with vector mode VOID
+src/syscalls.cpp:108:12: note: ***** Analysis failed with vector mode RVVM1SI
+src/syscalls.cpp:108:12: note: ***** Skipping vector mode RVVM1QI, which would repeat the analysis for RVVM1SI
+src/syscalls.cpp:111:50: note: ***** Analysis failed with vector mode VOID
+src/syscalls.cpp:34:19: missed: failed: base not addressable.
+src/syscalls.cpp:35:19: missed: failed: base not addressable.
+src/syscalls.cpp:36:5: missed: statement clobbers memory: __asm__ __volatile__("ecall" : "=r" _a0 : "r" _n, "0" _a0 : "memory");
+src/syscalls.cpp:117:26: note: ***** Analysis failed with vector mode VOID
+src/syscalls.cpp:121:28: note: ***** Analysis failed with vector mode VOID
+src/syscalls.cpp:122:61: note: ***** Analysis failed with vector mode VOID
+src/syscalls.cpp:34:19: missed: failed: base not addressable.
+src/syscalls.cpp:35:19: missed: failed: base not addressable.
+src/syscalls.cpp:36:5: missed: statement clobbers memory: __asm__ __volatile__("ecall" : "=r" _a0 : "r" _n, "0" _a0 : "memory");
+src/syscalls.cpp:37:12: missed: failed: base not addressable.
+src/syscalls.cpp:34:19: missed: failed: base not addressable.
+src/syscalls.cpp:35:19: missed: failed: base not addressable.
+src/syscalls.cpp:36:5: missed: statement clobbers memory: __asm__ __volatile__("ecall" : "=r" _a0 : "r" _n, "0" _a0 : "memory");
+src/syscalls.cpp:37:12: missed: failed: base not addressable.
+src/syscalls.cpp:143:19: note: ***** Analysis failed with vector mode VOID
+src/image_io.cpp:13:35: missed: statement clobbers memory: _7 = aligned_alloc (64, _2);
+src/image_io.cpp:13:54: note: ***** Analysis failed with vector mode VOID
+src/image_io.cpp:19:20: missed: statement clobbers memory: _7 = fopen (path_5(D), "rb");
+src/image_io.cpp:23:23: missed: statement clobbers memory: _13 = fread (buffer_11(D), 1, _1, _7);
+src/image_io.cpp:24:11: missed: statement clobbers memory: fclose (_7);
+src/image_io.cpp:26:23: note: ***** Analysis failed with vector mode VOID
+src/image_io.cpp:32:20: missed: statement clobbers memory: _7 = fopen (path_5(D), "wb");
+src/image_io.cpp:36:24: missed: statement clobbers memory: _13 = fwrite (buffer_11(D), 1, _1, _7);
+src/image_io.cpp:37:11: missed: statement clobbers memory: fclose (_7);
+src/image_io.cpp:39:23: note: ***** Analysis failed with vector mode VOID
+src/sobel.cpp:7:23: missed: couldn't vectorize loop
+src/sobel.cpp:7:23: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+src/sobel.cpp:8:27: missed: couldn't vectorize loop
+src/sobel.cpp:8:27: missed: not vectorized: unsupported control flow in loop.
+src/sobel.cpp:8:27: missed: couldn't vectorize loop
+src/sobel.cpp:8:27: missed: not vectorized: unsupported control flow in loop.
+src/sobel.cpp:8:27: missed: couldn't vectorize loop
+src/sobel.cpp:8:27: missed: not vectorized: unsupported control flow in loop.
+src/sobel.cpp:3:6: note: vectorized 0 loops in function.
+src/sobel.cpp:21:26: note: ***** Analysis failed with vector mode RVVM1QI
+src/sobel.cpp:21:26: note: ***** The result for vector mode RVVM1QI would be the same
+src/sobel.cpp:21:26: note: ***** Re-trying analysis with vector mode RVVMF2QI
+src/sobel.cpp:21:26: note: ***** Analysis failed with vector mode RVVMF2QI
+src/sobel.cpp:21:26: note: ***** Re-trying analysis with vector mode RVVMF4QI
+src/sobel.cpp:21:26: note: ***** Analysis failed with vector mode RVVMF4QI
+src/sobel.cpp:21:26: note: ***** Re-trying analysis with vector mode RVVMF8QI
+src/sobel.cpp:21:26: note: ***** Analysis failed with vector mode RVVMF8QI
+src/sobel.cpp:21:26: note: ***** Re-trying analysis with vector mode V16QI
+src/sobel.cpp:21:26: note: ***** Analysis failed with vector mode V16QI
+src/sobel.cpp:21:26: note: ***** Re-trying analysis with vector mode V8QI
+src/sobel.cpp:21:26: note: ***** Analysis failed with vector mode V8QI
+src/sobel.cpp:21:26: note: ***** Re-trying analysis with vector mode V4QI
+src/sobel.cpp:21:26: note: ***** Analysis failed with vector mode V4QI
+src/sobel.cpp:21:26: note: ***** Re-trying analysis with vector mode V2QI
+src/sobel.cpp:21:26: note: ***** Analysis failed with vector mode V2QI
+src/sobel.cpp:21:26: note: ***** Re-trying analysis with vector mode V1QI
+src/sobel.cpp:21:26: note: ***** Analysis failed with vector mode V1QI
+src/magnitude.cpp:20:23: missed: couldn't vectorize loop
+src/magnitude.cpp:20:23: missed: not vectorized: unsupported data-type
+src/magnitude.cpp:13:23: optimized: loop vectorized using variable length vectors
+src/magnitude.cpp:6:6: note: vectorized 1 loops in function.
+/home/ahmed-hassan/riscv-toolchain/riscv64-unknown-elf/include/c++/15.2.0/bits/new_allocator.h:151:66: missed: statement clobbers memory: _68 = operator new (_67);
+/home/ahmed-hassan/riscv-toolchain/riscv64-unknown-elf/include/c++/15.2.0/bits/stl_algobase.h:925:11: missed: statement clobbers memory: __builtin_memset (__first_69, 0, _99);
+src/magnitude.cpp:14:36: missed: statement clobbers memory: vect__5.99_90 = .MASK_LEN_LOAD (vectp_gx.97_95, 16B, { -1, ... }, _93(D), _51, 0);
+src/magnitude.cpp:14:54: missed: statement clobbers memory: vect__10.104_76 = .MASK_LEN_LOAD (vectp_gy.102_79, 16B, { -1, ... }, _77(D), _51, 0);
+src/magnitude.cpp:14:21: missed: statement clobbers memory: .MASK_LEN_STORE (vectp.108_70, 32, { -1, ... }, _51, 0, vect__13.107_72);
+/home/ahmed-hassan/riscv-toolchain/riscv64-unknown-elf/include/c++/15.2.0/bits/new_allocator.h:172:59: missed: statement clobbers memory: operator delete (_107, _105);
+/home/ahmed-hassan/riscv-toolchain/riscv64-unknown-elf/include/c++/15.2.0/bits/stl_vector.h:2211:24: missed: statement clobbers memory: std::__throw_length_error ("cannot create std::vector larger than max_size()");
+/home/ahmed-hassan/riscv-toolchain/riscv64-unknown-elf/include/c++/15.2.0/bits/stl_vector.h:2211:24: note: ***** Analysis failed with vector mode RVVM1SI
+/home/ahmed-hassan/riscv-toolchain/riscv64-unknown-elf/include/c++/15.2.0/bits/stl_vector.h:2211:24: note: ***** Skipping vector mode RVVM1QI, which would repeat the analysis for RVVM1SI
+src/magnitude.cpp:40:23: missed: couldn't vectorize loop
+src/magnitude.cpp:40:23: missed: not vectorized: unsupported data-type
+src/magnitude.cpp:32:23: missed: couldn't vectorize loop
+src/magnitude.cpp:32:23: missed: not vectorized: unsupported control flow in loop.
+src/magnitude.cpp:25:6: note: vectorized 0 loops in function.
+/home/ahmed-hassan/riscv-toolchain/riscv64-unknown-elf/include/c++/15.2.0/bits/new_allocator.h:151:66: missed: statement clobbers memory: _71 = operator new (_70);
+/home/ahmed-hassan/riscv-toolchain/riscv64-unknown-elf/include/c++/15.2.0/bits/stl_algobase.h:925:11: missed: statement clobbers memory: __builtin_memset (__first_72, 0, _110);
+src/magnitude.cpp:33:27: missed: statement clobbers memory: _78 = sqrt (_14);
+/home/ahmed-hassan/riscv-toolchain/riscv64-unknown-elf/include/c++/15.2.0/bits/new_allocator.h:172:59: missed: statement clobbers memory: operator delete (_106, _108);
+/home/ahmed-hassan/riscv-toolchain/riscv64-unknown-elf/include/c++/15.2.0/bits/stl_vector.h:2211:24: missed: statement clobbers memory: std::__throw_length_error ("cannot create std::vector larger than max_size()");
+/home/ahmed-hassan/riscv-toolchain/riscv64-unknown-elf/include/c++/15.2.0/bits/stl_vector.h:2211:24: note: ***** Analysis failed with vector mode RVVM1SF
+/home/ahmed-hassan/riscv-toolchain/riscv64-unknown-elf/include/c++/15.2.0/bits/stl_vector.h:2211:24: note: ***** Skipping vector mode RVVM1QI, which would repeat the analysis for RVVM1SF
+src/direction.cpp:8:23: optimized: loop vectorized using variable length vectors
+src/direction.cpp:8:23: optimized:  loop versioned for vectorization because of possible aliasing
+src/direction.cpp:5:6: note: vectorized 1 loops in function.
+src/direction.cpp:5:6: missed: splitting region at dont-vectorize loop 2 entry at bb18
+src/direction.cpp:9:17: missed: statement clobbers memory: vect_ix_28.16_137 = .MASK_LEN_LOAD (vectp_gx.14_134, 16B, { -1, ... }, _136(D), _169, 0);
+src/direction.cpp:10:17: missed: statement clobbers memory: vect_iy_30.9_128 = .MASK_LEN_LOAD (vectp_gy.7_125, 16B, { -1, ... }, _127(D), _169, 0);
+src/direction.cpp:32:19: missed: statement clobbers memory: .MASK_LEN_STORE (vectp_output.41_163, 8B, { -1, ... }, _169, 0, vect_dir_21.40_161);
+src/direction.cpp:5:6: note: ***** Analysis failed with vector mode RVVM1DI
+src/direction.cpp:5:6: note: ***** The result for vector mode RVVM1QI would be the same
+src/direction.cpp:5:6: note: ***** The result for vector mode RVVMF2QI would be the same
+src/direction.cpp:5:6: note: ***** The result for vector mode RVVMF4QI would be the same
+src/direction.cpp:5:6: note: ***** Re-trying analysis with vector mode RVVMF8QI
+src/direction.cpp:5:6: note: ***** Analysis failed with vector mode RVVMF8QI
+src/direction.cpp:5:6: note: ***** Re-trying analysis with vector mode V16QI
+src/direction.cpp:5:6: note: ***** Analysis failed with vector mode V16QI
+src/direction.cpp:5:6: note: ***** Re-trying analysis with vector mode V8QI
+src/direction.cpp:5:6: note: ***** Analysis failed with vector mode V8QI
+src/direction.cpp:5:6: note: ***** Re-trying analysis with vector mode V4QI
+src/direction.cpp:5:6: note: ***** Analysis failed with vector mode V4QI
+src/direction.cpp:5:6: note: ***** Re-trying analysis with vector mode V2QI
+src/direction.cpp:5:6: note: ***** Analysis failed with vector mode V2QI
+src/direction.cpp:5:6: note: ***** Re-trying analysis with vector mode V1QI
+src/direction.cpp:5:6: note: ***** Analysis failed with vector mode V1QI
+src/direction.cpp:5:6: missed: splitting region at dominance boundary bb12
+src/direction.cpp:5:6: note: ***** Analysis failed with vector mode VOID
+src/direction.cpp:5:6: missed: splitting region at dominance boundary bb9
+src/direction.cpp:5:6: note: ***** Analysis failed with vector mode VOID
+src/direction.cpp:34:1: note: ***** Analysis failed with vector mode VOID
