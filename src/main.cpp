@@ -1,6 +1,6 @@
 /**
  * @file main.cpp
- * @brief Main execution entry point for Canny Edge Detection pipeline on RISC-V.
+ * @brief Main execution entry point for Canny Edge Detection (7-stage pipeline).
  */
 
 #include "image_io.h"
@@ -13,34 +13,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Cycle counting helper
 static inline uint64_t read_cycles() {
     uint64_t c;
     asm volatile("rdcycle %0" : "=r"(c));
     return c;
 }
 
-// Bottleneck finding helper
-static uint64_t find_max(uint64_t a, uint64_t b, uint64_t c, uint64_t d) {
-    uint64_t m = a;
-    if (b > m) m = b;
-    if (c > m) m = c;
-    if (d > m) m = d;
+// 7-arg bottleneck finder
+static uint64_t find_max(uint64_t cyc_gaussian, uint64_t cyc_sobel, uint64_t cyc_mag, 
+                        uint64_t cyc_dir, uint64_t cyc_nms, uint64_t cyc_thresh, uint64_t cyc_hyst) {
+    uint64_t m = cyc_gaussian;
+    if (cyc_sobel > m) m = cyc_sobel;
+    if (cyc_mag > m) m = cyc_mag;
+    if (cyc_dir > m) m = cyc_dir;
+    if (cyc_nms > m) m = cyc_nms;
+    if (cyc_thresh > m) m = cyc_thresh;
+    if (cyc_hyst > m) m = cyc_hyst;
     return m;
 }
 
-// Print internal pipeline metrics
 static void print_table(uint64_t cyc_gaussian, uint64_t cyc_sobel,
                         uint64_t cyc_mag,      uint64_t cyc_dir,
                         uint64_t cyc_nms,      uint64_t cyc_thresh,
                         uint64_t cyc_hyst,     int reps) {
     
     uint64_t total = cyc_gaussian + cyc_sobel + cyc_mag + cyc_dir + cyc_nms + cyc_thresh + cyc_hyst;
-    
-    // Find hot spot
-    uint64_t hot1 = find_max(cyc_gaussian, cyc_sobel, cyc_mag, cyc_dir);
-    uint64_t hot2 = find_max(cyc_nms, cyc_thresh, cyc_hyst, 0);
-    uint64_t hot  = (hot1 > hot2) ? hot1 : hot2;
+    uint64_t hot   = find_max(cyc_gaussian, cyc_sobel, cyc_mag, cyc_dir, cyc_nms, cyc_thresh, cyc_hyst);
 
     printf("\n+--------------+----------------+--------+--------------+\n");
     printf("|          Canny Pipeline - Cycle Count Results         |\n");
@@ -79,9 +77,15 @@ int main(int argc, char** argv) {
     int W = atoi(argv[3]);
     int H = atoi(argv[4]);
 
-    printf("\n--- Starting Canny Pipeline (%dx%d) ---\n", W, H);
+    printf("\n+----------------------------------------------+\n");
+    printf("|        Canny Edge Detection Pipeline         |\n");
+    printf("|        Running on RISC-V via QEMU            |\n");
+    printf("+----------------------------------------------+\n");
+    printf("|  Input : %-35s|\n", argv[1]);
+    printf("|  Output: %-35s|\n", argv[2]);
+    printf("|  Size  : %dx%d%-*s|\n", W, H, (int)(35 - 1 - snprintf(NULL,0,"%dx%d",W,H)), "");
+    printf("+----------------------------------------------+\n\n");
 
-    // Allocations
     uint8_t* img_in    = allocate_buffer(W, H);
     uint8_t* img_blur  = allocate_buffer(W, H);
     int16_t* gx        = (int16_t*)aligned_alloc(64, W*H*sizeof(int16_t));
@@ -96,12 +100,12 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    load_raw(argv[1], img_in, W, H);
+    if (!load_raw(argv[1], img_in, W, H)) return 1;
 
     const int REPS = 100;
-    uint64_t c0, c1;
+    uint64_t c0;
 
-    // Run pipeline stages with cycle timing
+    // Execution Loop
     c0 = read_cycles();
     for (int i = 0; i < REPS; i++) gaussian_blur_5x5<uint8_t, uint8_t, int32_t>(img_in, img_blur, W, H);
     uint64_t cyc_gaussian = (read_cycles() - c0) / REPS;
@@ -134,7 +138,6 @@ int main(int argc, char** argv) {
 
     print_table(cyc_gaussian, cyc_sobel, cyc_mag, cyc_dir, cyc_nms, cyc_thresh, cyc_hyst, REPS);
 
-    // Save cycle counts to file if requested
     if (argc >= 6) {
         FILE* cf = fopen(argv[5], "w");
         if (cf) {
