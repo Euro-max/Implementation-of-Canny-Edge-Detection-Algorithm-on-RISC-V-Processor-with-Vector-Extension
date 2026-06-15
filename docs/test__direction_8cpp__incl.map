@@ -1,0 +1,12 @@
+<map id="tests/test_direction.cpp" name="tests/test_direction.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="93,5,267,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,85,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,33,81,74,78,70,157,28"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="109,79,179,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="176,32,158,68,154,65,172,30"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="224,152,291,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="189,30,247,139,242,141,184,32"/>
+<area shape="rect" id="Node000005" href="$direction_8h.html" title="Gradient direction quantization into 4 bins." alt="" coords="253,79,344,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="200,28,269,69,266,74,198,33"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="294,106,273,141,269,139,290,103"/>
+</map>
