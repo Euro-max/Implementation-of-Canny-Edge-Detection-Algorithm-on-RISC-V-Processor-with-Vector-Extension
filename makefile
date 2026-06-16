@@ -24,20 +24,21 @@ H     ?= $(word 2,$(_SIZE))
 VLEN ?= 128
 
 # ─── Default target ──────────────────────────────────────────────────────────
-.PHONY: all run sweep sweep_O0 sweep_O2 sweep_O3 sweep_Os sweep_Ofast clean help test_all test_legacy test_gtest test_legacy_single test_gtest_single convert view sizes verify
+.PHONY: all run sweep sweep_O0 sweep_O2 sweep_O3 sweep_Os sweep_Ofast clean help test_all test_legacy test_gtest test_legacy_single test_gtest_single convert view sizes verify table
 
 all: build_rv/canny_rv
 
 help:
 	@echo ""
 	@echo "╔══════════════════════════════════════════════════════╗"
-	@echo "║            Canny Edge Detection - RISC-V             ║"
+	@echo "║             Canny Edge Detection - RISC-V            ║"
 	@echo "╠══════════════════════════════════════════════════════╣"
 	@echo "║  make run               -> Run optimized on QEMU     ║"
 	@echo "║  make test_all          -> Run ALL tests (Host+RV)   ║"
 	@echo "║  make test_legacy_single TEST=test_name              ║"
 	@echo "║  make test_gtest_single TEST=gtest_name              ║"
 	@echo "║  make sweep             -> Perform full opt. sweep   ║"
+	@echo "║  make table             -> Show runtime/size table   ║"
 	@echo "║  make convert IMG=x.jpg -> Convert photo to .raw     ║"
 	@echo "║  make verify            -> Compare O0 vs Ofast       ║"
 	@echo "╚══════════════════════════════════════════════════════╝"
@@ -50,19 +51,55 @@ build_rv/canny_rv: $(SRCS)
 run: build_rv/canny_rv
 	$(QEMU) $(QEMU_FLAGS) ./build_rv/canny_rv ./$(IMG) ./out.raw $(W) $(H)
 
-# Optimization Sweep Targets (with verbose logging)
-sweep_O0: ; @echo "\n>>> [SWEEP] Running -O0 <<<"; mkdir -p build_rv; $(RV_CXX) -std=c++17 -O0 -march=rv64gcv -mabi=lp64d -I src -I include $(SRCS) -o build_rv/canny_O0; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O0 ./test_input.raw ./out_O0.raw $(W) $(H) cycles_O0.txt
-sweep_O2: ; @echo "\n>>> [SWEEP] Running -O2 <<<"; mkdir -p build_rv; $(RV_CXX) -std=c++17 -O2 -march=rv64gcv -mabi=lp64d -I src -I include $(SRCS) -o build_rv/canny_O2; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O2 ./test_input.raw ./out_O2.raw $(W) $(H) cycles_O2.txt
-sweep_O3: ; @echo "\n>>> [SWEEP] Running -O3 <<<"; mkdir -p build_rv; $(RV_CXX) -std=c++17 -O3 -march=rv64gcv -mabi=lp64d -I src -I include $(SRCS) -o build_rv/canny_O3; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O3 ./test_input.raw ./out_O3.raw $(W) $(H) cycles_O3.txt
-sweep_Os: ; @echo "\n>>> [SWEEP] Running -Os <<<"; mkdir -p build_rv; $(RV_CXX) -std=c++17 -Os -march=rv64gcv -mabi=lp64d -I src -I include $(SRCS) -o build_rv/canny_Os; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_Os ./test_input.raw ./out_Os.raw $(W) $(H) cycles_Os.txt
-sweep_Ofast: ; @echo "\n>>> [SWEEP] Running -Ofast <<<"; mkdir -p build_rv; $(RV_CXX) -std=c++17 -Ofast -march=rv64gcv -mabi=lp64d -I src -I include $(SRCS) -o build_rv/canny_Ofast; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_Ofast ./test_input.raw ./out_Ofast.raw $(W) $(H) cycles_Ofast.txt
+# Optimization Sweep Targets (FIXED: Added anti-auto-vectorization flags to all levels)
+sweep_O0: ; @echo "\n>>> [SWEEP] Running -O0 <<<"; mkdir -p build_rv; $(RV_CXX) -std=c++17 -O0 -march=rv64gcv -mabi=lp64d -fno-tree-vectorize -fno-tree-slp-vectorize -I src -I include $(SRCS) -o build_rv/canny_O0; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O0 ./test_input.raw ./out_O0.raw $(W) $(H) cycles_O0.txt
+sweep_O2: ; @echo "\n>>> [SWEEP] Running -O2 <<<"; mkdir -p build_rv; $(RV_CXX) -std=c++17 -O2 -march=rv64gcv -mabi=lp64d -fno-tree-vectorize -fno-tree-slp-vectorize -I src -I include $(SRCS) -o build_rv/canny_O2; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O2 ./test_input.raw ./out_O2.raw $(W) $(H) cycles_O2.txt
+sweep_O3: ; @echo "\n>>> [SWEEP] Running -O3 <<<"; mkdir -p build_rv; $(RV_CXX) -std=c++17 -O3 -march=rv64gcv -mabi=lp64d -fno-tree-vectorize -fno-tree-slp-vectorize -I src -I include $(SRCS) -o build_rv/canny_O3; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_O3 ./test_input.raw ./out_O3.raw $(W) $(H) cycles_O3.txt
+sweep_Os: ; @echo "\n>>> [SWEEP] Running -Os <<<"; mkdir -p build_rv; $(RV_CXX) -std=c++17 -Os -march=rv64gcv -mabi=lp64d -fno-tree-vectorize -fno-tree-slp-vectorize -I src -I include $(SRCS) -o build_rv/canny_Os; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_Os ./test_input.raw ./out_Os.raw $(W) $(H) cycles_Os.txt
+sweep_Ofast: ; @echo "\n>>> [SWEEP] Running -Ofast <<<"; mkdir -p build_rv; $(RV_CXX) -std=c++17 -Ofast -march=rv64gcv -mabi=lp64d -fno-tree-vectorize -fno-tree-slp-vectorize -I src -I include $(SRCS) -o build_rv/canny_Ofast; $(QEMU) $(QEMU_FLAGS) ./build_rv/canny_Ofast ./test_input.raw ./out_Ofast.raw $(W) $(H) cycles_Ofast.txt
 
 build_host/summary: src/summary.cpp
 	@mkdir -p build_host
 	$(HOST_CXX) $(HOST_FLAGS) src/summary.cpp -o build_host/summary
 
-sweep: sweep_O0 sweep_O2 sweep_O3 sweep_Os sweep_Ofast build_host/summary
+sweep: sweep_O0 sweep_O2 sweep_O3 sweep_Os sweep_Ofast build_host/summary table sizes
 	@./build_host/summary cycles_O0.txt cycles_O2.txt cycles_O3.txt cycles_Os.txt cycles_Ofast.txt
+
+# ─── Summary Table ────────────────────────────────────────────────────────────
+table:
+	@echo ""
+	@echo "Phase 4: Optimization Sweep Results"
+	@echo "==================================="
+	@echo "The following table summarizes the impact of compiler optimization flags on binary size, runtime, and vectorization behavior for the Canny Edge pipeline:"
+	@echo ""
+	@echo "+--------------+-------------+-------------------------------+---------------------+"
+	@echo "| Optimization | Binary Size | Runtime (Cycles & Seconds)    | Vectorization Notes |"
+	@echo "+--------------+-------------+-------------------------------+---------------------+"
+	@printf "| %-12s | %-11s | %-29s | %-19s |\n" "-O0" $$(ls -lh build_rv/canny_O0 2>/dev/null | awk '{print $$5}') "$$(awk '{s+=$$1} END {printf "%d (%.4fs)", s, s/1000000000}' cycles_O0.txt 2>/dev/null)" "None"
+	@echo "+--------------+-------------+-------------------------------+---------------------+"
+	@printf "| %-12s | %-11s | %-29s | %-19s |\n" "-O2" $$(ls -lh build_rv/canny_O2 2>/dev/null | awk '{print $$5}') "$$(awk '{s+=$$1} END {printf "%d (%.4fs)", s, s/1000000000}' cycles_O2.txt 2>/dev/null)" "Some loops"
+	@echo "+--------------+-------------+-------------------------------+---------------------+"
+	@printf "| %-12s | %-11s | %-29s | %-19s |\n" "-O3" $$(ls -lh build_rv/canny_O3 2>/dev/null | awk '{print $$5}') "$$(awk '{s+=$$1} END {printf "%d (%.4fs)", s, s/1000000000}' cycles_O3.txt 2>/dev/null)" "More aggressive"
+	@echo "+--------------+-------------+-------------------------------+---------------------+"
+	@printf "| %-12s | %-11s | %-29s | %-19s |\n" "-Os" $$(ls -lh build_rv/canny_Os 2>/dev/null | awk '{print $$5}') "$$(awk '{s+=$$1} END {printf "%d (%.4fs)", s, s/1000000000}' cycles_Os.txt 2>/dev/null)" "Size-focused"
+	@echo "+--------------+-------------+-------------------------------+---------------------+"
+	@printf "| %-12s | %-11s | %-29s | %-19s |\n" "-Ofast" $$(ls -lh build_rv/canny_Ofast 2>/dev/null | awk '{print $$5}') "$$(awk '{s+=$$1} END {printf "%d (%.4fs)", s, s/1000000000}' cycles_Ofast.txt 2>/dev/null)" "Max speed"
+	@echo "+--------------+-------------+-------------------------------+---------------------+"
+	@echo ""
+
+sizes:
+	@echo ""
+	@echo "+-----------------------+"
+	@echo "|  Binary Size Summary  |"
+	@echo "+----------+------------+"
+	@echo "| Flag     | Size       |"
+	@echo "+----------+------------+"
+	@printf "| -O0      | %-10s |\n" $$(ls -lh build_rv/canny_O0 2>/dev/null | awk '{print $$5}')
+	@printf "| -O2      | %-10s |\n" $$(ls -lh build_rv/canny_O2 2>/dev/null | awk '{print $$5}')
+	@printf "| -O3      | %-10s |\n" $$(ls -lh build_rv/canny_O3 2>/dev/null | awk '{print $$5}')
+	@printf "| -Os      | %-10s |\n" $$(ls -lh build_rv/canny_Os 2>/dev/null | awk '{print $$5}')
+	@printf "| -Ofast   | %-10s |\n" $$(ls -lh build_rv/canny_Ofast 2>/dev/null | awk '{print $$5}')
+	@echo "+----------+------------+"
 
 # ─── Image Utils ─────────────────────────────────────────────────────────────
 convert:
