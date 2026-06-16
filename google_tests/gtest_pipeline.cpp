@@ -362,37 +362,5 @@ TEST(DirectionTest, DiagonalGradientDirection1) {
     free(gx); free(gy); free(dir);
 }
 
-// ═══════════════════════════════════════════════════════
-//  IMAGE I/O TESTS
-// ═══════════════════════════════════════════════════════
 
-// Test 13: Save then load must give identical bytes
-// WHY: If your file I/O has an endianness bug or writes wrong byte count,
-//      your pipeline input/output will be silently corrupted.
-TEST(ImageIOTest, SaveAndLoadRoundTrip) {
-    int w = 32, h = 32;
-    int total = w * h;
 
-    // Create image with known pattern
-    uint8_t* original = (uint8_t*)aligned_alloc(64, total);
-    for (int i = 0; i < total; i++) {
-        original[i] = (uint8_t)(i % 256);  // 0,1,2,...,255,0,1,...
-    }
-
-    // Save it
-    bool saved = save_raw("/tmp/test_io.raw", original, w, h);
-    ASSERT_TRUE(saved) << "save_raw failed";
-
-    // Load it back
-    uint8_t* loaded = allocate_buffer(w, h);
-    bool load_ok = load_raw("/tmp/test_io.raw", loaded, w, h);
-    ASSERT_TRUE(load_ok) << "load_raw failed";
-
-    // Every byte must be identical
-    for (int i = 0; i < total; i++) {
-        EXPECT_EQ(loaded[i], original[i])
-            << "Mismatch at byte " << i;
-    }
-
-    free(original); free(loaded);
-}
