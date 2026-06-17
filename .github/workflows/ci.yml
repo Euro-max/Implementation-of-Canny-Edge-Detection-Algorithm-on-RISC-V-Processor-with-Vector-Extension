@@ -1,45 +1,48 @@
 name: RISC-V Build, Test & Deploy
 
-# Trigger the workflow on pushes and pull requests to the main branch
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
 
-# Grant permissions needed to deploy to GitHub Pages
 permissions:
   contents: write
 
 jobs:
   build-and-test:
     name: Compile and Run QEMU Tests
-    # Using ubuntu-24.04 ensures we get GCC 13+, which fully supports RVV 1.0 (-march=rv64gcv)
     runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install RISC-V Toolchain and Dependencies
+      - name: Install QEMU and Python
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc-riscv64-unknown-elf qemu-user-static python3-numpy python3-pil
+          sudo apt-get install -y qemu-user-static python3-numpy python3-pil
+
+      - name: Download Full RISC-V C++ Toolchain (xPack GCC 13)
+        run: |
+          wget https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/releases/download/v13.2.0-2/xpack-riscv-none-elf-gcc-13.2.0-2-linux-x64.tar.gz
+          tar -xzf xpack-riscv-none-elf-gcc-13.2.0-2-linux-x64.tar.gz
+          echo "$(pwd)/xpack-riscv-none-elf-gcc-13.2.0-2/bin" >> $GITHUB_PATH
 
       - name: Build Scalar and RVV Binaries
         run: |
-          make build_rv/canny_rv
-          make rvv
+          make build_rv/canny_rv RV_CXX=riscv-none-elf-g++
+          make rvv RV_CXX=riscv-none-elf-g++
 
       - name: Run Legacy QEMU Tests
         run: |
-          make test_legacy
+          make test_legacy RV_CXX=riscv-none-elf-g++
 
   deploy-docs:
     name: Generate and Deploy Doxygen
-    needs: build-and-test # Only run if the code compiles and passes tests
+    needs: build-and-test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' # Only deploy when merging/pushing to main
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout Repository
@@ -52,12 +55,11 @@ jobs:
 
       - name: Generate Documentation
         run: |
-          # Use your new make target to build docs and copy images
           make docs
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./html # This pushes ONLY the html folder to the gh-pages branch
+          publish_dir: ./html
           force_orphan: true
