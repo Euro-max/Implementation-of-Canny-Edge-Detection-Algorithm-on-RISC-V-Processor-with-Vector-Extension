@@ -24,7 +24,7 @@ jobs:
       - name: Install RISC-V Toolchain and Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y g++-riscv64-unknown-elf qemu-user-static python3-numpy python3-pil
+          sudo apt-get install -y gcc-riscv64-unknown-elf qemu-user-static python3-numpy python3-pil
 
       - name: Build Scalar and RVV Binaries
         run: |
