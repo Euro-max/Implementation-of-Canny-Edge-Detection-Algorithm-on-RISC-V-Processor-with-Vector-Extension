@@ -15,7 +15,7 @@ RECURSIVE = YES
 # Extract everything, even if it lacks a specific @brief tag
 
 EXTRACT_ALL = YES
-HTML_OUTPUT = .
+HTML_OUTPUT = html
 
 # Turn off LaTeX (unless you want a PDF manual)
 
