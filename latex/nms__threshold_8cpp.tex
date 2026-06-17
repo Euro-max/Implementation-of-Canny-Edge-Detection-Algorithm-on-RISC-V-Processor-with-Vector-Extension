@@ -1,0 +1,74 @@
+\doxysection{src/nms\+\_\+threshold.cpp File Reference}
+\hypertarget{nms__threshold_8cpp}{}\label{nms__threshold_8cpp}\index{src/nms\_threshold.cpp@{src/nms\_threshold.cpp}}
+
+
+Implementation of NMS, Double Thresholding, and Hysteresis.  
+
+
+{\ttfamily \#include "{}nms\+\_\+threshold.\+h"{}}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+Include dependency graph for nms\+\_\+threshold.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{nms__threshold_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{nms__threshold_8cpp_ab85e2aa59a0af2fc69c868ae56695c57}{apply\+\_\+nms}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}mag, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}dir, uint8\+\_\+t \texorpdfstring{$\ast$}{*}nms\+\_\+out, int W, int H)
+\begin{DoxyCompactList}\small\item\em Non-\/\+Maximum Suppression Thins edges by suppressing pixels that are not local maxima along the gradient direction. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{nms__threshold_8cpp_ac67c200ebd064fe8528419dc010d7c6f}{apply\+\_\+double\+\_\+threshold}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}nms, uint8\+\_\+t \texorpdfstring{$\ast$}{*}thresh\+\_\+out, int W, int H, uint8\+\_\+t low, uint8\+\_\+t high)
+\begin{DoxyCompactList}\small\item\em Double Thresholding Classifies pixels\+: 255 (Strong), 128 (Weak), 0 (Non-\/edge) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{nms__threshold_8cpp_abf66a0e1caa44b0e85c42053a61c7f91}{apply\+\_\+hysteresis}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}thresh, int W, int H)
+\begin{DoxyCompactList}\small\item\em Promotes weak edges to strong edges if they are connected to strong edges. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of NMS, Double Thresholding, and Hysteresis. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{nms__threshold_8cpp_ac67c200ebd064fe8528419dc010d7c6f}\label{nms__threshold_8cpp_ac67c200ebd064fe8528419dc010d7c6f} 
+\index{nms\_threshold.cpp@{nms\_threshold.cpp}!apply\_double\_threshold@{apply\_double\_threshold}}
+\index{apply\_double\_threshold@{apply\_double\_threshold}!nms\_threshold.cpp@{nms\_threshold.cpp}}
+\doxysubsubsection{\texorpdfstring{apply\_double\_threshold()}{apply\_double\_threshold()}}
+{\footnotesize\ttfamily void apply\+\_\+double\+\_\+threshold (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{nms,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{thresh\+\_\+out,  }\item[{int}]{W,  }\item[{int}]{H,  }\item[{uint8\+\_\+t}]{low,  }\item[{uint8\+\_\+t}]{high }\end{DoxyParamCaption})}
+
+
+
+Double Thresholding Classifies pixels\+: 255 (Strong), 128 (Weak), 0 (Non-\/edge) 
+
+Classifies pixels into Strong, Weak, or Non-\/edge based on thresholds. \Hypertarget{nms__threshold_8cpp_abf66a0e1caa44b0e85c42053a61c7f91}\label{nms__threshold_8cpp_abf66a0e1caa44b0e85c42053a61c7f91} 
+\index{nms\_threshold.cpp@{nms\_threshold.cpp}!apply\_hysteresis@{apply\_hysteresis}}
+\index{apply\_hysteresis@{apply\_hysteresis}!nms\_threshold.cpp@{nms\_threshold.cpp}}
+\doxysubsubsection{\texorpdfstring{apply\_hysteresis()}{apply\_hysteresis()}}
+{\footnotesize\ttfamily void apply\+\_\+hysteresis (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{thresh,  }\item[{int}]{W,  }\item[{int}]{H }\end{DoxyParamCaption})}
+
+
+
+Promotes weak edges to strong edges if they are connected to strong edges. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em thresh} & Buffer containing thresholded edges (in-\/place modification) \\
+\hline
+{\em W} & Image width \\
+\hline
+{\em H} & Image height \\
+\hline
+\end{DoxyParams}
+\Hypertarget{nms__threshold_8cpp_ab85e2aa59a0af2fc69c868ae56695c57}\label{nms__threshold_8cpp_ab85e2aa59a0af2fc69c868ae56695c57} 
+\index{nms\_threshold.cpp@{nms\_threshold.cpp}!apply\_nms@{apply\_nms}}
+\index{apply\_nms@{apply\_nms}!nms\_threshold.cpp@{nms\_threshold.cpp}}
+\doxysubsubsection{\texorpdfstring{apply\_nms()}{apply\_nms()}}
+{\footnotesize\ttfamily void apply\+\_\+nms (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{mag,  }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{dir,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{nms\+\_\+out,  }\item[{int}]{W,  }\item[{int}]{H }\end{DoxyParamCaption})}
+
+
+
+Non-\/\+Maximum Suppression Thins edges by suppressing pixels that are not local maxima along the gradient direction. 
+
+Thins edges by suppressing pixels that are not local maxima along the gradient direction. 

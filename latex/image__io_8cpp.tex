@@ -1,0 +1,124 @@
+\doxysection{src/image\+\_\+io.cpp File Reference}
+\hypertarget{image__io_8cpp}{}\label{image__io_8cpp}\index{src/image\_io.cpp@{src/image\_io.cpp}}
+
+
+Implementation of raw image file I/O and aligned memory allocation.  
+
+
+{\ttfamily \#include "{}image\+\_\+io.\+h"{}}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+Include dependency graph for image\+\_\+io.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=291pt]{image__io_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{image__io_8cpp_a95b280d415d802879ac0dcac92afa250}{allocate\+\_\+buffer}} (int width, int height)
+\begin{DoxyCompactList}\small\item\em Allocates a 64-\/byte-\/aligned buffer for width\texorpdfstring{$\ast$}{*}height pixels. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{image__io_8cpp_a95c6a1349ae17447fd543a777fa3b7ef}{load\+\_\+raw}} (const char \texorpdfstring{$\ast$}{*}path, uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer, int width, int height)
+\begin{DoxyCompactList}\small\item\em Loads a raw grayscale image from disk into an already-\/allocated buffer. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{image__io_8cpp_a2d49ca1c7c23e6b7c6ad81d2829ecf37}{save\+\_\+raw}} (const char \texorpdfstring{$\ast$}{*}path, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer, int width, int height)
+\begin{DoxyCompactList}\small\item\em Saves a raw grayscale image from a buffer to disk. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of raw image file I/O and aligned memory allocation. 
+
+
+\begin{DoxyItemize}
+\item Uses stdio (fopen/fread/fwrite) instead of C++ streams (ifstream/ofstream). WHY\+: C++ streams require more C++ runtime support which is problematic with riscv64-\/unknown-\/elf bare-\/metal toolchain + newlib. 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\Hypertarget{image__io_8cpp_a95b280d415d802879ac0dcac92afa250}\label{image__io_8cpp_a95b280d415d802879ac0dcac92afa250} 
+\index{image\_io.cpp@{image\_io.cpp}!allocate\_buffer@{allocate\_buffer}}
+\index{allocate\_buffer@{allocate\_buffer}!image\_io.cpp@{image\_io.cpp}}
+\doxysubsubsection{\texorpdfstring{allocate\_buffer()}{allocate\_buffer()}}
+{\footnotesize\ttfamily uint8\+\_\+t \texorpdfstring{$\ast$}{*} allocate\+\_\+buffer (\begin{DoxyParamCaption}\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
+
+
+
+Allocates a 64-\/byte-\/aligned buffer for width\texorpdfstring{$\ast$}{*}height pixels. 
+
+Allocates a dynamically sized, memory-\/aligned image buffer.
+
+
+\begin{DoxyItemize}
+\item 64-\/byte alignment is required for RVV vector loads/stores to ensure optimal memory throughput and avoid alignment faults during hardware vectorization.
+\item 
+\begin{DoxyParams}{Parameters}
+{\em width} & The width of the image buffer to allocate. \\
+\hline
+{\em height} & The height of the image buffer to allocate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A 64-\/byte aligned pointer to the dynamically allocated uint8\+\_\+t buffer. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\Hypertarget{image__io_8cpp_a95c6a1349ae17447fd543a777fa3b7ef}\label{image__io_8cpp_a95c6a1349ae17447fd543a777fa3b7ef} 
+\index{image\_io.cpp@{image\_io.cpp}!load\_raw@{load\_raw}}
+\index{load\_raw@{load\_raw}!image\_io.cpp@{image\_io.cpp}}
+\doxysubsubsection{\texorpdfstring{load\_raw()}{load\_raw()}}
+{\footnotesize\ttfamily bool load\+\_\+raw (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
+
+
+
+Loads a raw grayscale image from disk into an already-\/allocated buffer. 
+
+Loads raw 8-\/bit grayscale pixel data from a binary file.
+
+
+\begin{DoxyItemize}
+\item Reads the raw binary pixel data directly into memory without expecting any headers. It strictly verifies that the number of bytes read matches the requested dimensions.
+\item 
+\begin{DoxyParams}{Parameters}
+{\em path} & The filepath to the binary image file to read. \\
+\hline
+{\em buffer} & A pointer to the pre-\/allocated destination memory buffer. \\
+\hline
+{\em width} & The expected width of the image. \\
+\hline
+{\em height} & The expected height of the image. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, false if file cannot be opened or is too small. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\Hypertarget{image__io_8cpp_a2d49ca1c7c23e6b7c6ad81d2829ecf37}\label{image__io_8cpp_a2d49ca1c7c23e6b7c6ad81d2829ecf37} 
+\index{image\_io.cpp@{image\_io.cpp}!save\_raw@{save\_raw}}
+\index{save\_raw@{save\_raw}!image\_io.cpp@{image\_io.cpp}}
+\doxysubsubsection{\texorpdfstring{save\_raw()}{save\_raw()}}
+{\footnotesize\ttfamily bool save\+\_\+raw (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path,  }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
+
+
+
+Saves a raw grayscale image from a buffer to disk. 
+
+Saves an 8-\/bit grayscale image buffer to a raw binary file.
+
+
+\begin{DoxyItemize}
+\item Writes the raw pixel array out to a flat, headerless binary file. It strictly verifies that all intended bytes were successfully written to the filesystem.
+\item 
+\begin{DoxyParams}{Parameters}
+{\em path} & The filepath where the binary image file will be created/overwritten. \\
+\hline
+{\em buffer} & A pointer to the source memory buffer to save. \\
+\hline
+{\em width} & The width of the image. \\
+\hline
+{\em height} & The height of the image. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, false if file cannot be created or write fails. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}

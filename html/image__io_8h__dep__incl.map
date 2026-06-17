@@ -1,0 +1,17 @@
+<map id="src/image_io.h" name="src/image_io.h">
+<area shape="rect" id="Node000001" title="Declarations for raw image file I/O and aligned memory allocation." alt="" coords="547,5,665,31"/>
+<area shape="rect" id="Node000002" href="$gtest__image__io_8cpp.html" title="Google Test suite for raw image I/O operations." alt="" coords="5,79,148,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="534,30,363,50,160,81,149,83,148,78,159,76,362,45,533,24"/>
+<area shape="rect" id="Node000003" href="$gtest__pipeline_8cpp.html" title="Google Test suite for the Canny Edge Detection math kernels." alt="" coords="172,79,315,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="540,36,328,81,315,84,314,79,327,76,538,31"/>
+<area shape="rect" id="Node000004" href="$gen__test__image_8cpp.html" title="Synthetic test image generator for the Canny Edge Detection pipeline." alt="" coords="339,86,515,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="569,39,454,88,452,84,567,34"/>
+<area shape="rect" id="Node000005" href="$image__io_8cpp.html" title="Implementation of raw image file I/O and aligned memory allocation." alt="" coords="540,86,672,111"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="609,44,609,86,603,86,603,44"/>
+<area shape="rect" id="Node000006" href="$main_8cpp.html" title="Main execution entry point for Canny Edge Detection (7&#45;stage pipeline)." alt="" coords="696,86,801,111"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="640,35,729,83,726,88,638,40"/>
+<area shape="rect" id="Node000007" href="$main__rvv_8cpp.html" title="RVV pipeline entry point: benchmarks scalar vs RVV at VLEN=128/256/512." alt="" coords="825,86,957,111"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="661,32,850,83,849,89,660,37"/>
+<area shape="rect" id="Node000008" href="$test__image__io_8cpp.html" title="Unit tests for raw image input/output operations and memory allocation." alt="" coords="981,86,1159,111"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="678,28,970,76,1011,83,1010,89,970,81,677,33"/>
+</map>

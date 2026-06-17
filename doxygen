@@ -1,0 +1,21 @@
+# Give your project a title
+PROJECT_NAME           = "RISC-V Canny Edge Detection"
+
+# Tell it where to look for your code
+INPUT                  = src/ google_tests/ tests/ README.md images/ 
+USE_MDFILE_AS_MAINPAGE = README.md
+HTML_EXTRA_FILES = images/
+# Make sure it searches inside folders
+RECURSIVE              = YES
+
+# Extract everything, even if it lacks a specific @brief tag
+EXTRACT_ALL            = YES
+
+# Turn off LaTeX (unless you want a PDF manual)
+GENERATE_LATEX         = YES
+
+# ═══════════════════════════════════════════════════════
+# THIS IS THE MAGIC THAT CHANGES THE THEME
+# ═══════════════════════════════════════════════════════
+HTML_EXTRA_STYLESHEET  = doxygen-awesome-css/doxygen-awesome.css
+GENERATE_TREEVIEW      = YES

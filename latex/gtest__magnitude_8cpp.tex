@@ -1,0 +1,208 @@
+\doxysection{google\+\_\+tests/gtest\+\_\+magnitude.cpp File Reference}
+\hypertarget{gtest__magnitude_8cpp}{}\label{gtest__magnitude_8cpp}\index{google\_tests/gtest\_magnitude.cpp@{google\_tests/gtest\_magnitude.cpp}}
+
+
+Google Test suite for gradient magnitude computation.  
+
+
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include "{}magnitude.\+h"{}}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+Include dependency graph for gtest\+\_\+magnitude.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gtest__magnitude_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structMagBuffers}{Mag\+Buffers}}
+\begin{DoxyCompactList}\small\item\em Test helper structure for magnitude computation tests. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{gtest__magnitude_8cpp_aaedb4d8d12f5687cc167130874cae935}{TEST}} (Magnitude, Zero\+Gradient\+Zero\+Mag)
+\begin{DoxyCompactList}\small\item\em Verify zero gradients produce zero magnitude output. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__magnitude_8cpp_a7915daa89c028c4ba1b7b75ea21a37a7}{TEST}} (Magnitude, Uniform\+Gx\+All\+Max)
+\begin{DoxyCompactList}\small\item\em Verify uniform horizontal gradients normalize to all 255. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__magnitude_8cpp_ac68ac9d5e73239e8efa2841545af8a82}{TEST}} (Magnitude, Uniform\+Gy\+All\+Max)
+\begin{DoxyCompactList}\small\item\em Verify uniform vertical gradients normalize to all 255. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__magnitude_8cpp_aaed5bf9490ffb311cfcd02338c30570a}{TEST}} (Magnitude, Max\+Pixel\+Is255)
+\begin{DoxyCompactList}\small\item\em Verify the maximum magnitude pixel always becomes 255. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__magnitude_8cpp_ad7b41f04ba8af4f4a98933c767e3ebfb}{TEST}} (Magnitude, Proportional\+Scaling)
+\begin{DoxyCompactList}\small\item\em Verify linear scaling of magnitude values. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__magnitude_8cpp_a3be992ec21a678760fa7f00b97aa55b2}{TEST}} (Magnitude, Negative\+Gradients\+Absolute\+Value)
+\begin{DoxyCompactList}\small\item\em Verify negative gradients use absolute value for magnitude. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__magnitude_8cpp_a1be5ec9eb55dbecbc4bac4b60b17361a}{TEST}} (Magnitude, Mixed\+Sign\+Normalized)
+\begin{DoxyCompactList}\small\item\em Verify mixed-\/sign gradients produce correct normalized values. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__magnitude_8cpp_a8b13a85faab86676035916b6beccee83}{TEST}} (Magnitude, All\+Pixels\+Match\+Formula)
+\begin{DoxyCompactList}\small\item\em Verify all output pixels match the expected formula. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__magnitude_8cpp_a5e9daaa0520d4917752657275b386d9d}{TEST}} (Magnitude, Single\+Pixel\+Is\+Max)
+\begin{DoxyCompactList}\small\item\em Verify single-\/pixel case maps to 255. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__magnitude_8cpp_a333b67d17fb906164e2f902ecb41fa20}{TEST}} (Magnitude, Zero\+Pixel\+Stays\+Zero)
+\begin{DoxyCompactList}\small\item\em Verify zero-\/gradient pixels remain zero after normalization. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Google Test suite for gradient magnitude computation. 
+
+Tests both L1 and L2 gradient magnitude computation functions. Verifies normalization, scaling, and range properties.
+
+Implementation notes for compute\+\_\+magnitude\+\_\+l1\+:
+\begin{DoxyEnumerate}
+\item raw\mbox{[}i\mbox{]} = \texorpdfstring{$\vert$}{|}gx\mbox{[}i\mbox{]}\texorpdfstring{$\vert$}{|} + \texorpdfstring{$\vert$}{|}gy\mbox{[}i\mbox{]}\texorpdfstring{$\vert$}{|}
+\item max\+\_\+raw = max of all raw\mbox{[}i\mbox{]}
+\item output\mbox{[}i\mbox{]} = (uint8\+\_\+t)(raw\mbox{[}i\mbox{]} \texorpdfstring{$\ast$}{*} 255.\+0f / max\+\_\+raw) (normalized)
+\item If max\+\_\+raw == 0, all output = 0
+\end{DoxyEnumerate}
+
+So the MAX pixel always maps to 255; everything else is proportional.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{magnitude_8cpp_a457bd35a995dee57fec739515466e279}{compute\+\_\+magnitude\+\_\+l1()} 
+
+\doxylink{magnitude_8cpp_a9a6e09aaa8130154da765efd15801c39}{compute\+\_\+magnitude\+\_\+l2()} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{gtest__magnitude_8cpp_a8b13a85faab86676035916b6beccee83}\label{gtest__magnitude_8cpp_a8b13a85faab86676035916b6beccee83} 
+\index{gtest\_magnitude.cpp@{gtest\_magnitude.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_magnitude.cpp@{gtest\_magnitude.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Magnitude}]{,  }\item[{All\+Pixels\+Match\+Formula}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify all output pixels match the expected formula. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000038}{Test}}]All\+Pixels\+Match\+Formula \end{DoxyRefDesc}
+
+
+Comprehensive test with pseudorandom gradients to ensure every pixel\textquotesingle{}s magnitude matches the mathematical definition. \Hypertarget{gtest__magnitude_8cpp_aaed5bf9490ffb311cfcd02338c30570a}\label{gtest__magnitude_8cpp_aaed5bf9490ffb311cfcd02338c30570a} 
+\index{gtest\_magnitude.cpp@{gtest\_magnitude.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_magnitude.cpp@{gtest\_magnitude.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Magnitude}]{,  }\item[{Max\+Pixel\+Is255}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify the maximum magnitude pixel always becomes 255. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000034}{Test}}]Max\+Pixel\+Is255 \end{DoxyRefDesc}
+\Hypertarget{gtest__magnitude_8cpp_a1be5ec9eb55dbecbc4bac4b60b17361a}\label{gtest__magnitude_8cpp_a1be5ec9eb55dbecbc4bac4b60b17361a} 
+\index{gtest\_magnitude.cpp@{gtest\_magnitude.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_magnitude.cpp@{gtest\_magnitude.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Magnitude}]{,  }\item[{Mixed\+Sign\+Normalized}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify mixed-\/sign gradients produce correct normalized values. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000037}{Test}}]Mixed\+Sign\+Normalized \end{DoxyRefDesc}
+
+
+Raw magnitude uses absolute values regardless of sign combination. \Hypertarget{gtest__magnitude_8cpp_a3be992ec21a678760fa7f00b97aa55b2}\label{gtest__magnitude_8cpp_a3be992ec21a678760fa7f00b97aa55b2} 
+\index{gtest\_magnitude.cpp@{gtest\_magnitude.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_magnitude.cpp@{gtest\_magnitude.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [4/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Magnitude}]{,  }\item[{Negative\+Gradients\+Absolute\+Value}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify negative gradients use absolute value for magnitude. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000036}{Test}}]Negative\+Gradients\+Absolute\+Value \end{DoxyRefDesc}
+
+
+Magnitude should depend only on absolute values, not sign. \Hypertarget{gtest__magnitude_8cpp_ad7b41f04ba8af4f4a98933c767e3ebfb}\label{gtest__magnitude_8cpp_ad7b41f04ba8af4f4a98933c767e3ebfb} 
+\index{gtest\_magnitude.cpp@{gtest\_magnitude.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_magnitude.cpp@{gtest\_magnitude.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [5/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Magnitude}]{,  }\item[{Proportional\+Scaling}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify linear scaling of magnitude values. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000035}{Test}}]Proportional\+Scaling \end{DoxyRefDesc}
+
+
+When raw magnitudes have ratio 2\+:1, normalized values should have ratio approximately 2\+:1 (255\+:127.\+5). \Hypertarget{gtest__magnitude_8cpp_a5e9daaa0520d4917752657275b386d9d}\label{gtest__magnitude_8cpp_a5e9daaa0520d4917752657275b386d9d} 
+\index{gtest\_magnitude.cpp@{gtest\_magnitude.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_magnitude.cpp@{gtest\_magnitude.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [6/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Magnitude}]{,  }\item[{Single\+Pixel\+Is\+Max}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify single-\/pixel case maps to 255. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000039}{Test}}]Single\+Pixel\+Is\+Max \end{DoxyRefDesc}
+
+
+With only one pixel, it is by definition the maximum. \Hypertarget{gtest__magnitude_8cpp_a7915daa89c028c4ba1b7b75ea21a37a7}\label{gtest__magnitude_8cpp_a7915daa89c028c4ba1b7b75ea21a37a7} 
+\index{gtest\_magnitude.cpp@{gtest\_magnitude.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_magnitude.cpp@{gtest\_magnitude.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [7/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Magnitude}]{,  }\item[{Uniform\+Gx\+All\+Max}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify uniform horizontal gradients normalize to all 255. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000032}{Test}}]Uniform\+Gx\+All\+Max \end{DoxyRefDesc}
+
+
+When all raw magnitudes are equal, all pixels should map to 255. \Hypertarget{gtest__magnitude_8cpp_ac68ac9d5e73239e8efa2841545af8a82}\label{gtest__magnitude_8cpp_ac68ac9d5e73239e8efa2841545af8a82} 
+\index{gtest\_magnitude.cpp@{gtest\_magnitude.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_magnitude.cpp@{gtest\_magnitude.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [8/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Magnitude}]{,  }\item[{Uniform\+Gy\+All\+Max}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify uniform vertical gradients normalize to all 255. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000033}{Test}}]Uniform\+Gy\+All\+Max \end{DoxyRefDesc}
+\Hypertarget{gtest__magnitude_8cpp_aaedb4d8d12f5687cc167130874cae935}\label{gtest__magnitude_8cpp_aaedb4d8d12f5687cc167130874cae935} 
+\index{gtest\_magnitude.cpp@{gtest\_magnitude.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_magnitude.cpp@{gtest\_magnitude.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [9/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Magnitude}]{,  }\item[{Zero\+Gradient\+Zero\+Mag}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify zero gradients produce zero magnitude output. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000031}{Test}}]Zero\+Gradient\+Zero\+Mag \end{DoxyRefDesc}
+\Hypertarget{gtest__magnitude_8cpp_a333b67d17fb906164e2f902ecb41fa20}\label{gtest__magnitude_8cpp_a333b67d17fb906164e2f902ecb41fa20} 
+\index{gtest\_magnitude.cpp@{gtest\_magnitude.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_magnitude.cpp@{gtest\_magnitude.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [10/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Magnitude}]{,  }\item[{Zero\+Pixel\+Stays\+Zero}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify zero-\/gradient pixels remain zero after normalization. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000040}{Test}}]Zero\+Pixel\+Stays\+Zero \end{DoxyRefDesc}
+
+
+When the max magnitude is positive, zero raw magnitude should map to exactly zero. 

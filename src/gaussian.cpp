@@ -1,6 +1,20 @@
+/**
+ * @file gaussian.cpp
+ * @brief Implementation of a 5x5 Gaussian blur filter.
+ * * This file contains the scalar implementation for applying a 5x5 discrete 
+ * Gaussian blur convolution to an 8-bit grayscale image. It utilizes integer 
+ * approximations for the kernel coefficients to optimize performance while 
+ * preventing integer overflow during pixel accumulation.
+ */
+
 #include "gaussian.h"
 #include <stdint.h>
 
+/**
+ * @brief The fixed 5x5 Gaussian kernel coefficients.
+ * * These represent an integer approximation of a Gaussian distribution 
+ * with a standard deviation (sigma) of approximately 1.0.
+ */
 // The 5x5 Gaussian kernel coefficients
 // These are integer approximations of a Gaussian with sigma ≈ 1.0
 // They sum to 273
@@ -12,9 +26,28 @@ static const int KERNEL[5][5] = {
     { 1,  4,  7,  4,  1}
 };
 
+/**
+ * @brief Normalization factor representing the sum of all kernel weights.
+ */
 static const int KERNEL_SUM = 273;   // sum of all kernel values
+
+/**
+ * @brief The spatial radius of the convolution kernel.
+ */
 static const int KERNEL_RADIUS = 2;  // kernel is 5x5, radius = (5-1)/2 = 2
 
+/**
+ * @brief Applies a 5x5 Gaussian blur to an 8-bit grayscale image.
+ * * Convolves the input image with the fixed 5x5 Gaussian kernel. Boundary 
+ * pixels are handled implicitly via zero-padding (out-of-bounds coordinates 
+ * are ignored during the accumulation phase). The final sum is normalized 
+ * by dividing by the sum of the kernel weights (273) and clamped to the 
+ * valid 8-bit range [0, 255].
+ * * @param src    Pointer to the 8-bit grayscale input image buffer.
+ * @param dst    Pointer to the 8-bit output image buffer.
+ * @param width  Width of the image in pixels.
+ * @param height Height of the image in pixels.
+ */
 void gaussian_blur(const uint8_t* src, uint8_t* dst,
                    int width, int height) {
 

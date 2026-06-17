@@ -1,9 +1,0 @@
-<map id="src/gaussian.h" name="src/gaussian.h">
-<area shape="rect" id="Node000001" title="Template&#45;based 5x5 Gaussian blur implementation." alt="" coords="36,5,151,31"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,72,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,33,58,69,54,66,82,29"/>
-<area shape="rect" id="Node000003" href="$gaussian_8ipp.html" title="Template implementation of 5x5 Gaussian blur." alt="" coords="96,79,200,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="104,29,133,66,129,69,100,33"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="105,152,191,177"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="151,104,151,138,145,138,145,104"/>
-</map>

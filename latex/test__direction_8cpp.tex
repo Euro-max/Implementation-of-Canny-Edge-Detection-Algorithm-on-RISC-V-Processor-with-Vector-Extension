@@ -1,0 +1,112 @@
+\doxysection{tests/test\+\_\+direction.cpp File Reference}
+\hypertarget{test__direction_8cpp}{}\label{test__direction_8cpp}\index{tests/test\_direction.cpp@{tests/test\_direction.cpp}}
+
+
+Unit tests for the gradient direction computation.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cassert$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include "{}direction.\+h"{}}\newline
+Include dependency graph for test\+\_\+direction.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{test__direction_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{test__direction_8cpp_af6cd2d91c2a62e23647fdde925c3bbd3}{test\+\_\+zero\+\_\+gradient}} ()
+\begin{DoxyCompactList}\small\item\em Verifies behavior when both gradients are zero. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{test__direction_8cpp_ac1b53cc8d91a3a6979a70bdabc59f3b5}{test\+\_\+horizontal\+\_\+gradient}} ()
+\begin{DoxyCompactList}\small\item\em Verifies direction quantization for purely horizontal gradients. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{test__direction_8cpp_aee3bd3e323b5cf536614ff246da25385}{test\+\_\+vertical\+\_\+gradient}} ()
+\begin{DoxyCompactList}\small\item\em Verifies direction quantization for purely vertical gradients. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{test__direction_8cpp_a8ff59cde90824825355fb4b68a57c7ae}{test\+\_\+output\+\_\+range}} ()
+\begin{DoxyCompactList}\small\item\em Ensures that all output directions are within the valid boundary. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{test__direction_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Main execution entry point for direction tests. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Unit tests for the gradient direction computation. 
+
+
+\begin{DoxyItemize}
+\item This file contains bare-\/metal assertion tests to verify that the compute\+\_\+direction function correctly maps Gx and Gy gradient values into the four discrete angular bins (0, 1, 2, 3) required for Non-\/\+Maximum Suppression. 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\Hypertarget{test__direction_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{test__direction_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\index{test\_direction.cpp@{test\_direction.cpp}!main@{main}}
+\index{main@{main}!test\_direction.cpp@{test\_direction.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Main execution entry point for direction tests. 
+
+
+\begin{DoxyItemize}
+\item Runs all test cases sequentially. If any assert fails, the program will abort immediately. Otherwise, it prints a success summary.
+\item \begin{DoxyReturn}{Returns}
+0 on successful execution of all assertions. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\Hypertarget{test__direction_8cpp_ac1b53cc8d91a3a6979a70bdabc59f3b5}\label{test__direction_8cpp_ac1b53cc8d91a3a6979a70bdabc59f3b5} 
+\index{test\_direction.cpp@{test\_direction.cpp}!test\_horizontal\_gradient@{test\_horizontal\_gradient}}
+\index{test\_horizontal\_gradient@{test\_horizontal\_gradient}!test\_direction.cpp@{test\_direction.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_horizontal\_gradient()}{test\_horizontal\_gradient()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} test\+\_\+horizontal\+\_\+gradient (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Verifies direction quantization for purely horizontal gradients. 
+
+
+\begin{DoxyItemize}
+\item A purely horizontal gradient (large Gx, zero Gy) corresponds to a vertical edge. This should be mapped strictly to direction bin 0. 
+\end{DoxyItemize}\Hypertarget{test__direction_8cpp_a8ff59cde90824825355fb4b68a57c7ae}\label{test__direction_8cpp_a8ff59cde90824825355fb4b68a57c7ae} 
+\index{test\_direction.cpp@{test\_direction.cpp}!test\_output\_range@{test\_output\_range}}
+\index{test\_output\_range@{test\_output\_range}!test\_direction.cpp@{test\_direction.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_output\_range()}{test\_output\_range()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} test\+\_\+output\+\_\+range (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ensures that all output directions are within the valid boundary. 
+
+
+\begin{DoxyItemize}
+\item Feeds a mixture of positive and negative Gx and Gy combinations to guarantee that the computed direction never exceeds the 4 defined angular bins \mbox{[}0, 1, 2, 3\mbox{]}. 
+\end{DoxyItemize}\Hypertarget{test__direction_8cpp_aee3bd3e323b5cf536614ff246da25385}\label{test__direction_8cpp_aee3bd3e323b5cf536614ff246da25385} 
+\index{test\_direction.cpp@{test\_direction.cpp}!test\_vertical\_gradient@{test\_vertical\_gradient}}
+\index{test\_vertical\_gradient@{test\_vertical\_gradient}!test\_direction.cpp@{test\_direction.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_vertical\_gradient()}{test\_vertical\_gradient()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} test\+\_\+vertical\+\_\+gradient (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Verifies direction quantization for purely vertical gradients. 
+
+
+\begin{DoxyItemize}
+\item A purely vertical gradient (zero Gx, large Gy) corresponds to a horizontal edge. This should be mapped strictly to direction bin 2. 
+\end{DoxyItemize}\Hypertarget{test__direction_8cpp_af6cd2d91c2a62e23647fdde925c3bbd3}\label{test__direction_8cpp_af6cd2d91c2a62e23647fdde925c3bbd3} 
+\index{test\_direction.cpp@{test\_direction.cpp}!test\_zero\_gradient@{test\_zero\_gradient}}
+\index{test\_zero\_gradient@{test\_zero\_gradient}!test\_direction.cpp@{test\_direction.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_zero\_gradient()}{test\_zero\_gradient()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} test\+\_\+zero\+\_\+gradient (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Verifies behavior when both gradients are zero. 
+
+
+\begin{DoxyItemize}
+\item Tests the edge case where there is no change in pixel intensity. Based on the current implementation, if both Gx and Gy are exactly 0, the function falls back to assigning direction bin 3 (diagonal). 
+\end{DoxyItemize}

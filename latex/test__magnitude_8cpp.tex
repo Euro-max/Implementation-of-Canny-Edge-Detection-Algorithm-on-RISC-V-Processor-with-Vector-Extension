@@ -1,0 +1,113 @@
+\doxysection{tests/test\+\_\+magnitude.cpp File Reference}
+\hypertarget{test__magnitude_8cpp}{}\label{test__magnitude_8cpp}\index{tests/test\_magnitude.cpp@{tests/test\_magnitude.cpp}}
+
+
+Unit tests for gradient magnitude computation (L1 and L2 norms).  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cassert$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include "{}magnitude.\+h"{}}\newline
+Include dependency graph for test\+\_\+magnitude.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{test__magnitude_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{test__magnitude_8cpp_af6cd2d91c2a62e23647fdde925c3bbd3}{test\+\_\+zero\+\_\+gradient}} ()
+\begin{DoxyCompactList}\small\item\em Verifies that zero gradients produce an absolute zero magnitude. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{test__magnitude_8cpp_a8ff59cde90824825355fb4b68a57c7ae}{test\+\_\+output\+\_\+range}} ()
+\begin{DoxyCompactList}\small\item\em Ensures that computed magnitudes strictly bounded within the 8-\/bit range. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{test__magnitude_8cpp_a146c52ac77bb2281e92513a5858ee90d}{test\+\_\+l1\+\_\+greater\+\_\+than\+\_\+l2}} ()
+\begin{DoxyCompactList}\small\item\em Validates the mathematical property that L1 norm \texorpdfstring{$>$}{>}= L2 norm. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{test__magnitude_8cpp_a6c765ff88e23a4a5296dcd3ae55006bb}{test\+\_\+uniform\+\_\+magnitude}} ()
+\begin{DoxyCompactList}\small\item\em Verifies that a spatially uniform gradient field yields a uniform output. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{test__magnitude_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Main execution entry point for magnitude tests. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Unit tests for gradient magnitude computation (L1 and L2 norms). 
+
+
+\begin{DoxyItemize}
+\item This file contains bare-\/metal assertion tests to verify the correctness of the magnitude calculations. It tests both the L1 (Manhattan distance) and L2 (Euclidean distance) implementations, ensuring they handle edge cases, stay within 8-\/bit bounds, and adhere to mathematical expectations. 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\Hypertarget{test__magnitude_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{test__magnitude_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\index{test\_magnitude.cpp@{test\_magnitude.cpp}!main@{main}}
+\index{main@{main}!test\_magnitude.cpp@{test\_magnitude.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Main execution entry point for magnitude tests. 
+
+
+\begin{DoxyItemize}
+\item Runs all test cases sequentially. If any assert fails, the program will abort immediately. Otherwise, it prints a success summary.
+\item \begin{DoxyReturn}{Returns}
+0 on successful execution of all assertions. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\Hypertarget{test__magnitude_8cpp_a146c52ac77bb2281e92513a5858ee90d}\label{test__magnitude_8cpp_a146c52ac77bb2281e92513a5858ee90d} 
+\index{test\_magnitude.cpp@{test\_magnitude.cpp}!test\_l1\_greater\_than\_l2@{test\_l1\_greater\_than\_l2}}
+\index{test\_l1\_greater\_than\_l2@{test\_l1\_greater\_than\_l2}!test\_magnitude.cpp@{test\_magnitude.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_l1\_greater\_than\_l2()}{test\_l1\_greater\_than\_l2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} test\+\_\+l1\+\_\+greater\+\_\+than\+\_\+l2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Validates the mathematical property that L1 norm \texorpdfstring{$>$}{>}= L2 norm. 
+
+
+\begin{DoxyItemize}
+\item Mathematically, the sum of absolute values (\texorpdfstring{$\vert$}{|}\+Gx\texorpdfstring{$\vert$}{|} + \texorpdfstring{$\vert$}{|}\+Gy\texorpdfstring{$\vert$}{|}) will always be greater than or equal to the square root of their sum of squares sqrt(Gx\texorpdfstring{$^\wedge$}{\string^}2 + Gy\texorpdfstring{$^\wedge$}{\string^}2). This test ensures both implementations scale relatively. 
+\end{DoxyItemize}\Hypertarget{test__magnitude_8cpp_a8ff59cde90824825355fb4b68a57c7ae}\label{test__magnitude_8cpp_a8ff59cde90824825355fb4b68a57c7ae} 
+\index{test\_magnitude.cpp@{test\_magnitude.cpp}!test\_output\_range@{test\_output\_range}}
+\index{test\_output\_range@{test\_output\_range}!test\_magnitude.cpp@{test\_magnitude.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_output\_range()}{test\_output\_range()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} test\+\_\+output\+\_\+range (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ensures that computed magnitudes strictly bounded within the 8-\/bit range. 
+
+
+\begin{DoxyItemize}
+\item Feeds a combination of large positive and negative gradients into the magnitude functions to ensure that normalization is working correctly and no integer overflow or underflow breaks the \mbox{[}0, 255\mbox{]} boundary constraint. 
+\end{DoxyItemize}\Hypertarget{test__magnitude_8cpp_a6c765ff88e23a4a5296dcd3ae55006bb}\label{test__magnitude_8cpp_a6c765ff88e23a4a5296dcd3ae55006bb} 
+\index{test\_magnitude.cpp@{test\_magnitude.cpp}!test\_uniform\_magnitude@{test\_uniform\_magnitude}}
+\index{test\_uniform\_magnitude@{test\_uniform\_magnitude}!test\_magnitude.cpp@{test\_magnitude.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_uniform\_magnitude()}{test\_uniform\_magnitude()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} test\+\_\+uniform\+\_\+magnitude (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Verifies that a spatially uniform gradient field yields a uniform output. 
+
+
+\begin{DoxyItemize}
+\item If every pixel experiences the exact same gradient changes, the resulting magnitude buffer must contain identical values across all indices. This catches indexing bugs or stray accumulations in the processing loop. 
+\end{DoxyItemize}\Hypertarget{test__magnitude_8cpp_af6cd2d91c2a62e23647fdde925c3bbd3}\label{test__magnitude_8cpp_af6cd2d91c2a62e23647fdde925c3bbd3} 
+\index{test\_magnitude.cpp@{test\_magnitude.cpp}!test\_zero\_gradient@{test\_zero\_gradient}}
+\index{test\_zero\_gradient@{test\_zero\_gradient}!test\_magnitude.cpp@{test\_magnitude.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_zero\_gradient()}{test\_zero\_gradient()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} test\+\_\+zero\+\_\+gradient (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Verifies that zero gradients produce an absolute zero magnitude. 
+
+
+\begin{DoxyItemize}
+\item If there is no change in pixel intensity in either the X or Y direction (Gx = 0, Gy = 0), the resulting edge magnitude must be precisely 0 for both L1 and L2 calculations. 
+\end{DoxyItemize}

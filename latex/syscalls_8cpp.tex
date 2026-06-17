@@ -1,0 +1,232 @@
+\doxysection{src/syscalls.cpp File Reference}
+\hypertarget{syscalls_8cpp}{}\label{syscalls_8cpp}\index{src/syscalls.cpp@{src/syscalls.cpp}}
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+Include dependency graph for syscalls.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{syscalls_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} \mbox{\hyperlink{syscalls_8cpp_af108d15cba04878eac778176897d7b8a}{SYS\+\_\+brk}}~214
+\item 
+\#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} \mbox{\hyperlink{syscalls_8cpp_adc8f5467b14f701dce000c7226575a6e}{SYS\+\_\+openat}}~56
+\item 
+\#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} \mbox{\hyperlink{syscalls_8cpp_a8ac7ddcf0e4789f3e705f35b8da40af3}{SYS\+\_\+close}}~57
+\item 
+\#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} \mbox{\hyperlink{syscalls_8cpp_aaafd617a1c739e39d3a183d5806be86f}{SYS\+\_\+lseek}}~62
+\item 
+\#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} \mbox{\hyperlink{syscalls_8cpp_a4481bc3f0d65944cd6a9ecd6c5b93a55}{SYS\+\_\+read}}~63
+\item 
+\#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} \mbox{\hyperlink{syscalls_8cpp_aa7425a6f80dc9c0ec789079cb6547542}{SYS\+\_\+write}}~64
+\item 
+\#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} \mbox{\hyperlink{syscalls_8cpp_a71105a873ad172a54a16aa2f2d85534a}{SYS\+\_\+fstat}}~80
+\item 
+\#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} \mbox{\hyperlink{syscalls_8cpp_a9ffbbdd04d43fb4c0d05d4363d351772}{SYS\+\_\+exit}}~93
+\item 
+\#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} \mbox{\hyperlink{syscalls_8cpp_a301749b9aa4b9416c329bb8b19345216}{AT\+\_\+\+FDCWD}}~-\/100
+\item 
+\#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} \mbox{\hyperlink{syscalls_8cpp_a996b42184331652b36079f1a4598c813}{LINUX\+\_\+\+O\+\_\+\+CREAT}}~0x0040
+\item 
+\#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} \mbox{\hyperlink{syscalls_8cpp_a693e457534fd21cb0ea6670565c33e7c}{LINUX\+\_\+\+O\+\_\+\+TRUNC}}~0x0200
+\item 
+\#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} \mbox{\hyperlink{syscalls_8cpp_a84dccc9d9fa8d69dafe37511d414229d}{LINUX\+\_\+\+O\+\_\+\+APPEND}}~0x0400
+\item 
+\#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} \mbox{\hyperlink{syscalls_8cpp_a3b09d48e2f5e2184ea7c51481725a187}{NEWLIB\+\_\+\+O\+\_\+\+CREAT}}~0x0200
+\item 
+\#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} \mbox{\hyperlink{syscalls_8cpp_a6d203b9f977f1815eab99e2bd13857e3}{NEWLIB\+\_\+\+O\+\_\+\+TRUNC}}~0x0400
+\item 
+\#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} \mbox{\hyperlink{syscalls_8cpp_a2bf30d46cb5ded616d3ab8791b68449e}{NEWLIB\+\_\+\+O\+\_\+\+APPEND}}~0x0008
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{syscalls_8cpp_abcd66721a10b8f78d5957a3409015169}{\+\_\+open}} (\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{path}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{flags}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{mode}})
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{syscalls_8cpp_a58a559c63748012aab165d5f82af766d}{\+\_\+close}} (\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{fd}})
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{long}} \mbox{\hyperlink{syscalls_8cpp_ab43394f28de7a1e3ff94e02981ae8492}{\+\_\+read}} (\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{fd}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{buf}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{size\+\_\+t}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{n}})
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{long}} \mbox{\hyperlink{syscalls_8cpp_a43106060f9615c44ed6a0195f2665028}{\+\_\+write}} (\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{fd}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{buf}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{size\+\_\+t}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{n}})
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{off\+\_\+t}} \mbox{\hyperlink{syscalls_8cpp_a6fd96f1827f22161142519298141cd2f}{\+\_\+lseek}} (\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{fd}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{off\+\_\+t}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{offset}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{whence}})
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{syscalls_8cpp_a6e8d95db883bc4efe10c487d74e96b06}{\+\_\+fstat}} (\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{fd}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{struct}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{stat}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{st}})
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{syscalls_8cpp_a4284676ccba12d7f2061d338001f71fb}{\+\_\+isatty}} (\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{fd}})
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{syscalls_8cpp_abc96bd69b58b2deaddb484478d911c1b}{\+\_\+exit}} (\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{status}})
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{syscalls_8cpp_a945e539df8e0f66d3c73c533fe1968ee}{\+\_\+getpid}} (\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}})
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{syscalls_8cpp_a062a5101199c3128edd5170f2575bb10}{\+\_\+kill}} (\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{pid}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{sig}})
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{syscalls_8cpp_a68125648bcce70b6bb3aa0be50e99700}{\+\_\+sbrk}} (\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{ptrdiff\+\_\+t}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{incr}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{syscalls_8cpp_a301749b9aa4b9416c329bb8b19345216}\label{syscalls_8cpp_a301749b9aa4b9416c329bb8b19345216} 
+\index{syscalls.cpp@{syscalls.cpp}!AT\_FDCWD@{AT\_FDCWD}}
+\index{AT\_FDCWD@{AT\_FDCWD}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{AT\_FDCWD}{AT\_FDCWD}}
+{\footnotesize\ttfamily \#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} AT\+\_\+\+FDCWD~-\/100}
+
+\Hypertarget{syscalls_8cpp_a84dccc9d9fa8d69dafe37511d414229d}\label{syscalls_8cpp_a84dccc9d9fa8d69dafe37511d414229d} 
+\index{syscalls.cpp@{syscalls.cpp}!LINUX\_O\_APPEND@{LINUX\_O\_APPEND}}
+\index{LINUX\_O\_APPEND@{LINUX\_O\_APPEND}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{LINUX\_O\_APPEND}{LINUX\_O\_APPEND}}
+{\footnotesize\ttfamily \#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} LINUX\+\_\+\+O\+\_\+\+APPEND~0x0400}
+
+\Hypertarget{syscalls_8cpp_a996b42184331652b36079f1a4598c813}\label{syscalls_8cpp_a996b42184331652b36079f1a4598c813} 
+\index{syscalls.cpp@{syscalls.cpp}!LINUX\_O\_CREAT@{LINUX\_O\_CREAT}}
+\index{LINUX\_O\_CREAT@{LINUX\_O\_CREAT}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{LINUX\_O\_CREAT}{LINUX\_O\_CREAT}}
+{\footnotesize\ttfamily \#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} LINUX\+\_\+\+O\+\_\+\+CREAT~0x0040}
+
+\Hypertarget{syscalls_8cpp_a693e457534fd21cb0ea6670565c33e7c}\label{syscalls_8cpp_a693e457534fd21cb0ea6670565c33e7c} 
+\index{syscalls.cpp@{syscalls.cpp}!LINUX\_O\_TRUNC@{LINUX\_O\_TRUNC}}
+\index{LINUX\_O\_TRUNC@{LINUX\_O\_TRUNC}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{LINUX\_O\_TRUNC}{LINUX\_O\_TRUNC}}
+{\footnotesize\ttfamily \#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} LINUX\+\_\+\+O\+\_\+\+TRUNC~0x0200}
+
+\Hypertarget{syscalls_8cpp_a2bf30d46cb5ded616d3ab8791b68449e}\label{syscalls_8cpp_a2bf30d46cb5ded616d3ab8791b68449e} 
+\index{syscalls.cpp@{syscalls.cpp}!NEWLIB\_O\_APPEND@{NEWLIB\_O\_APPEND}}
+\index{NEWLIB\_O\_APPEND@{NEWLIB\_O\_APPEND}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{NEWLIB\_O\_APPEND}{NEWLIB\_O\_APPEND}}
+{\footnotesize\ttfamily \#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} NEWLIB\+\_\+\+O\+\_\+\+APPEND~0x0008}
+
+\Hypertarget{syscalls_8cpp_a3b09d48e2f5e2184ea7c51481725a187}\label{syscalls_8cpp_a3b09d48e2f5e2184ea7c51481725a187} 
+\index{syscalls.cpp@{syscalls.cpp}!NEWLIB\_O\_CREAT@{NEWLIB\_O\_CREAT}}
+\index{NEWLIB\_O\_CREAT@{NEWLIB\_O\_CREAT}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{NEWLIB\_O\_CREAT}{NEWLIB\_O\_CREAT}}
+{\footnotesize\ttfamily \#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} NEWLIB\+\_\+\+O\+\_\+\+CREAT~0x0200}
+
+\Hypertarget{syscalls_8cpp_a6d203b9f977f1815eab99e2bd13857e3}\label{syscalls_8cpp_a6d203b9f977f1815eab99e2bd13857e3} 
+\index{syscalls.cpp@{syscalls.cpp}!NEWLIB\_O\_TRUNC@{NEWLIB\_O\_TRUNC}}
+\index{NEWLIB\_O\_TRUNC@{NEWLIB\_O\_TRUNC}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{NEWLIB\_O\_TRUNC}{NEWLIB\_O\_TRUNC}}
+{\footnotesize\ttfamily \#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} NEWLIB\+\_\+\+O\+\_\+\+TRUNC~0x0400}
+
+\Hypertarget{syscalls_8cpp_af108d15cba04878eac778176897d7b8a}\label{syscalls_8cpp_af108d15cba04878eac778176897d7b8a} 
+\index{syscalls.cpp@{syscalls.cpp}!SYS\_brk@{SYS\_brk}}
+\index{SYS\_brk@{SYS\_brk}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_brk}{SYS\_brk}}
+{\footnotesize\ttfamily \#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} SYS\+\_\+brk~214}
+
+\Hypertarget{syscalls_8cpp_a8ac7ddcf0e4789f3e705f35b8da40af3}\label{syscalls_8cpp_a8ac7ddcf0e4789f3e705f35b8da40af3} 
+\index{syscalls.cpp@{syscalls.cpp}!SYS\_close@{SYS\_close}}
+\index{SYS\_close@{SYS\_close}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_close}{SYS\_close}}
+{\footnotesize\ttfamily \#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} SYS\+\_\+close~57}
+
+\Hypertarget{syscalls_8cpp_a9ffbbdd04d43fb4c0d05d4363d351772}\label{syscalls_8cpp_a9ffbbdd04d43fb4c0d05d4363d351772} 
+\index{syscalls.cpp@{syscalls.cpp}!SYS\_exit@{SYS\_exit}}
+\index{SYS\_exit@{SYS\_exit}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_exit}{SYS\_exit}}
+{\footnotesize\ttfamily \#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} SYS\+\_\+exit~93}
+
+\Hypertarget{syscalls_8cpp_a71105a873ad172a54a16aa2f2d85534a}\label{syscalls_8cpp_a71105a873ad172a54a16aa2f2d85534a} 
+\index{syscalls.cpp@{syscalls.cpp}!SYS\_fstat@{SYS\_fstat}}
+\index{SYS\_fstat@{SYS\_fstat}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_fstat}{SYS\_fstat}}
+{\footnotesize\ttfamily \#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} SYS\+\_\+fstat~80}
+
+\Hypertarget{syscalls_8cpp_aaafd617a1c739e39d3a183d5806be86f}\label{syscalls_8cpp_aaafd617a1c739e39d3a183d5806be86f} 
+\index{syscalls.cpp@{syscalls.cpp}!SYS\_lseek@{SYS\_lseek}}
+\index{SYS\_lseek@{SYS\_lseek}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_lseek}{SYS\_lseek}}
+{\footnotesize\ttfamily \#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} SYS\+\_\+lseek~62}
+
+\Hypertarget{syscalls_8cpp_adc8f5467b14f701dce000c7226575a6e}\label{syscalls_8cpp_adc8f5467b14f701dce000c7226575a6e} 
+\index{syscalls.cpp@{syscalls.cpp}!SYS\_openat@{SYS\_openat}}
+\index{SYS\_openat@{SYS\_openat}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_openat}{SYS\_openat}}
+{\footnotesize\ttfamily \#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} SYS\+\_\+openat~56}
+
+\Hypertarget{syscalls_8cpp_a4481bc3f0d65944cd6a9ecd6c5b93a55}\label{syscalls_8cpp_a4481bc3f0d65944cd6a9ecd6c5b93a55} 
+\index{syscalls.cpp@{syscalls.cpp}!SYS\_read@{SYS\_read}}
+\index{SYS\_read@{SYS\_read}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_read}{SYS\_read}}
+{\footnotesize\ttfamily \#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} SYS\+\_\+read~63}
+
+\Hypertarget{syscalls_8cpp_aa7425a6f80dc9c0ec789079cb6547542}\label{syscalls_8cpp_aa7425a6f80dc9c0ec789079cb6547542} 
+\index{syscalls.cpp@{syscalls.cpp}!SYS\_write@{SYS\_write}}
+\index{SYS\_write@{SYS\_write}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_write}{SYS\_write}}
+{\footnotesize\ttfamily \#\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{define}} SYS\+\_\+write~64}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{syscalls_8cpp_a58a559c63748012aab165d5f82af766d}\label{syscalls_8cpp_a58a559c63748012aab165d5f82af766d} 
+\index{syscalls.cpp@{syscalls.cpp}!\_close@{\_close}}
+\index{\_close@{\_close}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{\_close()}{\_close()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \+\_\+close (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{fd }\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8cpp_abc96bd69b58b2deaddb484478d911c1b}\label{syscalls_8cpp_abc96bd69b58b2deaddb484478d911c1b} 
+\index{syscalls.cpp@{syscalls.cpp}!\_exit@{\_exit}}
+\index{\_exit@{\_exit}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{\_exit()}{\_exit()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \+\_\+exit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{status }\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8cpp_a6e8d95db883bc4efe10c487d74e96b06}\label{syscalls_8cpp_a6e8d95db883bc4efe10c487d74e96b06} 
+\index{syscalls.cpp@{syscalls.cpp}!\_fstat@{\_fstat}}
+\index{\_fstat@{\_fstat}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{\_fstat()}{\_fstat()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \+\_\+fstat (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{fd,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{struct}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{stat}} \texorpdfstring{$\ast$}{*}}]{st }\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8cpp_a945e539df8e0f66d3c73c533fe1968ee}\label{syscalls_8cpp_a945e539df8e0f66d3c73c533fe1968ee} 
+\index{syscalls.cpp@{syscalls.cpp}!\_getpid@{\_getpid}}
+\index{\_getpid@{\_getpid}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{\_getpid()}{\_getpid()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \+\_\+getpid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8cpp_a4284676ccba12d7f2061d338001f71fb}\label{syscalls_8cpp_a4284676ccba12d7f2061d338001f71fb} 
+\index{syscalls.cpp@{syscalls.cpp}!\_isatty@{\_isatty}}
+\index{\_isatty@{\_isatty}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{\_isatty()}{\_isatty()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \+\_\+isatty (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{fd }\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8cpp_a062a5101199c3128edd5170f2575bb10}\label{syscalls_8cpp_a062a5101199c3128edd5170f2575bb10} 
+\index{syscalls.cpp@{syscalls.cpp}!\_kill@{\_kill}}
+\index{\_kill@{\_kill}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{\_kill()}{\_kill()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \+\_\+kill (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{pid,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{sig }\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8cpp_a6fd96f1827f22161142519298141cd2f}\label{syscalls_8cpp_a6fd96f1827f22161142519298141cd2f} 
+\index{syscalls.cpp@{syscalls.cpp}!\_lseek@{\_lseek}}
+\index{\_lseek@{\_lseek}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{\_lseek()}{\_lseek()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{off\+\_\+t}} \+\_\+lseek (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{fd,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{off\+\_\+t}}}]{offset,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{whence }\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8cpp_abcd66721a10b8f78d5957a3409015169}\label{syscalls_8cpp_abcd66721a10b8f78d5957a3409015169} 
+\index{syscalls.cpp@{syscalls.cpp}!\_open@{\_open}}
+\index{\_open@{\_open}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{\_open()}{\_open()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \+\_\+open (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{char}} \texorpdfstring{$\ast$}{*}}]{path,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{flags,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{mode }\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8cpp_ab43394f28de7a1e3ff94e02981ae8492}\label{syscalls_8cpp_ab43394f28de7a1e3ff94e02981ae8492} 
+\index{syscalls.cpp@{syscalls.cpp}!\_read@{\_read}}
+\index{\_read@{\_read}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{\_read()}{\_read()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{long}} \+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{fd,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \texorpdfstring{$\ast$}{*}}]{buf,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{size\+\_\+t}}}]{n }\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8cpp_a68125648bcce70b6bb3aa0be50e99700}\label{syscalls_8cpp_a68125648bcce70b6bb3aa0be50e99700} 
+\index{syscalls.cpp@{syscalls.cpp}!\_sbrk@{\_sbrk}}
+\index{\_sbrk@{\_sbrk}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{\_sbrk()}{\_sbrk()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \texorpdfstring{$\ast$}{*} \+\_\+sbrk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{ptrdiff\+\_\+t}}}]{incr }\end{DoxyParamCaption})}
+
+\Hypertarget{syscalls_8cpp_a43106060f9615c44ed6a0195f2665028}\label{syscalls_8cpp_a43106060f9615c44ed6a0195f2665028} 
+\index{syscalls.cpp@{syscalls.cpp}!\_write@{\_write}}
+\index{\_write@{\_write}!syscalls.cpp@{syscalls.cpp}}
+\doxysubsubsection{\texorpdfstring{\_write()}{\_write()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{long}} \+\_\+write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{fd,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \texorpdfstring{$\ast$}{*}}]{buf,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{size\+\_\+t}}}]{n }\end{DoxyParamCaption})}
+

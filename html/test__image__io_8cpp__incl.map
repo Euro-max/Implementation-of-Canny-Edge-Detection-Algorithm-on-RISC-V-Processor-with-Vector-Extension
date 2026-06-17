@@ -1,0 +1,14 @@
+<map id="tests/test_image_io.cpp" name="tests/test_image_io.cpp">
+<area shape="rect" id="Node000001" title="Unit tests for raw image input/output operations and memory allocation." alt="" coords="127,5,305,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,85,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,33,87,76,85,71,188,28"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="109,79,179,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="206,33,167,71,164,67,202,29"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="268,152,335,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="220,30,228,64,244,103,259,123,277,141,274,145,255,127,239,105,223,66,215,32"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="253,79,315,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="229,29,265,67,261,70,225,33"/>
+<area shape="rect" id="Node000006" href="$image__io_8h.html" title="Declarations for raw image file I/O and aligned memory allocation." alt="" coords="339,79,434,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="244,28,347,71,345,76,242,33"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="375,106,327,145,324,141,371,102"/>
+</map>

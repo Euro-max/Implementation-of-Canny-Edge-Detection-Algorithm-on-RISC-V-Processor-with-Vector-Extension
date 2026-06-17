@@ -1,0 +1,7 @@
+<map id="src/rvv_magnitude.h" name="src/rvv_magnitude.h">
+<area shape="rect" id="Node000001" title="Public interface for the RVV&#45;accelerated L1 gradient magnitude." alt="" coords="82,5,237,31"/>
+<area shape="rect" id="Node000002" href="$main__rvv_8cpp.html" title="RVV pipeline entry point: benchmarks scalar vs RVV at VLEN=128/256/512." alt="" coords="5,79,137,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="136,41,87,81,84,76,133,37"/>
+<area shape="rect" id="Node000003" href="$rvv__magnitude_8cpp.html" title="RVV&#45;accelerated L1 gradient magnitude with two&#45;pass normalisation." alt="" coords="162,79,333,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="186,37,235,76,231,81,182,41"/>
+</map>

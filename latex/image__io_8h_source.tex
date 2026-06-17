@@ -1,0 +1,20 @@
+\doxysection{image\+\_\+io.\+h}
+\hypertarget{image__io_8h_source}{}\label{image__io_8h_source}\index{src/image\_io.h@{src/image\_io.h}}
+\mbox{\hyperlink{image__io_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ IMAGE\_IO\_H}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ IMAGE\_IO\_H}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ Aligned\ allocation\ (64-\/byte)\ for\ better\ SIMD/RVV\ performance}}
+\DoxyCodeLine{00026\ uint8\_t*\ \mbox{\hyperlink{image__io_8h_a95b280d415d802879ac0dcac92afa250}{allocate\_buffer}}(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{image__io_8h_a95c6a1349ae17447fd543a777fa3b7ef}{load\_raw}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ path,\ uint8\_t*\ buffer,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{image__io_8h_a2d49ca1c7c23e6b7c6ad81d2829ecf37}{save\_raw}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ path,\ \textcolor{keyword}{const}\ uint8\_t*\ buffer,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

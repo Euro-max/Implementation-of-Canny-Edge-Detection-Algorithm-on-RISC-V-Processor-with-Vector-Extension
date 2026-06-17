@@ -1,0 +1,71 @@
+\doxysection{google\+\_\+tests/gtest\+\_\+nms\+\_\+threshold.cpp File Reference}
+\hypertarget{gtest__nms__threshold_8cpp}{}\label{gtest__nms__threshold_8cpp}\index{google\_tests/gtest\_nms\_threshold.cpp@{google\_tests/gtest\_nms\_threshold.cpp}}
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include "{}nms\+\_\+threshold.\+h"{}}\newline
+Include dependency graph for gtest\+\_\+nms\+\_\+threshold.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{gtest__nms__threshold_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{gtest__nms__threshold_8cpp_a7e5614d4ed68309b67eee989a3883fa8}{TEST}} (Threshold\+Tests, Categorizes\+Pixels\+Correctly)
+\begin{DoxyCompactList}\small\item\em Test Suite for Double Thresholding. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__nms__threshold_8cpp_a3cf08fe7ea3fe84e18a61804bfb5a8aa}{TEST}} (NMSTests, Keeps\+Local\+Maximum)
+\begin{DoxyCompactList}\small\item\em Test Suite for Non-\/\+Maximum Suppression (NMS) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__nms__threshold_8cpp_adb88e3aa971a243283ad659477c71220}{TEST}} (NMSTests, Suppresses\+Non\+Maximum)
+\item 
+\mbox{\hyperlink{gtest__nms__threshold_8cpp_a472f0335fb24632f655393274582f9ef}{TEST}} (Hysteresis\+Tests, Promotes\+Connected\+Weak\+Edges)
+\begin{DoxyCompactList}\small\item\em Test Suite for Hysteresis Edge Tracking. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__nms__threshold_8cpp_a2b462912836195ca7f9bbb4b880d3b01}{TEST}} (Hysteresis\+Tests, Suppresses\+Isolated\+Weak\+Edges)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{gtest__nms__threshold_8cpp_a472f0335fb24632f655393274582f9ef}\label{gtest__nms__threshold_8cpp_a472f0335fb24632f655393274582f9ef} 
+\index{gtest\_nms\_threshold.cpp@{gtest\_nms\_threshold.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_nms\_threshold.cpp@{gtest\_nms\_threshold.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Hysteresis\+Tests}]{,  }\item[{Promotes\+Connected\+Weak\+Edges}]{ }\end{DoxyParamCaption})}
+
+
+
+Test Suite for Hysteresis Edge Tracking. 
+
+Ensures the hysteresis algorithm accurately promotes weak edges connected to strong edges, and deletes isolated weak edges. \Hypertarget{gtest__nms__threshold_8cpp_a2b462912836195ca7f9bbb4b880d3b01}\label{gtest__nms__threshold_8cpp_a2b462912836195ca7f9bbb4b880d3b01} 
+\index{gtest\_nms\_threshold.cpp@{gtest\_nms\_threshold.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_nms\_threshold.cpp@{gtest\_nms\_threshold.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Hysteresis\+Tests}]{,  }\item[{Suppresses\+Isolated\+Weak\+Edges}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{gtest__nms__threshold_8cpp_a3cf08fe7ea3fe84e18a61804bfb5a8aa}\label{gtest__nms__threshold_8cpp_a3cf08fe7ea3fe84e18a61804bfb5a8aa} 
+\index{gtest\_nms\_threshold.cpp@{gtest\_nms\_threshold.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_nms\_threshold.cpp@{gtest\_nms\_threshold.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{NMSTests}]{,  }\item[{Keeps\+Local\+Maximum}]{ }\end{DoxyParamCaption})}
+
+
+
+Test Suite for Non-\/\+Maximum Suppression (NMS) 
+
+Validates that the NMS algorithm correctly preserves local maximums and suppresses non-\/maximums along the specified gradient direction. \Hypertarget{gtest__nms__threshold_8cpp_adb88e3aa971a243283ad659477c71220}\label{gtest__nms__threshold_8cpp_adb88e3aa971a243283ad659477c71220} 
+\index{gtest\_nms\_threshold.cpp@{gtest\_nms\_threshold.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_nms\_threshold.cpp@{gtest\_nms\_threshold.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{NMSTests}]{,  }\item[{Suppresses\+Non\+Maximum}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{gtest__nms__threshold_8cpp_a7e5614d4ed68309b67eee989a3883fa8}\label{gtest__nms__threshold_8cpp_a7e5614d4ed68309b67eee989a3883fa8} 
+\index{gtest\_nms\_threshold.cpp@{gtest\_nms\_threshold.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_nms\_threshold.cpp@{gtest\_nms\_threshold.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Threshold\+Tests}]{,  }\item[{Categorizes\+Pixels\+Correctly}]{ }\end{DoxyParamCaption})}
+
+
+
+Test Suite for Double Thresholding. 
+
+Verifies that pixels are correctly categorized into STRONG (255), WEAK (128), and ZERO (0) based on the provided low and high thresholds. 

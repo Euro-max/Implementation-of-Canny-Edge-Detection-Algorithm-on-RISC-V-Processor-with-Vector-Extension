@@ -1,0 +1,112 @@
+\doxysection{tests/test\+\_\+gaussian.cpp File Reference}
+\hypertarget{test__gaussian_8cpp}{}\label{test__gaussian_8cpp}\index{tests/test\_gaussian.cpp@{tests/test\_gaussian.cpp}}
+
+
+Unit tests for the 5x5 Gaussian blur filter.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cassert$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include "{}gaussian.\+h"{}}\newline
+Include dependency graph for test\+\_\+gaussian.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{test__gaussian_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{test__gaussian_8cpp_a53b51402ca638faf0ab15cb11a43e0e4}{test\+\_\+uniform\+\_\+image}} ()
+\begin{DoxyCompactList}\small\item\em Verifies that a uniform image remains unchanged after blurring. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{test__gaussian_8cpp_ad81c7d1d14a6b146b8b7ecb27e76eedb}{test\+\_\+black\+\_\+image}} ()
+\begin{DoxyCompactList}\small\item\em Verifies that a completely black image stays black. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{test__gaussian_8cpp_af88d6e47e8130e262a76183e0ab02dfc}{test\+\_\+blur\+\_\+smooths\+\_\+edge}} ()
+\begin{DoxyCompactList}\small\item\em Verifies that the blur filter properly smooths a sharp edge. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{test__gaussian_8cpp_a8ff59cde90824825355fb4b68a57c7ae}{test\+\_\+output\+\_\+range}} ()
+\begin{DoxyCompactList}\small\item\em Ensures that all output values remain within the valid 8-\/bit range. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{test__gaussian_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Main execution entry point for Gaussian blur tests. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Unit tests for the 5x5 Gaussian blur filter. 
+
+
+\begin{DoxyItemize}
+\item This file contains bare-\/metal assertion tests to verify the mathematical correctness of the Gaussian blur implementation, including uniform region handling, edge smoothing, and output boundary constraints. 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\Hypertarget{test__gaussian_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{test__gaussian_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\index{test\_gaussian.cpp@{test\_gaussian.cpp}!main@{main}}
+\index{main@{main}!test\_gaussian.cpp@{test\_gaussian.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Main execution entry point for Gaussian blur tests. 
+
+
+\begin{DoxyItemize}
+\item Runs all test cases sequentially. If any assert fails, the program will abort immediately. Otherwise, it prints a success summary.
+\item \begin{DoxyReturn}{Returns}
+0 on successful execution of all assertions. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\Hypertarget{test__gaussian_8cpp_ad81c7d1d14a6b146b8b7ecb27e76eedb}\label{test__gaussian_8cpp_ad81c7d1d14a6b146b8b7ecb27e76eedb} 
+\index{test\_gaussian.cpp@{test\_gaussian.cpp}!test\_black\_image@{test\_black\_image}}
+\index{test\_black\_image@{test\_black\_image}!test\_gaussian.cpp@{test\_gaussian.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_black\_image()}{test\_black\_image()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} test\+\_\+black\+\_\+image (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Verifies that a completely black image stays black. 
+
+
+\begin{DoxyItemize}
+\item Multiplications and accumulations on a zero-\/filled buffer should result in zero. This test catches uninitialized buffer bugs or incorrect bias additions in the convolution loop. 
+\end{DoxyItemize}\Hypertarget{test__gaussian_8cpp_af88d6e47e8130e262a76183e0ab02dfc}\label{test__gaussian_8cpp_af88d6e47e8130e262a76183e0ab02dfc} 
+\index{test\_gaussian.cpp@{test\_gaussian.cpp}!test\_blur\_smooths\_edge@{test\_blur\_smooths\_edge}}
+\index{test\_blur\_smooths\_edge@{test\_blur\_smooths\_edge}!test\_gaussian.cpp@{test\_gaussian.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_blur\_smooths\_edge()}{test\_blur\_smooths\_edge()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} test\+\_\+blur\+\_\+smooths\+\_\+edge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Verifies that the blur filter properly smooths a sharp edge. 
+
+
+\begin{DoxyItemize}
+\item Creates a harsh step-\/edge (0 directly to 255). The blur function should average these values, resulting in an intermediate intensity at the boundary rather than preserving the harsh step. 
+\end{DoxyItemize}\Hypertarget{test__gaussian_8cpp_a8ff59cde90824825355fb4b68a57c7ae}\label{test__gaussian_8cpp_a8ff59cde90824825355fb4b68a57c7ae} 
+\index{test\_gaussian.cpp@{test\_gaussian.cpp}!test\_output\_range@{test\_output\_range}}
+\index{test\_output\_range@{test\_output\_range}!test\_gaussian.cpp@{test\_gaussian.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_output\_range()}{test\_output\_range()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} test\+\_\+output\+\_\+range (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ensures that all output values remain within the valid 8-\/bit range. 
+
+
+\begin{DoxyItemize}
+\item Feeds a high-\/frequency checkerboard pattern (alternating 0 and 255) into the filter to verify that no combination of weights and inputs causes an integer overflow or underflow past the \mbox{[}0, 255\mbox{]} bounds. 
+\end{DoxyItemize}\Hypertarget{test__gaussian_8cpp_a53b51402ca638faf0ab15cb11a43e0e4}\label{test__gaussian_8cpp_a53b51402ca638faf0ab15cb11a43e0e4} 
+\index{test\_gaussian.cpp@{test\_gaussian.cpp}!test\_uniform\_image@{test\_uniform\_image}}
+\index{test\_uniform\_image@{test\_uniform\_image}!test\_gaussian.cpp@{test\_gaussian.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_uniform\_image()}{test\_uniform\_image()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} test\+\_\+uniform\+\_\+image (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Verifies that a uniform image remains unchanged after blurring. 
+
+
+\begin{DoxyItemize}
+\item If every pixel has the exact same intensity (100), the weighted average of any 5x5 neighborhood must equal that same intensity. This ensures the internal kernel weights sum correctly without scaling errors. 
+\end{DoxyItemize}

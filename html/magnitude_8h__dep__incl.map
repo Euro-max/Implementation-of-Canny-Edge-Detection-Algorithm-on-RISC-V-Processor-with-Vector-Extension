@@ -1,0 +1,15 @@
+<map id="src/magnitude.h" name="src/magnitude.h">
+<area shape="rect" id="Node000001" title="Declarations for gradient magnitude computation." alt="" coords="420,5,547,31"/>
+<area shape="rect" id="Node000002" href="$gtest__magnitude_8cpp.html" title="Google Test suite for gradient magnitude computation." alt="" coords="5,79,148,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="407,35,160,81,149,84,148,78,159,76,406,30"/>
+<area shape="rect" id="Node000003" href="$gtest__pipeline_8cpp.html" title="Google Test suite for the Canny Edge Detection math kernels." alt="" coords="172,79,315,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="436,37,302,81,300,76,435,32"/>
+<area shape="rect" id="Node000004" href="$magnitude_8cpp.html" title="Implementation of gradient magnitude computation (L1 and L2 norms)." alt="" coords="339,86,481,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="465,43,423,88,419,84,461,39"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Main execution entry point for Canny Edge Detection (7&#45;stage pipeline)." alt="" coords="505,86,611,111"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="506,39,549,84,545,88,502,42"/>
+<area shape="rect" id="Node000006" href="$main__rvv_8cpp.html" title="RVV pipeline entry point: benchmarks scalar vs RVV at VLEN=128/256/512." alt="" coords="635,86,767,111"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="529,33,670,83,668,88,527,38"/>
+<area shape="rect" id="Node000007" href="$test__magnitude_8cpp.html" title="Unit tests for gradient magnitude computation (L1 and L2 norms)." alt="" coords="791,86,978,111"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="556,31,827,83,826,89,555,36"/>
+</map>

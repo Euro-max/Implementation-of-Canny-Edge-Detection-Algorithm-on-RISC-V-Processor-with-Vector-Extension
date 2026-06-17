@@ -1,8 +1,22 @@
+/**
+ * @file test_gaussian.cpp
+ * @brief Unit tests for the 5x5 Gaussian blur filter.
+ * * This file contains bare-metal assertion tests to verify the mathematical 
+ * correctness of the Gaussian blur implementation, including uniform region 
+ * handling, edge smoothing, and output boundary constraints.
+ */
+
 #include <iostream>
 #include <cassert>
 #include <cstdint>
 #include "gaussian.h"
 
+/**
+ * @brief Verifies that a uniform image remains unchanged after blurring.
+ * * If every pixel has the exact same intensity (100), the weighted average 
+ * of any 5x5 neighborhood must equal that same intensity. This ensures 
+ * the internal kernel weights sum correctly without scaling errors.
+ */
 // Test 1: Uniform image stays uniform after blur
 void test_uniform_image() {
     int W = 10, H = 10;
@@ -22,6 +36,12 @@ void test_uniform_image() {
     std::cout << "✓ Test 1 PASSED: Uniform image stays uniform\n";
 }
 
+/**
+ * @brief Verifies that a completely black image stays black.
+ * * Multiplications and accumulations on a zero-filled buffer should 
+ * result in zero. This test catches uninitialized buffer bugs or 
+ * incorrect bias additions in the convolution loop.
+ */
 // Test 2: Black image stays black
 void test_black_image() {
     int W = 10, H = 10;
@@ -36,6 +56,12 @@ void test_black_image() {
     std::cout << "✓ Test 2 PASSED: Black image stays black\n";
 }
 
+/**
+ * @brief Verifies that the blur filter properly smooths a sharp edge.
+ * * Creates a harsh step-edge (0 directly to 255). The blur function 
+ * should average these values, resulting in an intermediate intensity 
+ * at the boundary rather than preserving the harsh step.
+ */
 // Test 3: Blur smooths a sharp edge
 void test_blur_smooths_edge() {
     int W = 20, H = 10;
@@ -57,6 +83,12 @@ void test_blur_smooths_edge() {
               << mid_pixel << ")\n";
 }
 
+/**
+ * @brief Ensures that all output values remain within the valid 8-bit range.
+ * * Feeds a high-frequency checkerboard pattern (alternating 0 and 255) 
+ * into the filter to verify that no combination of weights and inputs 
+ * causes an integer overflow or underflow past the [0, 255] bounds.
+ */
 // Test 4: Output is always in valid range [0, 255]
 void test_output_range() {
     int W = 16, H = 16;
@@ -74,6 +106,12 @@ void test_output_range() {
     std::cout << "✓ Test 4 PASSED: All output values in [0, 255]\n";
 }
 
+/**
+ * @brief Main execution entry point for Gaussian blur tests.
+ * * Runs all test cases sequentially. If any assert fails, the program 
+ * will abort immediately. Otherwise, it prints a success summary.
+ * * @return 0 on successful execution of all assertions.
+ */
 int main() {
     std::cout << "=== Gaussian Blur Tests ===\n\n";
     test_uniform_image();

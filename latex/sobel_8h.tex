@@ -1,0 +1,82 @@
+\doxysection{src/sobel.h File Reference}
+\hypertarget{sobel_8h}{}\label{sobel_8h}\index{src/sobel.h@{src/sobel.h}}
+
+
+Declarations for the Sobel operator gradient computation.  
+
+
+{\ttfamily \#include $<$cstdint$>$}\newline
+Include dependency graph for sobel.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=149pt]{sobel_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sobel_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{sobel_8h_a6f7c3658f2307b3768bcce2eb3e3d3ab}{compute\+\_\+sobel}} (\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{uint8\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{input}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int16\+\_\+t}} \texorpdfstring{$\ast$}{*}gx, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int16\+\_\+t}} \texorpdfstring{$\ast$}{*}gy, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{width}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{height}})
+\begin{DoxyCompactList}\small\item\em Computes the horizontal and vertical gradients of an image using Sobel operators. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Declarations for the Sobel operator gradient computation. 
+
+
+\begin{DoxyItemize}
+\item This header defines the interface for calculating the spatial gradients of an image. The Sobel operator uses two 3x3 convolution kernels to estimate the derivative in the horizontal (Gx) and vertical (Gy) directions, which is a fundamental step in edge detection. 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\Hypertarget{sobel_8h_a6f7c3658f2307b3768bcce2eb3e3d3ab}\label{sobel_8h_a6f7c3658f2307b3768bcce2eb3e3d3ab} 
+\index{sobel.h@{sobel.h}!compute\_sobel@{compute\_sobel}}
+\index{compute\_sobel@{compute\_sobel}!sobel.h@{sobel.h}}
+\doxysubsubsection{\texorpdfstring{compute\_sobel()}{compute\_sobel()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} compute\+\_\+sobel (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{uint8\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{input,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int16\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{gx,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int16\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{gy,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{width,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{height }\end{DoxyParamCaption})}
+
+
+
+Computes the horizontal and vertical gradients of an image using Sobel operators. 
+
+
+\begin{DoxyItemize}
+\item Applies the 3x3 Sobel kernels across the input image. Boundary pixels are handled implicitly by skipping out-\/of-\/bounds coordinates (equivalent to zero-\/padding). The resulting gradients are written out to separate contiguous arrays to optimize memory access patterns.
+\item Uses int16\+\_\+t for gradients as it\textquotesingle{}s sufficient for 8-\/bit input to prevent overflow during the convolution accumulations.
+\item 
+\begin{DoxyParams}{Parameters}
+{\em input} & Pointer to the 8-\/bit grayscale input image buffer. \\
+\hline
+{\em gx} & Pointer to the 16-\/bit output buffer for the horizontal (X) gradient. \\
+\hline
+{\em gy} & Pointer to the 16-\/bit output buffer for the vertical (Y) gradient. \\
+\hline
+{\em width} & Width of the image in pixels. \\
+\hline
+{\em height} & Height of the image in pixels.\\
+\hline
+\end{DoxyParams}
+
+\item Applies the 3x3 Sobel kernels (Kx and Ky) across the input image using a standard 2D convolution. Boundary pixels are handled implicitly by skipping out-\/of-\/bounds coordinates (equivalent to zero-\/padding). The resulting gradients are written out to separate contiguous arrays to optimize memory access patterns for subsequent processing stages.
+\item 
+\begin{DoxyParams}{Parameters}
+{\em input} & Pointer to the 8-\/bit grayscale input image buffer. \\
+\hline
+{\em gx} & Pointer to the 16-\/bit output buffer for the horizontal (X) gradient. \\
+\hline
+{\em gy} & Pointer to the 16-\/bit output buffer for the vertical (Y) gradient. \\
+\hline
+{\em width} & Width of the image in pixels. \\
+\hline
+{\em height} & Height of the image in pixels. \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}

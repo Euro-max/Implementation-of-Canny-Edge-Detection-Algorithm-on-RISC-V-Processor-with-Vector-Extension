@@ -1,6 +1,10 @@
 /**
  * @file test_nms.cpp
  * @brief Assert-based tests for NMS, Double Thresholding, and Hysteresis.
+ * * This file contains bare-metal assertion tests to verify the final stages 
+ * of the Canny Edge Detection pipeline. It ensures that edge thinning (NMS), 
+ * pixel categorization (Double Thresholding), and edge connectivity tracking 
+ * (Hysteresis) function mathematically correctly.
  */
 
 #include <cstdio>
@@ -9,11 +13,26 @@
 #include <cstring>
 #include "nms_threshold.h"
 
+/**
+ * @brief Helper utility to fill a buffer with a constant value.
+ * * @param buf Pointer to the target buffer.
+ * @param W Width of the image buffer.
+ * @param H Height of the image buffer.
+ * @param val The 8-bit unsigned integer value to fill the buffer with.
+ */
 // Helper to fill a buffer
 void fill_buffer(uint8_t* buf, int W, int H, uint8_t val) {
     for(int i = 0; i < W*H; i++) buf[i] = val;
 }
 
+/**
+ * @brief Verifies the double thresholding categorization logic.
+ * * Tests whether pixels are correctly binned into three categories based 
+ * on a low and high threshold: 
+ * - Below low threshold -> Suppressed (0)
+ * - Between thresholds -> Weak Edge (128)
+ * - Above high threshold -> Strong Edge (255)
+ */
 // Test 1: Double Thresholding Logic
 void test_threshold() {
     int W = 4, H = 4;
@@ -35,6 +54,12 @@ void test_threshold() {
     printf("* Test 1 PASSED: Double Thresholding\n");
 }
 
+/**
+ * @brief Verifies that Non-Maximum Suppression (NMS) keeps local maxima.
+ * * Simulates a single sharp peak in a local 3x3 neighborhood. Evaluates 
+ * if the center pixel (the maximum) is preserved while all adjacent 
+ * pixels along the gradient direction are suppressed to 0.
+ */
 // Test 2: NMS Logic (Basic)
 void test_nms_suppression() {
     int W = 3, H = 3;
@@ -58,6 +83,12 @@ void test_nms_suppression() {
     printf("* Test 2 PASSED: NMS Keeps Local Maximum\n");
 }
 
+/**
+ * @brief Verifies the hysteresis edge tracking algorithm.
+ * * Tests the connectivity rules for weak edges. A weak edge (128) that is 
+ * connected to a strong edge (255) should be promoted to a strong edge (255). 
+ * An isolated weak edge with no strong neighbors should be discarded (0).
+ */
 // Test 3: Hysteresis Logic
 void test_hysteresis() {
     int W = 5, H = 5;
@@ -82,7 +113,15 @@ void test_hysteresis() {
     assert(data[24] == 0);
     
     printf("* Test 3 PASSED: Hysteresis Logic\n");
-}int main() {
+}
+
+/**
+ * @brief Main execution entry point for NMS and Threshold tests.
+ * * Runs all test cases sequentially. If any assert fails, the program 
+ * will abort immediately. Otherwise, it prints a success summary.
+ * * @return 0 on successful execution of all assertions.
+ */
+int main() {
     printf("=== NMS & Threshold Tests ===\n");
     test_threshold();
     test_nms_suppression();

@@ -1,3 +1,11 @@
+/**
+ * @file gtest_pipeline.cpp
+ * @brief Google Test suite for the Canny Edge Detection math kernels.
+ * * This file contains comprehensive unit tests for the Gaussian Blur, 
+ * Sobel operators, Gradient Magnitude, and Gradient Direction functions. 
+ * It verifies mathematical correctness, edge cases, and impulse responses.
+ */
+
 #include <gtest/gtest.h>
 #include <cstdint>
 #include <cstring>
@@ -12,8 +20,16 @@
 #include "image_io.h"
 
 // ═══════════════════════════════════════════════════════
-//  HELPER: Create a simple test image filled with a value
+//  HELPER FUNCTIONS
 // ═══════════════════════════════════════════════════════
+
+/**
+ * @brief Creates a simple test image filled with a constant value.
+ * * @param w Width of the image to allocate.
+ * @param h Height of the image to allocate.
+ * @param fill_value The 8-bit unsigned integer value to fill the buffer with.
+ * @return A 64-byte aligned pointer to the allocated and initialized image buffer.
+ */
 static uint8_t* make_image(int w, int h, uint8_t fill_value) {
     // Use aligned_alloc so it matches your production code
     uint8_t* img = (uint8_t*)aligned_alloc(64, w * h);
@@ -25,10 +41,13 @@ static uint8_t* make_image(int w, int h, uint8_t fill_value) {
 //  GAUSSIAN BLUR TESTS
 // ═══════════════════════════════════════════════════════
 
-// Test 1: Blurring a uniform image must give the same uniform image
-// WHY: If every pixel is 128, the weighted average of any neighborhood
-//      is still 128. If your convolution has a bug (e.g. wrong divisor),
-//      this test will catch it immediately.
+/**
+ * @test GaussianTest.UniformImageStaysUniform
+ * @brief Blurring a uniform image must give the same uniform image.
+ * * @details WHY: If every pixel is 128, the weighted average of any neighborhood
+ * is still 128. If your convolution has a bug (e.g. wrong divisor),
+ * this test will catch it immediately.
+ */
 TEST(GaussianTest, UniformImageStaysUniform) {
     int w = 64, h = 64;
     uint8_t* src = make_image(w, h, 128);
@@ -49,9 +68,12 @@ TEST(GaussianTest, UniformImageStaysUniform) {
     free(src); free(dst);
 }
 
-// Test 2: Blurring an all-black image must stay all-black
-// WHY: 0 × anything = 0. If your code has an uninitialized buffer bug,
-//      this catches it because the result would be nonzero.
+/**
+ * @test GaussianTest.AllBlackStaysBlack
+ * @brief Blurring an all-black image must stay all-black.
+ * * @details WHY: 0 × anything = 0. If your code has an uninitialized buffer bug,
+ * this catches it because the result would be nonzero.
+ */
 TEST(GaussianTest, AllBlackStaysBlack) {
     int w = 64, h = 64;
     uint8_t* src = make_image(w, h, 0);
@@ -66,10 +88,13 @@ TEST(GaussianTest, AllBlackStaysBlack) {
     free(src); free(dst);
 }
 
-// Test 3: Impulse response — single bright pixel spreads to neighbors
-// WHY: This verifies the kernel shape. A single 255 pixel in a black image,
-//      after blurring, should spread outward. The center pixel decreases
-//      (energy spread out), and neighbors become nonzero.
+/**
+ * @test GaussianTest.ImpulseSpreadToNeighbors
+ * @brief Impulse response — single bright pixel spreads to neighbors.
+ * * @details WHY: This verifies the kernel shape. A single 255 pixel in a black image,
+ * after blurring, should spread outward. The center pixel decreases
+ * (energy spread out), and neighbors become nonzero.
+ */
 TEST(GaussianTest, ImpulseSpreadToNeighbors) {
     int w = 64, h = 64;
     uint8_t* src = make_image(w, h, 0);
@@ -106,10 +131,13 @@ TEST(GaussianTest, ImpulseSpreadToNeighbors) {
 //  SOBEL TESTS
 // ═══════════════════════════════════════════════════════
 
-// Test 4: Uniform image → zero gradient everywhere
-// WHY: No brightness change = no edge = all zeros.
-//      If your Sobel has an off-by-one bug on the kernel,
-//      a uniform image will produce nonzero output.
+/**
+ * @test SobelTest.UniformImageZeroGradient
+ * @brief Uniform image → zero gradient everywhere.
+ * * @details WHY: No brightness change = no edge = all zeros.
+ * If your Sobel has an off-by-one bug on the kernel,
+ * a uniform image will produce nonzero output.
+ */
 TEST(SobelTest, UniformImageZeroGradient) {
     int w = 64, h = 64;
     uint8_t* src  = make_image(w, h, 100);
@@ -131,10 +159,13 @@ TEST(SobelTest, UniformImageZeroGradient) {
     free(src); free(gx); free(gy);
 }
 
-// Test 5: Vertical edge → large Gx, near-zero Gy
-// WHY: A sharp vertical edge (left=black, right=white) changes brightness
-//      LEFT-TO-RIGHT. That's exactly what Sobel-X detects.
-//      Gy should be near zero because there's no TOP-TO-BOTTOM change.
+/**
+ * @test SobelTest.VerticalEdgeLargeGx
+ * @brief Vertical edge → large Gx, near-zero Gy.
+ * * @details WHY: A sharp vertical edge (left=black, right=white) changes brightness
+ * LEFT-TO-RIGHT. That's exactly what Sobel-X detects.
+ * Gy should be near zero because there's no TOP-TO-BOTTOM change.
+ */
 TEST(SobelTest, VerticalEdgeLargeGx) {
     int w = 64, h = 64;
     uint8_t* src = make_image(w, h, 0);
@@ -165,9 +196,12 @@ TEST(SobelTest, VerticalEdgeLargeGx) {
     free(src); free(gx); free(gy);
 }
 
-// Test 6: Horizontal edge → large Gy, near-zero Gx
-// WHY: Mirror of Test 5. Top half black, bottom half white.
-//      Brightness changes TOP-TO-BOTTOM → Sobel-Y responds.
+/**
+ * @test SobelTest.HorizontalEdgeLargeGy
+ * @brief Horizontal edge → large Gy, near-zero Gx.
+ * * @details WHY: Mirror of Test 5. Top half black, bottom half white.
+ * Brightness changes TOP-TO-BOTTOM → Sobel-Y responds.
+ */
 TEST(SobelTest, HorizontalEdgeLargeGy) {
     int w = 64, h = 64;
     uint8_t* src = make_image(w, h, 0);
@@ -200,9 +234,12 @@ TEST(SobelTest, HorizontalEdgeLargeGy) {
 //  MAGNITUDE TESTS
 // ═══════════════════════════════════════════════════════
 
-// Test 7: L1 magnitude output must be in [0, 255]
-// WHY: Output is uint8_t. If normalization is broken,
-//      you might get overflow or always-zero output.
+/**
+ * @test MagnitudeTest.L1OutputInValidRange
+ * @brief L1 magnitude output must be in [0, 255].
+ * * @details WHY: Output is uint8_t. If normalization is broken,
+ * you might get overflow or always-zero output.
+ */
 TEST(MagnitudeTest, L1OutputInValidRange) {
     int w = 64, h = 64;
 
@@ -234,11 +271,14 @@ TEST(MagnitudeTest, L1OutputInValidRange) {
     free(gx); free(gy); free(mag);
 }
 
-// Test 8: L1 >= L2 always (L1 is an overestimate)
-// WHY: Mathematically, |a|+|b| >= sqrt(a²+b²) always.
-//      If your normalization differs between L1 and L2, this might
-//      not hold pixel-by-pixel (both are normalized independently).
-//      But the MAXIMUM value found by L1 should be >= L2 maximum.
+/**
+ * @test MagnitudeTest.L2OutputInValidRange
+ * @brief L1 >= L2 always (L1 is an overestimate).
+ * * @details WHY: Mathematically, |a|+|b| >= sqrt(a²+b²) always.
+ * If your normalization differs between L1 and L2, this might
+ * not hold pixel-by-pixel (both are normalized independently).
+ * But the MAXIMUM value found by L1 should be >= L2 maximum.
+ */
 TEST(MagnitudeTest, L2OutputInValidRange) {
     int w = 64, h = 64;
 
@@ -261,9 +301,12 @@ TEST(MagnitudeTest, L2OutputInValidRange) {
     free(gx); free(gy); free(mag);
 }
 
-// Test 9: Zero gradients → zero magnitude
-// WHY: If Gx=0 and Gy=0 everywhere, there are no edges.
-//      Magnitude must be all zero. Tests the zero-division guard.
+/**
+ * @test MagnitudeTest.ZeroGradientZeroMagnitude
+ * @brief Zero gradients → zero magnitude.
+ * * @details WHY: If Gx=0 and Gy=0 everywhere, there are no edges.
+ * Magnitude must be all zero. Tests the zero-division guard.
+ */
 TEST(MagnitudeTest, ZeroGradientZeroMagnitude) {
     int w = 32, h = 32;
 
@@ -287,10 +330,13 @@ TEST(MagnitudeTest, ZeroGradientZeroMagnitude) {
 //  DIRECTION TESTS
 // ═══════════════════════════════════════════════════════
 
-// Test 10: Purely horizontal gradient → direction = 0
-// WHY: If Gx is large and Gy=0, the gradient points left/right.
-//      That means the EDGE runs vertically... wait, let's be precise:
-//      Large Gx, zero Gy → gradient angle ≈ 0° → direction bin 0.
+/**
+ * @test DirectionTest.HorizontalGradientDirection0
+ * @brief Purely horizontal gradient → direction = 0.
+ * * @details WHY: If Gx is large and Gy=0, the gradient points left/right.
+ * That means the EDGE runs vertically... wait, let's be precise:
+ * Large Gx, zero Gy → gradient angle ≈ 0° → direction bin 0.
+ */
 TEST(DirectionTest, HorizontalGradientDirection0) {
     int w = 16, h = 16;
 
@@ -313,8 +359,11 @@ TEST(DirectionTest, HorizontalGradientDirection0) {
     free(gx); free(gy); free(dir);
 }
 
-// Test 11: Purely vertical gradient → direction = 2
-// WHY: Large Gy, zero Gx → gradient angle ≈ 90° → direction bin 2.
+/**
+ * @test DirectionTest.VerticalGradientDirection2
+ * @brief Purely vertical gradient → direction = 2.
+ * * @details WHY: Large Gy, zero Gx → gradient angle ≈ 90° → direction bin 2.
+ */
 TEST(DirectionTest, VerticalGradientDirection2) {
     int w = 16, h = 16;
 
@@ -337,9 +386,12 @@ TEST(DirectionTest, VerticalGradientDirection2) {
     free(gx); free(gy); free(dir);
 }
 
-// Test 12: Equal Gx and Gy → direction = 1 (45°)
-// WHY: When |Gx| = |Gy| and both positive,
-//      angle = 45° → direction bin 1.
+/**
+ * @test DirectionTest.DiagonalGradientDirection1
+ * @brief Equal Gx and Gy → direction = 1 (45°).
+ * * @details WHY: When |Gx| = |Gy| and both positive,
+ * angle = 45° → direction bin 1.
+ */
 TEST(DirectionTest, DiagonalGradientDirection1) {
     int w = 16, h = 16;
 
@@ -361,6 +413,3 @@ TEST(DirectionTest, DiagonalGradientDirection1) {
 
     free(gx); free(gy); free(dir);
 }
-
-
-

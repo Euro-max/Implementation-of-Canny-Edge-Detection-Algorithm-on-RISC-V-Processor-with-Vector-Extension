@@ -1,7 +1,23 @@
+/**
+ * @file gen_test_image.cpp
+ * @brief Synthetic test image generator for the Canny Edge Detection pipeline.
+ * * This standalone utility creates a simple 128x128 8-bit grayscale image 
+ * featuring a stark white rectangle on a solid black background. It is used 
+ * to verify that the spatial gradient filters (Sobel) and Image I/O routines 
+ * behave correctly under controlled, highly predictable mathematical conditions.
+ */
+
 #include "image_io.h"
 #include <stdio.h>
 #include <string.h>    // memset
 
+/**
+ * @brief Main execution entry point.
+ * * Allocates a strictly 64-byte aligned memory buffer, clears it to black (0), 
+ * and iterates over the central coordinate bounds to draw a white (255) rectangle. 
+ * The resulting raw pixel buffer is written directly to disk.
+ * * @return 0 on successful execution.
+ */
 int main() {
 
     int width  = 128;
@@ -29,4 +45,3 @@ int main() {
     free_image(img);
     return 0;
 }
-

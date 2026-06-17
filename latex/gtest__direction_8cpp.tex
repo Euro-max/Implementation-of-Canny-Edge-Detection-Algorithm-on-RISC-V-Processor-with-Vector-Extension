@@ -1,0 +1,209 @@
+\doxysection{google\+\_\+tests/gtest\+\_\+direction.cpp File Reference}
+\hypertarget{gtest__direction_8cpp}{}\label{gtest__direction_8cpp}\index{google\_tests/gtest\_direction.cpp@{google\_tests/gtest\_direction.cpp}}
+
+
+Google Test suite for gradient direction quantization.  
+
+
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include "{}direction.\+h"{}}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+Include dependency graph for gtest\+\_\+direction.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gtest__direction_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structDirBuffers}{Dir\+Buffers}}
+\begin{DoxyCompactList}\small\item\em Test helper structure containing gradient and direction buffers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{gtest__direction_8cpp_a84e721c349b7909733d40bece56ed9fc}{TEST}} (Direction, Horizontal\+Gradient\+Dir0)
+\begin{DoxyCompactList}\small\item\em Verify pure horizontal gradient quantizes to direction 0. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__direction_8cpp_a37045490f78c4430b715857170bbb548}{TEST}} (Direction, Vertical\+Gradient\+Dir2)
+\begin{DoxyCompactList}\small\item\em Verify pure vertical gradient quantizes to direction 2. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__direction_8cpp_afed6fd8275dbd630506505e224886129}{TEST}} (Direction, Diagonal45\+Dir1)
+\begin{DoxyCompactList}\small\item\em Verify 45° diagonal gradient quantizes to direction 1. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__direction_8cpp_aa50da9d1f566da8217f35c7760e0ca67}{TEST}} (Direction, Diagonal135\+Dir3)
+\begin{DoxyCompactList}\small\item\em Verify 135° diagonal gradient quantizes to direction 3. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__direction_8cpp_a9dfb4a76baf28a56451cd0d4fc8d8a73}{TEST}} (Direction, Zero\+Gradients\+No\+Crash)
+\begin{DoxyCompactList}\small\item\em Verify zero gradients don\textquotesingle{}t cause crashes and produce valid output. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__direction_8cpp_a8c37f15030add6b5a9ab9f32d8028e94}{TEST}} (Direction, Output\+Always\+In\+Range)
+\begin{DoxyCompactList}\small\item\em Verify output is always in valid range \mbox{[}0,3\mbox{]} for arbitrary inputs. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__direction_8cpp_add894357ebc5cc5ea28d61134258a26e}{TEST}} (Direction, Negative\+Horizontal\+Same\+Dir)
+\begin{DoxyCompactList}\small\item\em Verify direction is sign-\/invariant for pure horizontal gradients. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__direction_8cpp_a0c558aa95ffe18d8573500ece211eebe}{TEST}} (Direction, Nearly\+Horizontal\+Quantised\+To0)
+\begin{DoxyCompactList}\small\item\em Verify small Gy relative to Gx quantizes to horizontal bin. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__direction_8cpp_a0dd0eeff2b58fe650cd511c6bcca62e3}{TEST}} (Direction, Rotation\+Shifts\+Direction)
+\begin{DoxyCompactList}\small\item\em Verify 90° rotation produces expected direction shifts. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gtest__direction_8cpp_a98f64012c9885fc53784f165c799c47b}{TEST}} (Direction, Single\+Pixel\+No\+Crash)
+\begin{DoxyCompactList}\small\item\em Verify function handles minimal 1x1 image without crashing. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Google Test suite for gradient direction quantization. 
+
+Tests the \doxylink{direction_8cpp_ae567c5694a1a6bfcf8a6b8e0d71319d6}{compute\+\_\+direction()} function which quantizes gradient orientation into 4 bins (0°, 45°, 90°, 135°). Uses Google Test framework for assertions.
+
+Direction conventions\+:
+\begin{DoxyItemize}
+\item 0 → 0° (horizontal gradient / vertical edge)
+\item 1 → 45° (diagonal edge, Gx/\+Gy same sign)
+\item 2 → 90° (vertical gradient / horizontal edge)
+\item 3 → 135° (diagonal edge, Gx/\+Gy opposite signs)
+\end{DoxyItemize}
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{direction_8cpp_ae567c5694a1a6bfcf8a6b8e0d71319d6}{compute\+\_\+direction()} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{gtest__direction_8cpp_aa50da9d1f566da8217f35c7760e0ca67}\label{gtest__direction_8cpp_aa50da9d1f566da8217f35c7760e0ca67} 
+\index{gtest\_direction.cpp@{gtest\_direction.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_direction.cpp@{gtest\_direction.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Direction}]{,  }\item[{Diagonal135\+Dir3}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify 135° diagonal gradient quantizes to direction 3. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000004}{Test}}]Diagonal135\+Dir3 \end{DoxyRefDesc}
+
+
+When Gx = -\/Gy, the gradient points at 135°, which should be quantized to bin 3. \Hypertarget{gtest__direction_8cpp_afed6fd8275dbd630506505e224886129}\label{gtest__direction_8cpp_afed6fd8275dbd630506505e224886129} 
+\index{gtest\_direction.cpp@{gtest\_direction.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_direction.cpp@{gtest\_direction.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Direction}]{,  }\item[{Diagonal45\+Dir1}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify 45° diagonal gradient quantizes to direction 1. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000003}{Test}}]Diagonal45\+Dir1 \end{DoxyRefDesc}
+
+
+When Gx = Gy \texorpdfstring{$>$}{>} 0, the gradient points at 45°, which should be quantized to bin 1. \Hypertarget{gtest__direction_8cpp_a84e721c349b7909733d40bece56ed9fc}\label{gtest__direction_8cpp_a84e721c349b7909733d40bece56ed9fc} 
+\index{gtest\_direction.cpp@{gtest\_direction.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_direction.cpp@{gtest\_direction.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Direction}]{,  }\item[{Horizontal\+Gradient\+Dir0}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify pure horizontal gradient quantizes to direction 0. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000001}{Test}}]Horizontal\+Gradient\+Dir0 \end{DoxyRefDesc}
+
+
+When Gy = 0 and Gx ≠ 0, the gradient is purely horizontal, which should be quantized to bin 0 (vertical edge). \Hypertarget{gtest__direction_8cpp_a0c558aa95ffe18d8573500ece211eebe}\label{gtest__direction_8cpp_a0c558aa95ffe18d8573500ece211eebe} 
+\index{gtest\_direction.cpp@{gtest\_direction.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_direction.cpp@{gtest\_direction.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [4/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Direction}]{,  }\item[{Nearly\+Horizontal\+Quantised\+To0}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify small Gy relative to Gx quantizes to horizontal bin. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000008}{Test}}]Nearly\+Horizontal\+Quantised\+To0 \end{DoxyRefDesc}
+
+
+When \texorpdfstring{$\vert$}{|}\+Gy\texorpdfstring{$\vert$}{|}/\texorpdfstring{$\vert$}{|}\+Gx\texorpdfstring{$\vert$}{|} \texorpdfstring{$<$}{<} tan(22.\+5°) ≈ 0.\+414, the gradient should be binned as 0°. \Hypertarget{gtest__direction_8cpp_add894357ebc5cc5ea28d61134258a26e}\label{gtest__direction_8cpp_add894357ebc5cc5ea28d61134258a26e} 
+\index{gtest\_direction.cpp@{gtest\_direction.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_direction.cpp@{gtest\_direction.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [5/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Direction}]{,  }\item[{Negative\+Horizontal\+Same\+Dir}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify direction is sign-\/invariant for pure horizontal gradients. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000007}{Test}}]Negative\+Horizontal\+Same\+Dir \end{DoxyRefDesc}
+
+
+Edge orientation doesn\textquotesingle{}t depend on gradient polarity, only magnitude. Both positive and negative Gx should produce direction 0. \Hypertarget{gtest__direction_8cpp_a8c37f15030add6b5a9ab9f32d8028e94}\label{gtest__direction_8cpp_a8c37f15030add6b5a9ab9f32d8028e94} 
+\index{gtest\_direction.cpp@{gtest\_direction.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_direction.cpp@{gtest\_direction.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [6/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Direction}]{,  }\item[{Output\+Always\+In\+Range}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify output is always in valid range \mbox{[}0,3\mbox{]} for arbitrary inputs. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000006}{Test}}]Output\+Always\+In\+Range \end{DoxyRefDesc}
+
+
+Tests with pseudorandom gradient values to ensure no out-\/of-\/bounds outputs occur for any valid input combination. \Hypertarget{gtest__direction_8cpp_a0dd0eeff2b58fe650cd511c6bcca62e3}\label{gtest__direction_8cpp_a0dd0eeff2b58fe650cd511c6bcca62e3} 
+\index{gtest\_direction.cpp@{gtest\_direction.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_direction.cpp@{gtest\_direction.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [7/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Direction}]{,  }\item[{Rotation\+Shifts\+Direction}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify 90° rotation produces expected direction shifts. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000009}{Test}}]Rotation\+Shifts\+Direction \end{DoxyRefDesc}
+
+
+Tests rotational symmetry\+: 0° → 90° → 180° produce direction 0, 2, 0 respectively (180° is same orientation as 0° for edge detection). \Hypertarget{gtest__direction_8cpp_a98f64012c9885fc53784f165c799c47b}\label{gtest__direction_8cpp_a98f64012c9885fc53784f165c799c47b} 
+\index{gtest\_direction.cpp@{gtest\_direction.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_direction.cpp@{gtest\_direction.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [8/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Direction}]{,  }\item[{Single\+Pixel\+No\+Crash}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify function handles minimal 1x1 image without crashing. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000010}{Test}}]Single\+Pixel\+No\+Crash \end{DoxyRefDesc}
+
+
+Edge case\+: Smallest possible image size (1 pixel) should be processed without buffer overflows or crashes. \Hypertarget{gtest__direction_8cpp_a37045490f78c4430b715857170bbb548}\label{gtest__direction_8cpp_a37045490f78c4430b715857170bbb548} 
+\index{gtest\_direction.cpp@{gtest\_direction.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_direction.cpp@{gtest\_direction.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [9/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Direction}]{,  }\item[{Vertical\+Gradient\+Dir2}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify pure vertical gradient quantizes to direction 2. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000002}{Test}}]Vertical\+Gradient\+Dir2 \end{DoxyRefDesc}
+
+
+When Gx = 0 and Gy ≠ 0, the gradient is purely vertical, which should be quantized to bin 2 (horizontal edge). \Hypertarget{gtest__direction_8cpp_a9dfb4a76baf28a56451cd0d4fc8d8a73}\label{gtest__direction_8cpp_a9dfb4a76baf28a56451cd0d4fc8d8a73} 
+\index{gtest\_direction.cpp@{gtest\_direction.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!gtest\_direction.cpp@{gtest\_direction.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [10/10]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Direction}]{,  }\item[{Zero\+Gradients\+No\+Crash}]{ }\end{DoxyParamCaption})}
+
+
+
+Verify zero gradients don\textquotesingle{}t cause crashes and produce valid output. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000005}{Test}}]Zero\+Gradients\+No\+Crash \end{DoxyRefDesc}
+
+
+Edge case\+: When both gradients are zero, the function should still produce a valid direction (implementation-\/dependent, but within \mbox{[}0,3\mbox{]}). 

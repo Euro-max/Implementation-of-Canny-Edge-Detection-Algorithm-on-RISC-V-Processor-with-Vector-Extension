@@ -1,0 +1,113 @@
+\doxysection{tests/test\+\_\+image\+\_\+io.cpp File Reference}
+\hypertarget{test__image__io_8cpp}{}\label{test__image__io_8cpp}\index{tests/test\_image\_io.cpp@{tests/test\_image\_io.cpp}}
+
+
+Unit tests for raw image input/output operations and memory allocation.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cassert$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$cstdio$>$}\newline
+{\ttfamily \#include "{}image\+\_\+io.\+h"{}}\newline
+Include dependency graph for test\+\_\+image\+\_\+io.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{test__image__io_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{test__image__io_8cpp_a3f77ea710de2e01d2eff7e49d2fff876}{test\+\_\+allocate\+\_\+buffer}} ()
+\begin{DoxyCompactList}\small\item\em Verifies that buffer allocation succeeds and returns a valid pointer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{test__image__io_8cpp_a545ac4bd6b28186460d959e6a09fdc23}{test\+\_\+save\+\_\+and\+\_\+load}} ()
+\begin{DoxyCompactList}\small\item\em Verifies a full round-\/trip of saving and loading raw image data. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{test__image__io_8cpp_a931568f7de897890189b032112bb7b67}{test\+\_\+load\+\_\+missing\+\_\+file}} ()
+\begin{DoxyCompactList}\small\item\em Verifies graceful error handling when loading a non-\/existent file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{test__image__io_8cpp_a7eb4874698d89c4c9fa8d4a725981c9c}{test\+\_\+alignment}} ()
+\begin{DoxyCompactList}\small\item\em Verifies strict 64-\/byte memory alignment for the allocated buffers. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{test__image__io_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Main execution entry point for Image I/O tests. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Unit tests for raw image input/output operations and memory allocation. 
+
+
+\begin{DoxyItemize}
+\item This file contains bare-\/metal assertion tests to verify that image buffers are correctly allocated with strict memory alignment (for RVV vectorization) and that raw binary file reading and writing work flawlessly without data loss. 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\Hypertarget{test__image__io_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{test__image__io_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\index{test\_image\_io.cpp@{test\_image\_io.cpp}!main@{main}}
+\index{main@{main}!test\_image\_io.cpp@{test\_image\_io.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Main execution entry point for Image I/O tests. 
+
+
+\begin{DoxyItemize}
+\item Runs all test cases sequentially. If any assert fails, the program will abort immediately. Otherwise, it prints a success summary.
+\item \begin{DoxyReturn}{Returns}
+0 on successful execution of all assertions. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\Hypertarget{test__image__io_8cpp_a7eb4874698d89c4c9fa8d4a725981c9c}\label{test__image__io_8cpp_a7eb4874698d89c4c9fa8d4a725981c9c} 
+\index{test\_image\_io.cpp@{test\_image\_io.cpp}!test\_alignment@{test\_alignment}}
+\index{test\_alignment@{test\_alignment}!test\_image\_io.cpp@{test\_image\_io.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_alignment()}{test\_alignment()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} test\+\_\+alignment (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Verifies strict 64-\/byte memory alignment for the allocated buffers. 
+
+
+\begin{DoxyItemize}
+\item 64-\/byte alignment is a critical hardware requirement for efficient cache-\/line utilization and maximum performance when using RISC-\/V Vector (RVV) load/store instructions in the downstream pipeline. 
+\end{DoxyItemize}\Hypertarget{test__image__io_8cpp_a3f77ea710de2e01d2eff7e49d2fff876}\label{test__image__io_8cpp_a3f77ea710de2e01d2eff7e49d2fff876} 
+\index{test\_image\_io.cpp@{test\_image\_io.cpp}!test\_allocate\_buffer@{test\_allocate\_buffer}}
+\index{test\_allocate\_buffer@{test\_allocate\_buffer}!test\_image\_io.cpp@{test\_image\_io.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_allocate\_buffer()}{test\_allocate\_buffer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} test\+\_\+allocate\+\_\+buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Verifies that buffer allocation succeeds and returns a valid pointer. 
+
+
+\begin{DoxyItemize}
+\item This is a fundamental sanity check to ensure the underlying dynamic memory allocation routine (e.\+g., aligned\+\_\+alloc) does not fail and return nullptr when requested to allocate standard image dimensions. 
+\end{DoxyItemize}\Hypertarget{test__image__io_8cpp_a931568f7de897890189b032112bb7b67}\label{test__image__io_8cpp_a931568f7de897890189b032112bb7b67} 
+\index{test\_image\_io.cpp@{test\_image\_io.cpp}!test\_load\_missing\_file@{test\_load\_missing\_file}}
+\index{test\_load\_missing\_file@{test\_load\_missing\_file}!test\_image\_io.cpp@{test\_image\_io.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_load\_missing\_file()}{test\_load\_missing\_file()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} test\+\_\+load\+\_\+missing\+\_\+file (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Verifies graceful error handling when loading a non-\/existent file. 
+
+
+\begin{DoxyItemize}
+\item Ensures that the system correctly catches the file open error and returns false, rather than crashing with a segmentation fault or attempting to read from a null file descriptor. 
+\end{DoxyItemize}\Hypertarget{test__image__io_8cpp_a545ac4bd6b28186460d959e6a09fdc23}\label{test__image__io_8cpp_a545ac4bd6b28186460d959e6a09fdc23} 
+\index{test\_image\_io.cpp@{test\_image\_io.cpp}!test\_save\_and\_load@{test\_save\_and\_load}}
+\index{test\_save\_and\_load@{test\_save\_and\_load}!test\_image\_io.cpp@{test\_image\_io.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_save\_and\_load()}{test\_save\_and\_load()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} test\+\_\+save\+\_\+and\+\_\+load (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Verifies a full round-\/trip of saving and loading raw image data. 
+
+
+\begin{DoxyItemize}
+\item Generates a known mathematical pixel pattern, writes it to a temporary file on the disk, reads it back into a new buffer, and compares every single byte to guarantee there is no silent data corruption or file truncation. 
+\end{DoxyItemize}

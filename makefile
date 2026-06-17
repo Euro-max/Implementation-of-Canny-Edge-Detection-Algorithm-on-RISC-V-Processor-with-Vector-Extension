@@ -362,3 +362,7 @@ clean:
 	@rm -rf build_rv/* build_host/*
 	@rm -f out*.raw out*.png view_*.png cycles_*.txt
 	@echo "[ OK ] Cleaned all build and output files"
+# Doxygen Documentation
+docs:
+	doxygen doxygen
+	cp -r images/ html/

@@ -1,0 +1,51 @@
+\doxysection{src/gen\+\_\+test\+\_\+image.cpp File Reference}
+\hypertarget{gen__test__image_8cpp}{}\label{gen__test__image_8cpp}\index{src/gen\_test\_image.cpp@{src/gen\_test\_image.cpp}}
+
+
+Synthetic test image generator for the Canny Edge Detection pipeline.  
+
+
+{\ttfamily \#include "{}image\+\_\+io.\+h"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for gen\+\_\+test\+\_\+image.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=291pt]{gen__test__image_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{gen__test__image_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Main execution entry point. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Synthetic test image generator for the Canny Edge Detection pipeline. 
+
+
+\begin{DoxyItemize}
+\item This standalone utility creates a simple 128x128 8-\/bit grayscale image featuring a stark white rectangle on a solid black background. It is used to verify that the spatial gradient filters (Sobel) and Image I/O routines behave correctly under controlled, highly predictable mathematical conditions. 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\Hypertarget{gen__test__image_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{gen__test__image_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\index{gen\_test\_image.cpp@{gen\_test\_image.cpp}!main@{main}}
+\index{main@{main}!gen\_test\_image.cpp@{gen\_test\_image.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Main execution entry point. 
+
+
+\begin{DoxyItemize}
+\item Allocates a strictly 64-\/byte aligned memory buffer, clears it to black (0), and iterates over the central coordinate bounds to draw a white (255) rectangle. The resulting raw pixel buffer is written directly to disk.
+\item \begin{DoxyReturn}{Returns}
+0 on successful execution. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}

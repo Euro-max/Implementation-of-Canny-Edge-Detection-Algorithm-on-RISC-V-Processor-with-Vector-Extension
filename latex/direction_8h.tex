@@ -1,0 +1,59 @@
+\doxysection{src/direction.h File Reference}
+\hypertarget{direction_8h}{}\label{direction_8h}\index{src/direction.h@{src/direction.h}}
+{\ttfamily \#include $<$cstdint$>$}\newline
+Include dependency graph for direction.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=166pt]{direction_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{direction_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{direction_8h_ae567c5694a1a6bfcf8a6b8e0d71319d6}{compute\+\_\+direction}} (const int16\+\_\+t \texorpdfstring{$\ast$}{*}gx, const int16\+\_\+t \texorpdfstring{$\ast$}{*}gy, uint8\+\_\+t \texorpdfstring{$\ast$}{*}output, int width, int height)
+\begin{DoxyCompactList}\small\item\em Computes and quantizes the gradient direction for every pixel. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{direction_8h_ae567c5694a1a6bfcf8a6b8e0d71319d6}\label{direction_8h_ae567c5694a1a6bfcf8a6b8e0d71319d6} 
+\index{direction.h@{direction.h}!compute\_direction@{compute\_direction}}
+\index{compute\_direction@{compute\_direction}!direction.h@{direction.h}}
+\doxysubsubsection{\texorpdfstring{compute\_direction()}{compute\_direction()}}
+{\footnotesize\ttfamily void compute\+\_\+direction (\begin{DoxyParamCaption}\item[{const int16\+\_\+t \texorpdfstring{$\ast$}{*}}]{gx,  }\item[{const int16\+\_\+t \texorpdfstring{$\ast$}{*}}]{gy,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{output,  }\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
+
+
+
+Computes and quantizes the gradient direction for every pixel. 
+
+Quantizes gradient direction into 4 bins\+: 0\+: 0 degrees (Horizontal edge / Vertical gradient) 1\+: 45 degrees 2\+: 90 degrees (Vertical edge / Horizontal gradient) 3\+: 135 degrees
+
+
+\begin{DoxyItemize}
+\item This function evaluates the horizontal (Gx) and vertical (Gy) gradient components to determine the dominant edge direction. It uses an integer-\/based approximation for the tangent boundaries (22.\+5° and 67.\+5°) to map the continuous gradient angle into four discrete directional bins\+:
+\item 0\+: Horizontal gradient (Vertical edge)
+\item 1\+: 45-\/degree diagonal gradient
+\item 2\+: Vertical gradient (Horizontal edge)
+\item 3\+: 135-\/degree diagonal gradient
+\item 
+\begin{DoxyParams}{Parameters}
+{\em gx} & Pointer to the 16-\/bit input buffer containing horizontal gradients. \\
+\hline
+{\em gy} & Pointer to the 16-\/bit input buffer containing vertical gradients. \\
+\hline
+{\em output} & Pointer to the 8-\/bit output buffer for the quantized directions \mbox{[}0-\/3\mbox{]}. \\
+\hline
+{\em width} & Width of the image in pixels. \\
+\hline
+{\em height} & Height of the image in pixels. \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}

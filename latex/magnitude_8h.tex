@@ -1,0 +1,125 @@
+\doxysection{src/magnitude.h File Reference}
+\hypertarget{magnitude_8h}{}\label{magnitude_8h}\index{src/magnitude.h@{src/magnitude.h}}
+
+
+Declarations for gradient magnitude computation.  
+
+
+{\ttfamily \#include $<$cstdint$>$}\newline
+Include dependency graph for magnitude.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{magnitude_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{magnitude_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{magnitude_8h_a457bd35a995dee57fec739515466e279}{compute\+\_\+magnitude\+\_\+l1}} (const int16\+\_\+t \texorpdfstring{$\ast$}{*}gx, const int16\+\_\+t \texorpdfstring{$\ast$}{*}gy, uint8\+\_\+t \texorpdfstring{$\ast$}{*}output, int width, int height)
+\begin{DoxyCompactList}\small\item\em Computes the gradient magnitude using the L1 norm (Manhattan distance). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{magnitude_8h_a9a6e09aaa8130154da765efd15801c39}{compute\+\_\+magnitude\+\_\+l2}} (const int16\+\_\+t \texorpdfstring{$\ast$}{*}gx, const int16\+\_\+t \texorpdfstring{$\ast$}{*}gy, uint8\+\_\+t \texorpdfstring{$\ast$}{*}output, int width, int height)
+\begin{DoxyCompactList}\small\item\em Computes the gradient magnitude using the L2 norm (Euclidean distance). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Declarations for gradient magnitude computation. 
+
+
+\begin{DoxyItemize}
+\item This header defines the interfaces for calculating the total edge strength (magnitude) from the horizontal (Gx) and vertical (Gy) gradients. It provides both the L1 (Manhattan) and L2 (Euclidean) norm implementations, allowing for a trade-\/off between computational speed and mathematical accuracy. 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\Hypertarget{magnitude_8h_a457bd35a995dee57fec739515466e279}\label{magnitude_8h_a457bd35a995dee57fec739515466e279} 
+\index{magnitude.h@{magnitude.h}!compute\_magnitude\_l1@{compute\_magnitude\_l1}}
+\index{compute\_magnitude\_l1@{compute\_magnitude\_l1}!magnitude.h@{magnitude.h}}
+\doxysubsubsection{\texorpdfstring{compute\_magnitude\_l1()}{compute\_magnitude\_l1()}}
+{\footnotesize\ttfamily void compute\+\_\+magnitude\+\_\+l1 (\begin{DoxyParamCaption}\item[{const int16\+\_\+t \texorpdfstring{$\ast$}{*}}]{gx,  }\item[{const int16\+\_\+t \texorpdfstring{$\ast$}{*}}]{gy,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{output,  }\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
+
+
+
+Computes the gradient magnitude using the L1 norm (Manhattan distance). 
+
+
+\begin{DoxyItemize}
+\item Approximates the edge strength by summing the absolute values of the gradients. This method is highly computationally efficient for embedded and vector targets because it entirely avoids multiplications and floating-\/point square roots.
+\item 
+\begin{DoxyParams}{Parameters}
+{\em gx} & Pointer to the 16-\/bit input buffer containing horizontal gradients. \\
+\hline
+{\em gy} & Pointer to the 16-\/bit input buffer containing vertical gradients. \\
+\hline
+{\em output} & Pointer to the 8-\/bit output buffer for the computed magnitudes \mbox{[}0, 255\mbox{]}. \\
+\hline
+{\em width} & Width of the image in pixels. \\
+\hline
+{\em height} & Height of the image in pixels.\\
+\hline
+\end{DoxyParams}
+
+\item Approximates the edge strength using the sum of absolute differences\+: \texorpdfstring{$\vert$}{|}\+Gx\texorpdfstring{$\vert$}{|} + \texorpdfstring{$\vert$}{|}\+Gy\texorpdfstring{$\vert$}{|}. This method avoids floating-\/point square roots, making it significantly faster for embedded systems, while maintaining sufficient accuracy for edge detection. The results are globally normalized to span the full 0-\/255 uint8\+\_\+t range.
+\item 
+\begin{DoxyParams}{Parameters}
+{\em gx} & Pointer to the 16-\/bit input buffer containing horizontal gradients. \\
+\hline
+{\em gy} & Pointer to the 16-\/bit input buffer containing vertical gradients. \\
+\hline
+{\em output} & Pointer to the 8-\/bit output buffer for the normalized magnitudes. \\
+\hline
+{\em width} & Width of the image in pixels. \\
+\hline
+{\em height} & Height of the image in pixels. \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}\Hypertarget{magnitude_8h_a9a6e09aaa8130154da765efd15801c39}\label{magnitude_8h_a9a6e09aaa8130154da765efd15801c39} 
+\index{magnitude.h@{magnitude.h}!compute\_magnitude\_l2@{compute\_magnitude\_l2}}
+\index{compute\_magnitude\_l2@{compute\_magnitude\_l2}!magnitude.h@{magnitude.h}}
+\doxysubsubsection{\texorpdfstring{compute\_magnitude\_l2()}{compute\_magnitude\_l2()}}
+{\footnotesize\ttfamily void compute\+\_\+magnitude\+\_\+l2 (\begin{DoxyParamCaption}\item[{const int16\+\_\+t \texorpdfstring{$\ast$}{*}}]{gx,  }\item[{const int16\+\_\+t \texorpdfstring{$\ast$}{*}}]{gy,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{output,  }\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
+
+
+
+Computes the gradient magnitude using the L2 norm (Euclidean distance). 
+
+
+\begin{DoxyItemize}
+\item Calculates the exact geometric edge strength using the Pythagorean theorem. While more mathematically accurate and isotropic than the L1 norm, it requires more computational power due to the square and square root operations.
+\item 
+\begin{DoxyParams}{Parameters}
+{\em gx} & Pointer to the 16-\/bit input buffer containing horizontal gradients. \\
+\hline
+{\em gy} & Pointer to the 16-\/bit input buffer containing vertical gradients. \\
+\hline
+{\em output} & Pointer to the 8-\/bit output buffer for the computed magnitudes \mbox{[}0, 255\mbox{]}. \\
+\hline
+{\em width} & Width of the image in pixels. \\
+\hline
+{\em height} & Height of the image in pixels.\\
+\hline
+\end{DoxyParams}
+
+\item Calculates the exact geometric edge strength using the Pythagorean theorem\+: sqrt(Gx\texorpdfstring{$^\wedge$}{\string^}2 + Gy\texorpdfstring{$^\wedge$}{\string^}2). While this provides a highly accurate, isotropic magnitude response, it incurs a heavier performance penalty due to the floating-\/point square root operation. Results are globally normalized to \mbox{[}0, 255\mbox{]}.
+\item 
+\begin{DoxyParams}{Parameters}
+{\em gx} & Pointer to the 16-\/bit input buffer containing horizontal gradients. \\
+\hline
+{\em gy} & Pointer to the 16-\/bit input buffer containing vertical gradients. \\
+\hline
+{\em output} & Pointer to the 8-\/bit output buffer for the normalized magnitudes. \\
+\hline
+{\em width} & Width of the image in pixels. \\
+\hline
+{\em height} & Height of the image in pixels. \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}

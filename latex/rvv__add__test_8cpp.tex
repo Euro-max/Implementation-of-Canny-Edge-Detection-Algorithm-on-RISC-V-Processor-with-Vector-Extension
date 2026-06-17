@@ -1,0 +1,63 @@
+\doxysection{src/rvv\+\_\+add\+\_\+test.cpp File Reference}
+\hypertarget{rvv__add__test_8cpp}{}\label{rvv__add__test_8cpp}\index{src/rvv\_add\_test.cpp@{src/rvv\_add\_test.cpp}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$riscv\+\_\+vector.\+h$>$}\newline
+Include dependency graph for rvv\+\_\+add\+\_\+test.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{rvv__add__test_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{rvv__add__test_8cpp_a77cb0fc641d7961765467ef34e2f7867}{vector\+\_\+add\+\_\+scalar}} (int32\+\_\+t \texorpdfstring{$\ast$}{*}array, int32\+\_\+t value, int n)
+\begin{DoxyCompactList}\small\item\em Adds a scalar value to every element in an array using RVV instructions. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{rvv__add__test_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Main execution entry point. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{rvv__add__test_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{rvv__add__test_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\index{rvv\_add\_test.cpp@{rvv\_add\_test.cpp}!main@{main}}
+\index{main@{main}!rvv\_add\_test.cpp@{rvv\_add\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Main execution entry point. 
+
+
+\begin{DoxyItemize}
+\item Initializes a 10-\/element test array to verify the RVV strip-\/mining loop. Purposefully uses an array size of 10 to ensure the vector length (vl) correctly handles fractional/tail iterations on hardware where VLEN is typically a power of 2.
+\item \begin{DoxyReturn}{Returns}
+0 on successful execution. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\Hypertarget{rvv__add__test_8cpp_a77cb0fc641d7961765467ef34e2f7867}\label{rvv__add__test_8cpp_a77cb0fc641d7961765467ef34e2f7867} 
+\index{rvv\_add\_test.cpp@{rvv\_add\_test.cpp}!vector\_add\_scalar@{vector\_add\_scalar}}
+\index{vector\_add\_scalar@{vector\_add\_scalar}!rvv\_add\_test.cpp@{rvv\_add\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{vector\_add\_scalar()}{vector\_add\_scalar()}}
+{\footnotesize\ttfamily void vector\+\_\+add\+\_\+scalar (\begin{DoxyParamCaption}\item[{int32\+\_\+t \texorpdfstring{$\ast$}{*}}]{array,  }\item[{int32\+\_\+t}]{value,  }\item[{int}]{n }\end{DoxyParamCaption})}
+
+
+
+Adds a scalar value to every element in an array using RVV instructions. 
+
+
+\begin{DoxyItemize}
+\item This function utilizes hardware vectorization to process multiple array elements simultaneously. It dynamically queries the CPU for the maximum number of elements it can process per iteration (Vector Length, or \textquotesingle{}vl\textquotesingle{}) and steps through the array until all elements, including the remainder (tail), are processed.
+\item 
+\begin{DoxyParams}{Parameters}
+{\em array} & Pointer to the start of the 32-\/bit integer array. \\
+\hline
+{\em value} & The scalar value to add to every element. \\
+\hline
+{\em n} & The total number of elements in the array. \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}

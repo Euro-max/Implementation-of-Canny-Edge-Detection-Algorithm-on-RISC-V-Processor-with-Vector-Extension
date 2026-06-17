@@ -1,0 +1,196 @@
+\chapter{Canny Edge Detection on RISC-\/V — Project README}
+\hypertarget{md_README}{}\label{md_README}\index{Canny Edge Detection on RISC-\/V — Project README@{Canny Edge Detection on RISC-\/V — Project README}}
+\label{md_README_autotoc_md23}%
+\Hypertarget{md_README_autotoc_md23}%
+ Implementation of a Canny edge detection pipeline (Gaussian blur → Sobel gradients → magnitude → direction), cross-\/compiled for RISC-\/V and run on QEMU. This README covers setup, build/run instructions, and what\textquotesingle{}s been done so far.
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md25}{}\doxysection{\texorpdfstring{Prerequisites}{Prerequisites}}\label{md_README_autotoc_md25}
+
+\begin{DoxyItemize}
+\item {\bfseries{Toolchain\+:}} {\ttfamily riscv64-\/unknown-\/elf-\/g++} built from source with {\ttfamily -\/-\/with-\/arch=rv64gcv} (the apt package does not support RVV intrinsics reliably)
+\item {\bfseries{Emulator\+:}} {\ttfamily qemu-\/riscv64} (QEMU 9.\+x+, built from source recommended)
+\item {\bfseries{Host tools\+:}} {\ttfamily g++} (for host-\/side tests), Python 3 with {\ttfamily numpy} + {\ttfamily Pillow}
+\item WSL2 + Ubuntu 24.\+04 if on Windows; native Linux otherwise
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md27}{}\doxysection{\texorpdfstring{Project Structure}{Project Structure}}\label{md_README_autotoc_md27}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{src/}
+\DoxyCodeLine{\ \ main.cpp\ \ \ \ \ \ \ \ —\ pipeline\ driver,\ timing,\ results\ table}
+\DoxyCodeLine{\ \ syscalls.cpp\ \ \ \ \ —\ bare-\/metal\ syscall\ shims\ (needed\ for\ file\ I/O\ under\ QEMU)}
+\DoxyCodeLine{\ \ image\_io.cpp\ \ \ \ \ —\ raw\ grayscale\ image\ load/save}
+\DoxyCodeLine{\ \ gaussian.h/.ipp\ \ \ —\ templated\ 5x5\ Gaussian\ blur}
+\DoxyCodeLine{\ \ sobel.cpp\ \ \ \ \ \ \ \ —\ 3x3\ Sobel\ gradient\ (Gx,\ Gy)}
+\DoxyCodeLine{\ \ magnitude.cpp\ \ \ \ \ —\ L1\ and\ L2\ gradient\ magnitude}
+\DoxyCodeLine{\ \ direction.cpp\ \ \ \ \ —\ 4-\/way\ gradient\ direction\ (0/45/90/135°)}
+\DoxyCodeLine{\ \ summary.cpp\ \ \ \ \ \ —\ builds\ the\ sweep\ comparison\ table}
+\DoxyCodeLine{Makefile}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md29}{}\doxysection{\texorpdfstring{Quick Start}{Quick Start}}\label{md_README_autotoc_md29}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ convert\ IMG=yourphoto.jpg\ \ \ \#\ convert\ any\ photo\ to\ raw\ grayscale\ (auto-\/detects\ size)}
+\DoxyCodeLine{make\ run\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ build\ (-\/O2)\ and\ run\ the\ pipeline\ on\ QEMU}
+\DoxyCodeLine{make\ view\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ convert\ output\ back\ to\ PNG\ and\ open\ it}
+
+\end{DoxyCode}
+
+
+You never need to manually set width/height — {\ttfamily make convert} saves them and every other target reads them automatically.
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md31}{}\doxysection{\texorpdfstring{Makefile Targets}{Makefile Targets}}\label{md_README_autotoc_md31}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Target   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ What it does    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Target   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ What it does    }\\\cline{1-2}
+\endhead
+{\ttfamily make run}   &Build with {\ttfamily -\/O2}, run once on QEMU, print per-\/stage cycle counts    \\\cline{1-2}
+{\ttfamily make convert IMG=x.\+jpg}   &Convert a photo to {\ttfamily test\+\_\+input.\+raw}, auto-\/detect size    \\\cline{1-2}
+{\ttfamily make view}   &Convert {\ttfamily out.\+raw} to {\ttfamily out.\+png} and open it    \\\cline{1-2}
+{\ttfamily make sweep}   &Build and run at {\ttfamily -\/O0 -\/O2 -\/O3 -\/Os -\/Ofast}, print comparison table    \\\cline{1-2}
+{\ttfamily make verify}   &Confirm all optimization levels produce identical output    \\\cline{1-2}
+{\ttfamily make sizes}   &Print binary size at each optimization level    \\\cline{1-2}
+{\ttfamily make table}   &Print the Phase 4 report-\/style summary table    \\\cline{1-2}
+{\ttfamily make clean}   &Remove all build artifacts    \\\cline{1-2}
+{\ttfamily make help}   &Print this list in the terminal   \\\cline{1-2}
+\end{longtabu}
+
+
+Override image size manually if needed\+: {\ttfamily make run W=640 H=480}. Override vector length\+: {\ttfamily make run VLEN=256}.
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md33}{}\doxysection{\texorpdfstring{Phase 1 — Environment Setup ✅}{Phase 1 — Environment Setup ✅}}\label{md_README_autotoc_md33}
+
+\begin{DoxyItemize}
+\item Built {\ttfamily riscv64-\/unknown-\/elf-\/g++} from source with RVV (Vector extension) support
+\item Built {\ttfamily qemu-\/riscv64} from source (user-\/mode only, for speed)
+\item Verified the toolchain by running an RVV test program on QEMU
+\item Set up dual-\/target Makefile (host tests vs. RISC-\/V cross-\/compile)
+\end{DoxyItemize}
+
+{\bfseries{Gotcha\+:}} standard {\ttfamily qemu-\/riscv64 -\/cpu rv64,...} flag strings can sometimes cause "{}\+Illegal instruction"{} crashes depending on QEMU build — using QEMU\textquotesingle{}s {\bfseries{default CPU}} (no {\ttfamily -\/cpu} flag, or just {\ttfamily -\/cpu rv64,v=true,vlen=N}) is more reliable in this setup.
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md35}{}\doxysection{\texorpdfstring{Phase 2 — Scalar Baseline Pipeline ✅}{Phase 2 — Scalar Baseline Pipeline ✅}}\label{md_README_autotoc_md35}
+Implemented in clean, templated C++\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Image I/O}} — raw grayscale format (just {\ttfamily width\texorpdfstring{$\ast$}{*}height} bytes, no headers)
+\item {\bfseries{Gaussian blur}} — 5×5 kernel, integer arithmetic, zero-\/padding boundary, templated on pixel/output/accumulator type
+\item {\bfseries{Sobel gradient}} — 3×3 Gx/\+Gy kernels, output stored as separate int16 arrays (Structure-\/of-\/\+Arrays layout, for easier vectorization later)
+\item {\bfseries{Magnitude}} — both L1 ({\ttfamily \texorpdfstring{$\vert$}{|}\+Gx\texorpdfstring{$\vert$}{|}+\texorpdfstring{$\vert$}{|}\+Gy\texorpdfstring{$\vert$}{|}}, fast) and L2 ({\ttfamily sqrt(Gx²+\+Gy²)}, accurate) implemented; pipeline uses L1
+\item {\bfseries{Direction}} — quantized to 4 bins (0°/45°/90°/135°) using integer cross-\/multiplication instead of {\ttfamily atan2()}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md37}{}\doxysection{\texorpdfstring{Phase 3 — Testing ✅}{Phase 3 — Testing ✅}}\label{md_README_autotoc_md37}
+
+\begin{DoxyItemize}
+\item Correctness verified by checking all optimization levels ({\ttfamily -\/O0} through {\ttfamily -\/Ofast}) produce {\bfseries{bit-\/identical output}}\+: {\ttfamily make verify}
+\item Verified against a real photo (720×900), confirming reasonable edge detection (\texorpdfstring{$\sim$}{\string~}39\% of pixels flagged as edges, which is expected for natural images with texture)
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md39}{}\doxysection{\texorpdfstring{Phase 4 — Compiler Optimization Sweep \& Auto-\/\+Vectorization ✅}{Phase 4 — Compiler Optimization Sweep \& Auto-Vectorization ✅}}\label{md_README_autotoc_md39}
+Two parts — full detail in {\ttfamily README\+\_\+\+Phase4.\+md}, summary here\+:\hypertarget{md_README_autotoc_md40}{}\doxysubsection{\texorpdfstring{Optimization sweep}{Optimization sweep}}\label{md_README_autotoc_md40}
+Measured cycle counts (via {\ttfamily rdcycle}, averaged over 100 runs) at 5 optimization levels. Result\+: \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\sim$}{\string~}4.2× total speedup from {\ttfamily -\/O0} to {\ttfamily -\/Ofast}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}, with zero source code changes.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{6}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Stage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ -\/O0   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ -\/O2   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ -\/O3   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ -\/Os   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ -\/Ofast    }\\\cline{1-6}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Stage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ -\/O0   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ -\/O2   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ -\/O3   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ -\/Os   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ -\/Ofast    }\\\cline{1-6}
+\endhead
+Gaussian   &534M   &187M   &215M   &215M   &209M    \\\cline{1-6}
+Sobel   &269M   &107M   &18.\+7M   &99M   &18.\+2M    \\\cline{1-6}
+Magnitude   &454M   &66M   &68M   &74M   &68M    \\\cline{1-6}
+Direction   &33M   &16M   &16M   &18M   &16M    \\\cline{1-6}
+{\bfseries{TOTAL}}   &{\bfseries{1290M}}   &{\bfseries{376M}}   &{\bfseries{317M}}   &{\bfseries{406M}}   &{\bfseries{310M}}   \\\cline{1-6}
+\end{longtabu}
+
+
+All five produce identical output ({\ttfamily make verify}).\hypertarget{md_README_autotoc_md41}{}\doxysubsection{\texorpdfstring{Auto-\/vectorization analysis}{Auto-vectorization analysis}}\label{md_README_autotoc_md41}
+Using {\ttfamily -\/fopt-\/info-\/vec-\/all} and disassembly, checked which functions the compiler auto-\/vectorized with RVV\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Function   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vectorized?    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Function   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vectorized?    }\\\cline{1-2}
+\endhead
+Gaussian   &❌ No — 4-\/level nested loop too complex for GCC    \\\cline{1-2}
+Sobel   &❌ No — boundary check ({\ttfamily if}) inside loop blocks it    \\\cline{1-2}
+Magnitude   &⚠️ Half — the "{}find max"{} pass is vectorized, the "{}normalize"{} pass isn\textquotesingle{}t (float math)    \\\cline{1-2}
+Direction   &✅ Fully — compiler converted if/else chain into branchless masked operations   \\\cline{1-2}
+\end{longtabu}
+
+
+{\bfseries{Conclusion for Phase 6\+:}} Gaussian needs full hand-\/written RVV (biggest runtime share, zero compiler help). Magnitude needs RVV only for the normalization step. Sobel and Direction are lower priority — the compiler already did most or all of the work.
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md43}{}\doxysection{\texorpdfstring{Phase 5 — Profiling ✅ (folded into Phase 4)}{Phase 5 — Profiling ✅ (folded into Phase 4)}}\label{md_README_autotoc_md43}
+Per-\/stage percentage breakdown is printed automatically every run\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Gaussian\ \ :\ 45.2\%\ \ \ ◄\ HOT}
+\DoxyCodeLine{Sobel\ \ \ \ \ :\ \ 9.9\%}
+\DoxyCodeLine{Magnitude\ :\ 36.2\%}
+\DoxyCodeLine{Direction\ :\ \ 8.6\%}
+
+\end{DoxyCode}
+
+
+Gaussian + Magnitude = \texorpdfstring{$\sim$}{\string~}81\% of runtime → these are the Phase 6 targets. Per Amdahl\textquotesingle{}s Law, optimizing Direction further would save under 9\% even if made infinitely fast, so it\textquotesingle{}s deprioritized.
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md45}{}\doxysection{\texorpdfstring{Phase 6 — RVV Intrinsic Optimization 🔜 (next up)}{Phase 6 — RVV Intrinsic Optimization 🔜 (next up)}}\label{md_README_autotoc_md45}
+Plan based on Phase 4 findings\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Gaussian}} — rewrite using RVV intrinsics. Process the image interior with no boundary checks (handle the 2-\/pixel border separately in scalar code) to avoid the structural issues that blocked auto-\/vectorization.
+\item {\bfseries{Magnitude}} — keep the compiler\textquotesingle{}s auto-\/vectorized "{}find max"{} pass; hand-\/write RVV only for the normalization pass, using a fixed-\/point multiply+shift instead of floating-\/point divide.
+\item {\bfseries{Sobel / Direction}} — lower priority, optional.
+\item Verify scalar vs. RVV output match (±1 tolerance) at VLEN = 128, 256, and 512.
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md47}{}\doxysection{\texorpdfstring{Phase 7 — Report \& Presentation 🔜}{Phase 7 — Report \& Presentation 🔜}}\label{md_README_autotoc_md47}
+
+\begin{DoxyItemize}
+\item Final optimization table (scalar through RVV, multiple VLEN values)
+\item Code walkthrough comments on every RVV intrinsic (what it does, why this LMUL, what changes at a different VLEN)
+\item Live demo on QEMU
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md49}{}\doxysection{\texorpdfstring{Key Files Generated So Far}{Key Files Generated So Far}}\label{md_README_autotoc_md49}
+
+\begin{DoxyItemize}
+\item {\ttfamily README\+\_\+\+Phase4.\+md} — detailed write-\/up of the optimization sweep and vectorization analysis, with annotated disassembly
+\item {\ttfamily vec\+\_\+report.\+txt} — raw compiler vectorization diagnostic output
+\item {\ttfamily cycles\+\_\+\texorpdfstring{$\ast$}{*}.txt} — per-\/stage cycle counts for each optimization level 
+\end{DoxyItemize}

@@ -1,0 +1,138 @@
+\doxysection{Image\+IOTest Class Reference}
+\hypertarget{classImageIOTest}{}\label{classImageIOTest}\index{ImageIOTest@{ImageIOTest}}
+
+
+Test fixture for image I/O tests with automatic cleanup.  
+
+
+
+
+Inheritance diagram for Image\+IOTest\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=157pt]{classImageIOTest__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Image\+IOTest\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=157pt]{classImageIOTest__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{classImageIOTest_a081614cdeadb58d1dc4dbd3dfafca4c1}{Set\+Up}} () \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{override}}
+\begin{DoxyCompactList}\small\item\em Set up temporary directory before each test. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{classImageIOTest_a3c36d309085e3a26bbba9e16bd887689}{Tear\+Down}} () \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{override}}
+\begin{DoxyCompactList}\small\item\em Clean up temporary directory after each test. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{classImageIOTest_a4a63e59c4e0dd8f0935111c14c5d3611}{write\+\_\+raw}} (\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} fs\+::path \&\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{path}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{uint8\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{data}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{size\+\_\+t}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{n}})
+\begin{DoxyCompactList}\small\item\em Write raw bytes to a file on disk. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{uint8\+\_\+t}} $>$ \mbox{\hyperlink{classImageIOTest_a8b28bc42446066efdb5425afc48a480f}{read\+\_\+raw}} (\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} fs\+::path \&\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{path}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{size\+\_\+t}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{n}})
+\begin{DoxyCompactList}\small\item\em Read raw bytes from a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+fs\+::path \mbox{\hyperlink{classImageIOTest_abf0b64d887829e257505daa5f2a8dda8}{tmp\+\_\+dir}}
+\begin{DoxyCompactList}\small\item\em Temporary directory path. \end{DoxyCompactList}\item 
+fs\+::path \mbox{\hyperlink{classImageIOTest_aa6aa0073a6e0a9a30d96350558e21cad}{tmp\+\_\+file}}
+\begin{DoxyCompactList}\small\item\em Temporary test file path. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Test fixture for image I/O tests with automatic cleanup. 
+
+Creates a temporary directory before each test and removes it after the test completes, ensuring isolated test runs. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classImageIOTest_a8b28bc42446066efdb5425afc48a480f}\label{classImageIOTest_a8b28bc42446066efdb5425afc48a480f} 
+\index{ImageIOTest@{ImageIOTest}!read\_raw@{read\_raw}}
+\index{read\_raw@{read\_raw}!ImageIOTest@{ImageIOTest}}
+\doxysubsubsection{\texorpdfstring{read\_raw()}{read\_raw()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{uint8\+\_\+t}} $>$ Image\+IOTest\+::read\+\_\+raw (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} fs\+::path \&}]{path,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{size\+\_\+t}}}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Read raw bytes from a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & Source file path \\
+\hline
+{\em n} & Number of bytes to read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector containing the read bytes 
+\end{DoxyReturn}
+\Hypertarget{classImageIOTest_a081614cdeadb58d1dc4dbd3dfafca4c1}\label{classImageIOTest_a081614cdeadb58d1dc4dbd3dfafca4c1} 
+\index{ImageIOTest@{ImageIOTest}!SetUp@{SetUp}}
+\index{SetUp@{SetUp}!ImageIOTest@{ImageIOTest}}
+\doxysubsubsection{\texorpdfstring{SetUp()}{SetUp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} Image\+IOTest\+::\+Set\+Up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+Set up temporary directory before each test. 
+
+\Hypertarget{classImageIOTest_a3c36d309085e3a26bbba9e16bd887689}\label{classImageIOTest_a3c36d309085e3a26bbba9e16bd887689} 
+\index{ImageIOTest@{ImageIOTest}!TearDown@{TearDown}}
+\index{TearDown@{TearDown}!ImageIOTest@{ImageIOTest}}
+\doxysubsubsection{\texorpdfstring{TearDown()}{TearDown()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} Image\+IOTest\+::\+Tear\+Down (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+Clean up temporary directory after each test. 
+
+\Hypertarget{classImageIOTest_a4a63e59c4e0dd8f0935111c14c5d3611}\label{classImageIOTest_a4a63e59c4e0dd8f0935111c14c5d3611} 
+\index{ImageIOTest@{ImageIOTest}!write\_raw@{write\_raw}}
+\index{write\_raw@{write\_raw}!ImageIOTest@{ImageIOTest}}
+\doxysubsubsection{\texorpdfstring{write\_raw()}{write\_raw()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} Image\+IOTest\+::write\+\_\+raw (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} fs\+::path \&}]{path,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{uint8\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{data,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{size\+\_\+t}}}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Write raw bytes to a file on disk. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & Destination file path \\
+\hline
+{\em data} & Pointer to data bytes \\
+\hline
+{\em n} & Number of bytes to write \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classImageIOTest_abf0b64d887829e257505daa5f2a8dda8}\label{classImageIOTest_abf0b64d887829e257505daa5f2a8dda8} 
+\index{ImageIOTest@{ImageIOTest}!tmp\_dir@{tmp\_dir}}
+\index{tmp\_dir@{tmp\_dir}!ImageIOTest@{ImageIOTest}}
+\doxysubsubsection{\texorpdfstring{tmp\_dir}{tmp\_dir}}
+{\footnotesize\ttfamily fs\+::path Image\+IOTest\+::tmp\+\_\+dir\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Temporary directory path. 
+
+\Hypertarget{classImageIOTest_aa6aa0073a6e0a9a30d96350558e21cad}\label{classImageIOTest_aa6aa0073a6e0a9a30d96350558e21cad} 
+\index{ImageIOTest@{ImageIOTest}!tmp\_file@{tmp\_file}}
+\index{tmp\_file@{tmp\_file}!ImageIOTest@{ImageIOTest}}
+\doxysubsubsection{\texorpdfstring{tmp\_file}{tmp\_file}}
+{\footnotesize\ttfamily fs\+::path Image\+IOTest\+::tmp\+\_\+file\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Temporary test file path. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+google\+\_\+tests/\mbox{\hyperlink{gtest__image__io_8cpp}{gtest\+\_\+image\+\_\+io.\+cpp}}\end{DoxyCompactItemize}

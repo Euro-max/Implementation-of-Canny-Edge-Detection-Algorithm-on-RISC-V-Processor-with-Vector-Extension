@@ -1,0 +1,169 @@
+\chapter{Phase 5\+: Compiler Optimization Sweep}
+\hypertarget{md_PHASE5__README}{}\label{md_PHASE5__README}\index{Phase 5: Compiler Optimization Sweep@{Phase 5: Compiler Optimization Sweep}}
+\label{md_PHASE5__README_autotoc_md0}%
+\Hypertarget{md_PHASE5__README_autotoc_md0}%
+ \hypertarget{md_PHASE5__README_autotoc_md1}{}\doxysection{\texorpdfstring{What We Did In This Phase}{What We Did In This Phase}}\label{md_PHASE5__README_autotoc_md1}
+We took the scalar pipeline from Phase 3 and compiled it at {\bfseries{5 different optimization levels}} to see how much speedup the compiler gives us for free — before writing any RVV code.
+
+We also added {\bfseries{cycle-\/accurate timing}} to every pipeline stage so we know exactly where the time is going.
+
+\DoxyHorRuler{0}
+\hypertarget{md_PHASE5__README_autotoc_md3}{}\doxysection{\texorpdfstring{New Files Added}{New Files Added}}\label{md_PHASE5__README_autotoc_md3}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{src/main.cpp\ \ \ \ \ \ \ \ →\ rewrote\ with\ rdcycle\ timing\ +\ saves\ results\ to\ .txt\ files}
+\DoxyCodeLine{src/summary.cpp\ \ \ \ \ →\ reads\ saved\ results,\ prints\ the\ comparison\ table}
+\DoxyCodeLine{makefile\ \ \ \ \ \ \ \ \ \ \ \ →\ added\ sweep,\ sweep\_O0/O2/O3,\ table,\ convert,\ verify\ targets}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_PHASE5__README_autotoc_md5}{}\doxysection{\texorpdfstring{How to Run}{How to Run}}\label{md_PHASE5__README_autotoc_md5}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Step\ 1:\ convert\ your\ photo\ (only\ need\ to\ do\ this\ once\ per\ image)}
+\DoxyCodeLine{make\ convert\ IMG=images/pic.jpg}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Step\ 2:\ run\ the\ full\ optimization\ sweep}
+\DoxyCodeLine{make\ sweep}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Step\ 3:\ reprint\ the\ table\ anytime\ without\ re-\/running}
+\DoxyCodeLine{make\ table}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_PHASE5__README_autotoc_md7}{}\doxysection{\texorpdfstring{How The Timing Works}{How The Timing Works}}\label{md_PHASE5__README_autotoc_md7}
+We use the RISC-\/V {\ttfamily rdcycle} hardware instruction — reads the CPU cycle counter before and after each stage, subtracts to get elapsed cycles. Each stage runs {\bfseries{100 times}} and we average to eliminate noise from QEMU.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint64\_t\ read\_cycles()\ \{}
+\DoxyCodeLine{\ \ \ \ uint64\_t\ c;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{asm}\ \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}rdcycle\ \%0"{}}\ :\ \textcolor{stringliteral}{"{}=r"{}}(c));}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ c;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Usage:}}
+\DoxyCodeLine{c0\ =\ read\_cycles();}
+\DoxyCodeLine{\textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 100;\ i++)}
+\DoxyCodeLine{\ \ \ \ gaussian\_blur\_5x5(...);}
+\DoxyCodeLine{c1\ =\ read\_cycles();}
+\DoxyCodeLine{uint64\_t\ avg\ =\ (c1\ -\/\ c0)\ /\ 100;}
+
+\end{DoxyCode}
+
+
+\begin{quote}
+{\bfseries{Why not clock\+\_\+gettime?}} Our bare-\/metal toolchain (riscv64-\/unknown-\/elf) has conflicts between time.\+h and C++ headers. {\ttfamily rdcycle} needs zero headers and works everywhere. \end{quote}
+\begin{quote}
+{\bfseries{Why 100 repetitions?}} QEMU runs on your host OS alongside other processes. A single measurement might catch an OS interrupt and read 20\% too high. 100 runs averaged is stable within 1-\/2\%. \end{quote}
+\hypertarget{md_PHASE5__README_autotoc_md8}{}\doxysection{\texorpdfstring{$<$/blockquote$>$}{</blockquote>}}\label{md_PHASE5__README_autotoc_md8}
+\hypertarget{md_PHASE5__README_autotoc_md9}{}\doxysection{\texorpdfstring{How Results Are Saved}{How Results Are Saved}}\label{md_PHASE5__README_autotoc_md9}
+When the sweep runs each binary, it passes a 6th argument — a filename to save the cycle counts\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ In\ the\ Makefile:}
+\DoxyCodeLine{qemu-\/riscv64\ ...\ ./build\_rv/canny\_O2\ test\_input.raw\ out\_O2.raw\ 458\ 260\ cycles\_O2.txt}
+
+\end{DoxyCode}
+
+
+{\ttfamily main.\+cpp} writes 4 numbers (one per stage) to that file\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{35462501\ \ \ \ \ \ ←\ Gaussian\ cycles}
+\DoxyCodeLine{33187203\ \ \ \ \ \ ←\ Sobel\ cycles}
+\DoxyCodeLine{11831807\ \ \ \ \ \ ←\ Magnitude\ cycles}
+\DoxyCodeLine{3012386\ \ \ \ \ \ \ ←\ Direction\ cycles}
+
+\end{DoxyCode}
+
+
+Then {\ttfamily summary.\+cpp} reads all 3 files (O0, O2, O3) and prints the comparison table from the {\bfseries{exact saved numbers}} — no re-\/running, no variability.
+
+\DoxyHorRuler{0}
+\hypertarget{md_PHASE5__README_autotoc_md11}{}\doxysection{\texorpdfstring{Results (image\+: pic.\+jpg, 458×260 pixels)}{Results (image: pic.jpg, 458×260 pixels)}}\label{md_PHASE5__README_autotoc_md11}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{┌────────────┬────────────────────────┬────────────────────────┬────────────────────────┬─────────────┐}
+\DoxyCodeLine{│\ Stage\ \ \ \ \ \ │\ -\/O0\ Cycles\ \ \ \%\ total\ \ \ │\ -\/O2\ Cycles\ \ \ \%\ total\ \ \ │\ -\/O3\ Cycles\ \ \ \%\ total\ \ \ │\ O0\ →\ O3\ \ \ \ \ │}
+\DoxyCodeLine{├────────────┼────────────────────────┼────────────────────────┼────────────────────────┼─────────────┤}
+\DoxyCodeLine{│\ Gaussian\ \ \ │\ \ 100,112,203\ \ \ 25.1\%\ \ \ │\ \ \ 35,462,501\ \ \ 42.5\%\ \ \ │\ \ \ 15,225,381\ \ \ 45.8\%\ \ \ │\ \ \ 6.6x\ \ \ \ \ \ │}
+\DoxyCodeLine{│\ Sobel\ \ \ \ \ \ │\ \ 225,083,352\ \ \ 56.4\%\ \ \ │\ \ \ 33,187,203\ \ \ 39.7\%\ \ \ │\ \ \ \ 3,193,041\ \ \ \ 9.6\%\ \ \ │\ \ 70.5x\ !!\ \ \ │}
+\DoxyCodeLine{│\ Magnitude\ \ │\ \ \ 67,527,451\ \ \ 16.9\%\ \ \ │\ \ \ 11,831,807\ \ \ 14.2\%\ \ \ │\ \ \ 11,778,039\ \ \ 35.4\%\ \ \ │\ \ \ 5.7x\ \ \ \ \ \ │}
+\DoxyCodeLine{│\ Direction\ \ │\ \ \ \ 6,624,799\ \ \ \ 1.7\%\ \ \ │\ \ \ \ 3,012,386\ \ \ \ 3.6\%\ \ \ │\ \ \ \ 3,030,317\ \ \ \ 9.1\%\ \ \ │\ \ \ 2.2x\ \ \ \ \ \ │}
+\DoxyCodeLine{├────────────┼────────────────────────┼────────────────────────┼────────────────────────┼─────────────┤}
+\DoxyCodeLine{│\ TOTAL\ \ \ \ \ \ │\ \ 399,347,805\ \ 100.0\%\ \ \ │\ \ \ 83,493,897\ \ 100.0\%\ \ \ │\ \ \ 33,226,778\ \ 100.0\%\ \ \ │\ \ 12.0x\ \ \ \ \ \ │}
+\DoxyCodeLine{└────────────┴────────────────────────┴────────────────────────┴────────────────────────┴─────────────┘}
+
+\end{DoxyCode}
+\hypertarget{md_PHASE5__README_autotoc_md12}{}\doxysubsection{\texorpdfstring{Binary Sizes}{Binary Sizes}}\label{md_PHASE5__README_autotoc_md12}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Flag   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Size    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Flag   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Size    }\\\cline{1-2}
+\endhead
+-\/O0   &64 KB    \\\cline{1-2}
+-\/O2   &30 KB    \\\cline{1-2}
+-\/O3   &30 KB   \\\cline{1-2}
+\end{longtabu}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_PHASE5__README_autotoc_md14}{}\doxysection{\texorpdfstring{What The Numbers Mean}{What The Numbers Mean}}\label{md_PHASE5__README_autotoc_md14}
+\hypertarget{md_PHASE5__README_autotoc_md15}{}\doxysubsection{\texorpdfstring{Sobel\+: 70.\+5x speedup (\+O0 → O3)}{Sobel: 70.5x speedup (O0 → O3)}}\label{md_PHASE5__README_autotoc_md15}
+The compiler {\bfseries{auto-\/vectorized}} Sobel at {\ttfamily -\/O3}. The Sobel inner loop is simple and branchless, so GCC rewrote it using SIMD instructions automatically. This is why Sobel went from 56\% of total time at O0 down to only 9.\+6\% at O3.\hypertarget{md_PHASE5__README_autotoc_md16}{}\doxysubsection{\texorpdfstring{Gaussian\+: only 6.\+6x speedup}{Gaussian: only 6.6x speedup}}\label{md_PHASE5__README_autotoc_md16}
+The Gaussian inner loop has a boundary check\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{if}\ (img\_y\ <\ 0\ ||\ img\_y\ >=\ height\ ||\ img\_x\ <\ 0\ ||\ img\_x\ >=\ width)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{continue};\ \ \textcolor{comment}{//\ zero\ padding}}
+
+\end{DoxyCode}
+ This {\ttfamily if} statement inside the loop {\bfseries{prevents auto-\/vectorization}} — the compiler cannot process multiple pixels in parallel if different pixels take different code paths. This is exactly why we need RVV intrinsics in Phase 7.\hypertarget{md_PHASE5__README_autotoc_md17}{}\doxysubsection{\texorpdfstring{Magnitude\+: 5.\+7x speedup}{Magnitude: 5.7x speedup}}\label{md_PHASE5__README_autotoc_md17}
+Two-\/pass structure (find max, then normalize) creates a data dependency between passes. The compiler can\textquotesingle{}t vectorize across passes. Also a target for Phase 7.\hypertarget{md_PHASE5__README_autotoc_md18}{}\doxysubsection{\texorpdfstring{Direction\+: 2.\+2x speedup}{Direction: 2.2x speedup}}\label{md_PHASE5__README_autotoc_md18}
+Already fast enough. Not worth optimizing further (see Amdahl\textquotesingle{}s Law below).
+
+\DoxyHorRuler{0}
+\hypertarget{md_PHASE5__README_autotoc_md20}{}\doxysection{\texorpdfstring{Amdahl\textquotesingle{}s Law — Where to Focus Phase 7}{Amdahl's Law — Where to Focus Phase 7}}\label{md_PHASE5__README_autotoc_md20}
+Amdahl\textquotesingle{}s Law says\+: the total speedup you gain is limited by the percentage of time spent in the part you optimize.
+
+After -\/O3, the bottlenecks are\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Gaussian:\ \ 45.8\%\ of\ total\ time\ \ →\ RVV\ will\ help\ a\ lot\ here}
+\DoxyCodeLine{Magnitude:\ 35.4\%\ of\ total\ time\ \ →\ RVV\ will\ help\ here\ too}
+\DoxyCodeLine{Sobel:\ \ \ \ \ \ 9.6\%\ of\ total\ time\ \ →\ compiler\ already\ handled\ it,\ skip}
+\DoxyCodeLine{Direction:\ \ 9.1\%\ of\ total\ time\ \ →\ too\ small,\ skip}
+
+\end{DoxyCode}
+
+
+If we make Gaussian + Magnitude 10x faster with RVV\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{New\ total\ =\ (15.2M\ ÷\ 10)\ +\ 3.2M\ +\ (11.8M\ ÷\ 10)\ +\ 3.0M}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ =\ 1.52M\ +\ 3.2M\ +\ 1.18M\ +\ 3.0M}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ =\ \string~8.9M\ cycles}
+\DoxyCodeLine{}
+\DoxyCodeLine{Speedup\ vs\ O3\ \ \ =\ 33.2M\ ÷\ 8.9M\ \ =\ 3.7x\ more}
+\DoxyCodeLine{Speedup\ vs\ O0\ \ \ =\ 12.0x\ ×\ 3.7x\ \ =\ \string~44x\ total}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_PHASE5__README_autotoc_md22}{}\doxysection{\texorpdfstring{Important Limitation to Mention in Report}{Important Limitation to Mention in Report}}\label{md_PHASE5__README_autotoc_md22}
+\begin{quote}
+QEMU does not simulate real hardware cycles. It does not model cache misses, pipeline stalls, or branch misprediction. The {\bfseries{absolute numbers}} (e.\+g. "{}33\+M cycles"{}) are not what a real RISC-\/V chip would produce. However, the {\bfseries{relative ratios}} (O0 vs O3 = 12x, scalar vs RVV later) are valid because the instruction count genuinely changes between optimization levels. \end{quote}

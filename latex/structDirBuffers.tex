@@ -1,0 +1,115 @@
+\doxysection{Dir\+Buffers Struct Reference}
+\hypertarget{structDirBuffers}{}\label{structDirBuffers}\index{DirBuffers@{DirBuffers}}
+
+
+Test helper structure containing gradient and direction buffers.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structDirBuffers_a79883b93901cac122298bf5ce9b772e2}{Dir\+Buffers}} (\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{w}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{h}})
+\begin{DoxyCompactList}\small\item\em Construct buffers for given dimensions. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{structDirBuffers_a6476e6536b4c79b28539178896b2a96b}{run}} ()
+\begin{DoxyCompactList}\small\item\em Execute direction computation on current buffers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{structDirBuffers_a1f35b3256c022fc35d33d6b2645decb8}{W}}
+\item 
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{structDirBuffers_a058b3a044078fd174ce515a0c2a1688b}{H}}
+\begin{DoxyCompactList}\small\item\em Image width and height. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int16\+\_\+t}} $>$ \mbox{\hyperlink{structDirBuffers_abaa473ddef71e4d5fdbc6c905d92d280}{gx}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int16\+\_\+t}} $>$ \mbox{\hyperlink{structDirBuffers_ad12c69f6736d8db293c49c3d314baaf0}{gy}}
+\begin{DoxyCompactList}\small\item\em Horizontal/vertical gradient buffers. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{uint8\+\_\+t}} $>$ \mbox{\hyperlink{structDirBuffers_a6a1848552688237912da6362d9e21bc2}{dir}}
+\begin{DoxyCompactList}\small\item\em Output direction buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Test helper structure containing gradient and direction buffers. 
+
+Manages test data for direction computation tests, providing convenient initialization and execution methods. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structDirBuffers_a79883b93901cac122298bf5ce9b772e2}\label{structDirBuffers_a79883b93901cac122298bf5ce9b772e2} 
+\index{DirBuffers@{DirBuffers}!DirBuffers@{DirBuffers}}
+\index{DirBuffers@{DirBuffers}!DirBuffers@{DirBuffers}}
+\doxysubsubsection{\texorpdfstring{DirBuffers()}{DirBuffers()}}
+{\footnotesize\ttfamily Dir\+Buffers\+::\+Dir\+Buffers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{w,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{h }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct buffers for given dimensions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em w} & Image width in pixels \\
+\hline
+{\em h} & Image height in pixels \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structDirBuffers_a6476e6536b4c79b28539178896b2a96b}\label{structDirBuffers_a6476e6536b4c79b28539178896b2a96b} 
+\index{DirBuffers@{DirBuffers}!run@{run}}
+\index{run@{run}!DirBuffers@{DirBuffers}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} Dir\+Buffers\+::run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Execute direction computation on current buffers. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structDirBuffers_a6a1848552688237912da6362d9e21bc2}\label{structDirBuffers_a6a1848552688237912da6362d9e21bc2} 
+\index{DirBuffers@{DirBuffers}!dir@{dir}}
+\index{dir@{dir}!DirBuffers@{DirBuffers}}
+\doxysubsubsection{\texorpdfstring{dir}{dir}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{uint8\+\_\+t}}$>$ Dir\+Buffers\+::dir}
+
+
+
+Output direction buffer. 
+
+\Hypertarget{structDirBuffers_abaa473ddef71e4d5fdbc6c905d92d280}\label{structDirBuffers_abaa473ddef71e4d5fdbc6c905d92d280} 
+\index{DirBuffers@{DirBuffers}!gx@{gx}}
+\index{gx@{gx}!DirBuffers@{DirBuffers}}
+\doxysubsubsection{\texorpdfstring{gx}{gx}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int16\+\_\+t}}$>$ Dir\+Buffers\+::gx}
+
+\Hypertarget{structDirBuffers_ad12c69f6736d8db293c49c3d314baaf0}\label{structDirBuffers_ad12c69f6736d8db293c49c3d314baaf0} 
+\index{DirBuffers@{DirBuffers}!gy@{gy}}
+\index{gy@{gy}!DirBuffers@{DirBuffers}}
+\doxysubsubsection{\texorpdfstring{gy}{gy}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int16\+\_\+t}}$>$ Dir\+Buffers\+::gy}
+
+
+
+Horizontal/vertical gradient buffers. 
+
+\Hypertarget{structDirBuffers_a058b3a044078fd174ce515a0c2a1688b}\label{structDirBuffers_a058b3a044078fd174ce515a0c2a1688b} 
+\index{DirBuffers@{DirBuffers}!H@{H}}
+\index{H@{H}!DirBuffers@{DirBuffers}}
+\doxysubsubsection{\texorpdfstring{H}{H}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} Dir\+Buffers\+::H}
+
+
+
+Image width and height. 
+
+\Hypertarget{structDirBuffers_a1f35b3256c022fc35d33d6b2645decb8}\label{structDirBuffers_a1f35b3256c022fc35d33d6b2645decb8} 
+\index{DirBuffers@{DirBuffers}!W@{W}}
+\index{W@{W}!DirBuffers@{DirBuffers}}
+\doxysubsubsection{\texorpdfstring{W}{W}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} Dir\+Buffers\+::W}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+google\+\_\+tests/\mbox{\hyperlink{gtest__direction_8cpp}{gtest\+\_\+direction.\+cpp}}\end{DoxyCompactItemize}

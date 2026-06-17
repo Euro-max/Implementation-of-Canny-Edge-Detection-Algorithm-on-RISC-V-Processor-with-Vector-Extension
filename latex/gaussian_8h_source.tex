@@ -1,0 +1,18 @@
+\doxysection{gaussian.\+h}
+\hypertarget{gaussian_8h_source}{}\label{gaussian_8h_source}\index{src/gaussian.h@{src/gaussian.h}}
+\mbox{\hyperlink{gaussian_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ GAUSSIAN\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ GAUSSIAN\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ Template\ design\ as\ recommended\ for\ professional\ vision\ libraries}}
+\DoxyCodeLine{00030\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\_in,\ \textcolor{keyword}{typename}\ T\_out,\ \textcolor{keyword}{typename}\ T\_acc>}
+\DoxyCodeLine{00031\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{gaussian\_blur\_5x5}}(\textcolor{keyword}{const}\ T\_in*\ input,\ T\_out*\ output,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{gaussian_8ipp}{gaussian.ipp}}"{}}\ \textcolor{comment}{//\ Implementation\ of\ template}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
