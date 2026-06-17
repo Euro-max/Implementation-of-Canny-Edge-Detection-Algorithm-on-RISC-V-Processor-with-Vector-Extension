@@ -1,4 +1,4 @@
-name: RISC-V Build, Test & Deploy
+name: RISC-V Build & Test
 
 on:
   push:
@@ -6,60 +6,58 @@ on:
   pull_request:
     branches: [main]
 
-permissions:
-  contents: write
-
 jobs:
   build-and-test:
-    name: Compile and Run QEMU Tests
+    name: Compile, Test, and Process Images
     runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install QEMU and Python
+      - name: Install QEMU, Python, and GoogleTest
         run: |
           sudo apt-get update
-          sudo apt-get install -y qemu-user python3-numpy python3-pil
+          sudo apt-get install -y qemu-user python3-numpy python3-pil libgtest-dev cmake
+
+          # Compile GoogleTest libraries for the runner
+          cd /usr/src/googletest
+          sudo cmake .
+          sudo make
+          sudo cp lib/*.a /usr/lib/
+          sudo cp -r googletest/include/gtest /usr/include/
 
       - name: Download Full RISC-V C++ Toolchain (xPack GCC 13)
         run: |
+          cd $GITHUB_WORKSPACE
           wget https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/releases/download/v13.2.0-2/xpack-riscv-none-elf-gcc-13.2.0-2-linux-x64.tar.gz
           tar -xzf xpack-riscv-none-elf-gcc-13.2.0-2-linux-x64.tar.gz
           echo "$(pwd)/xpack-riscv-none-elf-gcc-13.2.0-2/bin" >> $GITHUB_PATH
+
+      - name: Prepare Test Image
+        run: |
+          make convert IMG=sample.jpg
 
       - name: Build Scalar and RVV Binaries
         run: |
           make build_rv/canny_rv RV_CXX=riscv-none-elf-g++
           make rvv RV_CXX=riscv-none-elf-g++
 
-      - name: Run Legacy QEMU Tests
+      - name: Run Host GoogleTests (gtest)
+        # We override the Makefile's GTEST paths to use the system ones we just installed
+        run: |
+          make test_gtest GTEST_DIR=/usr GTEST_LIBS="-lgtest -lgtest_main -lpthread"
+
+      - name: Run Target QEMU Tests (Legacy)
         run: |
           make test_legacy RV_CXX=riscv-none-elf-g++
 
-  deploy-docs:
-    name: Generate and Deploy Doxygen
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Install Doxygen and Graphviz
+      - name: Convert Output .raw files to .png
         run: |
-          sudo apt-get update
-          sudo apt-get install -y doxygen graphviz
+          make view_all
 
-      - name: Generate Documentation
-        run: |
-          make docs
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload Processed Images
+        uses: actions/upload-artifact@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./html
-          force_orphan: true
+          name: canny-edge-results
+          path: "*.png" # Grabs every PNG generated and zips them up
