@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>RISC-V Canny Edge Detection: Canny Edge Detection on RISC-V — Project README</title>
+<title>RISC-V Canny Edge Detection: Canny Edge Detection on RISC-V</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -90,15 +90,15 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Canny Edge Detection on RISC-V — Project README </div></div>
+  <div class="headertitle"><div class="title">Canny Edge Detection on RISC-V </div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a> </p>
-<h1><a class="anchor" id="autotoc_md18"></a>
+<h1><a class="anchor" id="autotoc_md1"></a>
 Project Overview</h1>
 <p>This project implements a highly optimized Canny Edge Detection pipeline targeted for bare-metal RISC-V architectures (<code>riscv64-unknown-elf</code>). The pipeline processes 8-bit grayscale images through a complete 7-stage algorithm, including Gaussian Blur, Sobel operators, and Non-Maximum Suppression.</p>
 <p>A major focus of this implementation is performance optimization utilizing <b>RISC-V Vector (RVV) Extension intrinsics</b> to accelerate spatial gradient computations and magnitude calculations, drastically reducing cycle counts for embedded vision applications.</p>
-<h1><a class="anchor" id="autotoc_md19"></a>
+<h1><a class="anchor" id="autotoc_md2"></a>
 The Team</h1>
 <table style="width: 100%; border: none; border-collapse: separate; border-spacing: 20px; text-align: center;">
 <tr>
@@ -106,11 +106,11 @@ The Team</h1>
 <p class="intertd" style="margin: 0; font-size: 0.85em; opacity: 0.8;"></p>
 <p class="intertd">ID: 91240930</p>
 <p class="endtd"></p>
-</td><td style="width: 33%;"><p class="starttd"><img src="images/ahp.png" alt="Ahmed Hassan" style="width: 160px; height: 200px; border-radius: 8px; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 2px solid #007acc;" class="inline"/> </p><h4 style="margin: 10px 0 2px 0;">Ahmed Hassan Labib</h4>
+</td><td style="width: 33%;"><p class="starttd"><img src="images/ahp.png" alt="Ahmed Hassan Labib" style="width: 160px; height: 200px; border-radius: 8px; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 2px solid #007acc;" class="inline"/> </p><h4 style="margin: 10px 0 2px 0;">Ahmed Hassan Labib</h4>
 <p class="intertd" style="margin: 0; font-size: 0.85em; opacity: 0.8;"></p>
 <p class="intertd">ID: 91240075</p>
 <p class="endtd"></p>
-</td><td style="width: 33%;"><p class="starttd"><img src="images/adh.png" alt="Adham Mohammed" style="width: 160px; height: 200px; border-radius: 8px; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 2px solid #007acc;" class="inline"/> </p><h4 style="margin: 10px 0 2px 0;">Adham Mohammed ElSadiq</h4>
+</td><td style="width: 33%;"><p class="starttd"><img src="images/adh.png" alt="Adham Mohammed ElSadiq" style="width: 160px; height: 200px; border-radius: 8px; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 2px solid #007acc;" class="inline"/> </p><h4 style="margin: 10px 0 2px 0;">Adham Mohammed ElSadiq</h4>
 <p class="intertd" style="margin: 0; font-size: 0.85em; opacity: 0.8;"></p>
 <p class="intertd">ID: 91240142</p>
 <p class="endtd"></p>
@@ -118,104 +118,123 @@ The Team</h1>
 </table>
 <table style="width: 66%; margin: 0 auto; border: none; border-collapse: separate; border-spacing: 20px; text-align: center;">
 <tr>
-<td style="width: 50%;"><p class="starttd"><img src="images/sam.png" alt="Mohamed Sameer" style="width: 160px; height: 200px; border-radius: 8px; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 2px solid #007acc;" class="inline"/> </p><h4 style="margin: 10px 0 2px 0;">Mohammed Sameer</h4>
+<td style="width: 50%;"><p class="starttd"><img src="images/sam.png" alt="Mohammed Sameer" style="width: 160px; height: 200px; border-radius: 8px; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 2px solid #007acc;" class="inline"/> </p><h4 style="margin: 10px 0 2px 0;">Mohammed Sameer</h4>
 <p class="intertd" style="margin: 0; font-size: 0.85em; opacity: 0.8;"></p>
 <p class="intertd">ID: 91240662</p>
 <p class="endtd"></p>
-</td><td style="width: 50%;"><p class="starttd"><img src="images/sy.jpg" alt="Mohamed Sayed" style="width: 160px; height: 200px; border-radius: 8px; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 2px solid #007acc;" class="inline"/> </p><h4 style="margin: 10px 0 2px 0;">Mohammed Sayed</h4>
+</td><td style="width: 50%;"><p class="starttd"><img src="images/sy.jpeg" alt="Muhammad Sayed" style="width: 160px; height: 200px; border-radius: 8px; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 2px solid #007acc;" class="inline"/> </p><h4 style="margin: 10px 0 2px 0;">Muhammad Sayed</h4>
 <p class="intertd" style="margin: 0; font-size: 0.85em; opacity: 0.8;"></p>
 <p class="intertd">ID: 91240663</p>
 <p class="endtd"></p>
 </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md20"></a>
-&lt;/table&gt;</h1>
-<h1><a class="anchor" id="autotoc_md21"></a>
-Prerequisites</h1>
-<ul>
-<li><b>Toolchain:</b> <code>riscv64-unknown-elf-g++</code> built from source with <code>--with-arch=rv64gcv</code> (the apt package does not support RVV intrinsics reliably)</li>
-<li><b>Emulator:</b> <code>qemu-riscv64</code> (QEMU 9.x+, built from source recommended)</li>
-<li><b>Host tools:</b> <code>g++</code> (for host-side tests), Python 3 with <code>numpy</code> + <code>Pillow</code></li>
-<li>WSL2 + Ubuntu 24.04 if on Windows; native Linux otherwise</li>
-</ul>
 <hr  />
-<h1><a class="anchor" id="autotoc_md23"></a>
+<h1><a class="anchor" id="autotoc_md4"></a>
+Prerequisites</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Tool   </th><th class="markdownTableHeadNone">Version   </th><th class="markdownTableHeadNone">Notes    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>riscv64-unknown-elf-g++</code>   </td><td class="markdownTableBodyNone">GCC 14.x   </td><td class="markdownTableBodyNone">Must be built from source with <code>--with-arch=rv64gcv</code> — the <code>apt</code> package does not support RVV intrinsics reliably    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>qemu-riscv64</code>   </td><td class="markdownTableBodyNone">QEMU 9.x+   </td><td class="markdownTableBodyNone">Built from source recommended    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>g++</code>   </td><td class="markdownTableBodyNone">Any modern   </td><td class="markdownTableBodyNone">For host-side GoogleTest builds    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Python 3   </td><td class="markdownTableBodyNone">3.10+   </td><td class="markdownTableBodyNone">With <code>numpy</code> and <code>Pillow</code> for image conversion    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">OS   </td><td class="markdownTableBodyNone">Ubuntu 24.04   </td><td class="markdownTableBodyNone">WSL2 on Windows; native Linux otherwise   </td></tr>
+</table>
+<hr  />
+<h1><a class="anchor" id="autotoc_md6"></a>
 Project Structure</h1>
-<div class="fragment"><div class="line">```text</div>
-<div class="line">src/</div>
-<div class="line">  main.cpp/.h            — pipeline driver, timing</div>
-<div class="line">  main_rvv.cpp           — RVV-optimized pipeline entry</div>
-<div class="line">  image_io.cpp/.h        — raw image I/O, aligned allocation</div>
-<div class="line">  gaussian.cpp/.h/.ipp   — templated 5x5 Gaussian blur</div>
-<div class="line">  sobel.cpp/.h           — 3x3 Sobel gradient (Gx, Gy)</div>
-<div class="line">  magnitude.cpp/.h       — L1 and L2 gradient magnitude</div>
-<div class="line">  direction.cpp/.h       — 4-way gradient direction</div>
-<div class="line">  nms_threshold.cpp/.h   — NMS, double thresholding, hysteresis</div>
-<div class="line">  rvv_*.cpp/.h           — RVV intrinsic kernels</div>
-<div class="line">  summary.cpp            — cycle count analysis</div>
-<div class="line">  syscalls.cpp           — bare-metal shims for QEMU</div>
-<div class="line">google_tests/            — GoogleTest framework source files</div>
-<div class="line">tests/                   — unit test implementations</div>
-<div class="line">Makefile</div>
+<div class="fragment"><div class="line">.</div>
+<div class="line">├── Makefile</div>
+<div class="line">├── include/</div>
+<div class="line">│   ├── common.h            — project-wide structs, image dimensions, metrics</div>
+<div class="line">│   ├── direction.h         — gradient direction declarations</div>
+<div class="line">│   ├── image_io.h          — raw image load/save</div>
+<div class="line">│   ├── magnitude.h         — gradient magnitude declarations</div>
+<div class="line">│   ├── nms_threshold.h     — NMS and hysteresis declarations</div>
+<div class="line">│   └── sobel.h             — Sobel kernel declarations</div>
+<div class="line">├── src/</div>
+<div class="line">│   ├── main.cpp            — scalar pipeline driver, per-stage timing</div>
+<div class="line">│   ├── main_rvv.cpp        — RVV-optimized pipeline entry point</div>
+<div class="line">│   ├── image_io.cpp        — aligned allocation, binary file I/O</div>
+<div class="line">│   ├── syscalls.cpp        — bare-metal POSIX shims for QEMU</div>
+<div class="line">│   ├── sobel.cpp           — 3×3 Sobel gradient (Gx, Gy)</div>
+<div class="line">│   ├── magnitude.cpp       — L1 and L2 gradient magnitude</div>
+<div class="line">│   ├── direction.cpp       — 4-way direction quantization</div>
+<div class="line">│   ├── nms_threshold.cpp   — NMS, double thresholding, hysteresis</div>
+<div class="line">│   ├── rvv_gaussian.cpp    — RVV intrinsic Gaussian blur kernel</div>
+<div class="line">│   ├── rvv_magnitude.cpp   — RVV intrinsic magnitude + normalization</div>
+<div class="line">│   └── summary.cpp         — sweep comparison table printer</div>
+<div class="line">├── google_tests/           — GoogleTest host-side unit tests</div>
+<div class="line">├── tests/                  — assert-based QEMU-side equivalence tests</div>
+<div class="line">├── data/</div>
+<div class="line">│   ├── input.raw           — test input (pure grayscale byte dump)</div>
+<div class="line">│   └── reference_output.raw — golden reference for verification</div>
+<div class="line">└── build_rv/               — cross-compiled RISC-V binaries (generated)</div>
 </div><!-- fragment --><hr  />
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md8"></a>
 Quick Start</h1>
-<div class="fragment"><div class="line">make convert IMG=yourphoto.jpg   # convert any photo to raw grayscale (auto-detects size)</div>
-<div class="line">make run                         # build (-O2) and run the pipeline on QEMU</div>
-<div class="line">make view                        # convert output back to PNG and open it</div>
+<div class="fragment"><div class="line"># 1. Convert any photo to raw grayscale (auto-saves width/height)</div>
+<div class="line">make convert IMG=yourphoto.jpg</div>
+<div class="line"> </div>
+<div class="line"># 2. Build and run the scalar pipeline on QEMU</div>
+<div class="line">make run</div>
+<div class="line"> </div>
+<div class="line"># 3. View the output as a PNG</div>
+<div class="line">make view</div>
 </div><!-- fragment --><p>You never need to manually set width/height — <code>make convert</code> saves them and every other target reads them automatically.</p>
 <hr  />
-<h1><a class="anchor" id="autotoc_md27"></a>
+<h1><a class="anchor" id="autotoc_md10"></a>
 Makefile Targets</h1>
-<h2><a class="anchor" id="autotoc_md28"></a>
+<h2><a class="anchor" id="autotoc_md11"></a>
 Image Preparation</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Target   </th><th class="markdownTableHeadNone">Description    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>make convert IMG=photo.jpg</code>   </td><td class="markdownTableBodyNone">Convert JPG/PNG to <code>test_input.raw</code>    </td></tr>
+<td class="markdownTableBodyNone"><code>make convert IMG=photo.jpg</code>   </td><td class="markdownTableBodyNone">Convert JPG/PNG → <code>test_input.raw</code>, auto-detect size    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>make view_input</code>   </td><td class="markdownTableBodyNone">View the input image   </td></tr>
+<td class="markdownTableBodyNone"><code>make view</code>   </td><td class="markdownTableBodyNone">Convert <code>out.raw</code> → <code>out.png</code>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>make view_all</code>   </td><td class="markdownTableBodyNone">Convert all <code>.raw</code> outputs → <code>.png</code>   </td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md29"></a>
-Scalar Pipeline</h2>
+<h2><a class="anchor" id="autotoc_md12"></a>
+Scalar Pipeline (Phases 4/5)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Target   </th><th class="markdownTableHeadNone">Description    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>make run</code>   </td><td class="markdownTableBodyNone">Run scalar pipeline -&gt; <code>out.raw</code>    </td></tr>
+<td class="markdownTableBodyNone"><code>make run</code>   </td><td class="markdownTableBodyNone">Build with <code>-O2</code>, run scalar pipeline on QEMU    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>make view_scalar</code>   </td><td class="markdownTableBodyNone">View <code>out.raw</code> as <code>out_scalar.png</code>    </td></tr>
+<td class="markdownTableBodyNone"><code>make sweep</code>   </td><td class="markdownTableBodyNone">Build and run at <code>-O0 -O2 -O3 -Os -Ofast</code>, print comparison table    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>make sweep</code>   </td><td class="markdownTableBodyNone">-O0/-O2/-O3/-Os/-Ofast benchmark    </td></tr>
+<td class="markdownTableBodyNone"><code>make table</code>   </td><td class="markdownTableBodyNone">Print Phase 4 runtime/size summary table    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>make view_00</code>   </td><td class="markdownTableBodyNone">View <code>out_00.raw</code>    </td></tr>
+<td class="markdownTableBodyNone"><code>make sizes</code>   </td><td class="markdownTableBodyNone">Print binary sizes at each optimization level    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>make view_02</code>   </td><td class="markdownTableBodyNone">View <code>out_02.raw</code>    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>make view_03</code>   </td><td class="markdownTableBodyNone">View <code>out_03.raw</code>    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>make view_Os</code>   </td><td class="markdownTableBodyNone">View <code>out_Os.raw</code>    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>make view_Ofast</code>   </td><td class="markdownTableBodyNone">View <code>out_Ofast.raw</code>   </td></tr>
+<td class="markdownTableBodyNone"><code>make verify</code>   </td><td class="markdownTableBodyNone">Confirm all optimization levels produce bit-identical output   </td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md30"></a>
+<h2><a class="anchor" id="autotoc_md13"></a>
 RVV Pipeline (Phase 6)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Target   </th><th class="markdownTableHeadNone">Description    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>make rvv</code>   </td><td class="markdownTableBodyNone">Build RVV binary    </td></tr>
+<td class="markdownTableBodyNone"><code>make rvv</code>   </td><td class="markdownTableBodyNone">Build RVV binary (<code>-Ofast</code>)    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>make vlen_sweep</code>   </td><td class="markdownTableBodyNone">Run at VLEN=128/256/512    </td></tr>
+<td class="markdownTableBodyNone"><code>make vlen_128</code>   </td><td class="markdownTableBodyNone">Run RVV at VLEN=128 → <code>out_rvv_128.raw</code>    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>make vlen_128</code>   </td><td class="markdownTableBodyNone">Run RVV at VLEN=128 -&gt; <code>out_rvv_128</code>    </td></tr>
+<td class="markdownTableBodyNone"><code>make vlen_256</code>   </td><td class="markdownTableBodyNone">Run RVV at VLEN=256 → <code>out_rvv_256.raw</code>    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>make vlen_256</code>   </td><td class="markdownTableBodyNone">Run RVV at VLEN=256 -&gt; <code>out_rvv_256</code>    </td></tr>
+<td class="markdownTableBodyNone"><code>make vlen_512</code>   </td><td class="markdownTableBodyNone">Run RVV at VLEN=512 → <code>out_rvv_512.raw</code>    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>make vlen_512</code>   </td><td class="markdownTableBodyNone">Run RVV at VLEN=512 -&gt; <code>out_rvv_512</code>    </td></tr>
+<td class="markdownTableBodyNone"><code>make vlen_sweep</code>   </td><td class="markdownTableBodyNone">Run all three VLEN values sequentially    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>make view_rvv</code>   </td><td class="markdownTableBodyNone">View <code>out_rvv_128.raw</code> (default)    </td></tr>
+<td class="markdownTableBodyNone"><code>make view_rvv</code>   </td><td class="markdownTableBodyNone">View VLEN=128 output (default)    </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><code>make view_rvv_128</code>   </td><td class="markdownTableBodyNone">View VLEN=128 output    </td></tr>
 <tr class="markdownTableRowEven">
@@ -223,43 +242,63 @@ RVV Pipeline (Phase 6)</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><code>make view_rvv_512</code>   </td><td class="markdownTableBodyNone">View VLEN=512 output   </td></tr>
 </table>
-<p>Override image size manually if needed: <code>make run W=640 H=480</code>. Override vector length: <code>make run VLEN=256</code>.</p>
+<h2><a class="anchor" id="autotoc_md14"></a>
+Testing &amp; Utilities</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Target   </th><th class="markdownTableHeadNone">Description    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>make test_all</code>   </td><td class="markdownTableBodyNone">Run all host-side (GoogleTest) and QEMU-side tests    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>make test_gtest</code>   </td><td class="markdownTableBodyNone">Run GoogleTest suite natively on host    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>make test_legacy</code>   </td><td class="markdownTableBodyNone">Run all assert-based tests on QEMU    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>make clean</code>   </td><td class="markdownTableBodyNone">Remove all build artifacts and output files    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>make help</code>   </td><td class="markdownTableBodyNone">Print target list in terminal   </td></tr>
+</table>
 <hr  />
-<h1><a class="anchor" id="autotoc_md32"></a>
+<h1><a class="anchor" id="autotoc_md16"></a>
 Phase 1 — Environment Setup ✅</h1>
 <ul>
-<li>Built <code>riscv64-unknown-elf-g++</code> from source with RVV (Vector extension) support</li>
-<li>Built <code>qemu-riscv64</code> from source (user-mode only, for speed)</li>
-<li>Verified the toolchain by running an RVV test program on QEMU</li>
-<li>Set up dual-target Makefile (host tests vs. RISC-V cross-compile)</li>
+<li>Built <code>riscv64-unknown-elf-g++</code> from source with <code>--with-arch=rv64gcv</code> for full RVV 1.0 support</li>
+<li>Built <code>qemu-riscv64</code> 9.x from source (user-mode only)</li>
+<li>Verified the full chain with a minimal RVV test program at VLEN = 128, 256, and 512</li>
+<li>Set up dual-target Makefile (native host tests + RISC-V cross-compile)</li>
+<li>Configured GoogleTest for host-side unit testing</li>
 </ul>
-<p><b>Gotcha:</b> standard <code>qemu-riscv64 -cpu rv64,...</code> flag strings can sometimes cause "Illegal instruction" crashes depending on QEMU build — using QEMU's <b>default CPU</b> (no <code>-cpu</code> flag, or just <code>-cpu rv64,v=true,vlen=N</code>) is more reliable in this setup.</p>
-<hr  />
-<h1><a class="anchor" id="autotoc_md34"></a>
+<blockquote class="doxtable">
+<p>&zwj;<b>Gotcha:</b> Some QEMU builds reject elaborate <code>-cpu</code> flag strings and crash with "Illegal instruction". Using <code>-cpu rv64,v=true,vlen=N</code> (minimal flags) is the most reliable approach. </p>
+</blockquote>
+<h1><a class="anchor" id="autotoc_md17"></a>
+&lt;/blockquote&gt;</h1>
+<h1><a class="anchor" id="autotoc_md18"></a>
 Phase 2 — Scalar Baseline Pipeline ✅</h1>
-<p>Implemented in clean, templated C++:</p>
+<p>Clean, templated C++ implementation of the full 7-stage pipeline:</p>
 <ul>
-<li><b>Image I/O</b> — raw grayscale format (just <code>width*height</code> bytes, no headers)</li>
-<li><b>Gaussian blur</b> — 5×5 kernel, integer arithmetic, zero-padding boundary, templated on pixel/output/accumulator type</li>
-<li><b>Sobel gradient</b> — 3×3 Gx/Gy kernels, output stored as separate int16 arrays (Structure-of-Arrays layout, for easier vectorization later)</li>
-<li><b>Magnitude</b> — both L1 (<code>|Gx|+|Gy|</code>, fast) and L2 (<code>sqrt(Gx²+Gy²)</code>, accurate) implemented; pipeline uses L1</li>
-<li><b>Direction</b> — quantized to 4 bins (0°/45°/90°/135°) using integer cross-multiplication instead of <code><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7" title="Applies a 5x5 Gaussian blur to a 2D image array.">atan2()</a></code></li>
-<li>**NMS &amp; Threshold**— Implemented edge thinning , double thresholding categorization, and hysteresis connectivity tracking to finalize edge segments.</li>
+<li><b>Image I/O</b> — raw grayscale format (<code>width × height</code> bytes, no headers). Buffers allocated with <code>aligned_alloc(64, ...)</code> for SIMD alignment.</li>
+<li><b>Gaussian Blur</b> — 5×5 integer kernel (coefficients sum to 273), zero-padding boundary, 32-bit accumulator to prevent overflow. Templated on pixel type, accumulator type, and coefficient type.</li>
+<li><b>Sobel Gradient</b> — 3×3 <code>Gx</code>/<code>Gy</code> kernels, output as separate <code>int16_t</code> arrays (Structure-of-Arrays layout for efficient vectorization).</li>
+<li><b>Magnitude</b> — both L1 (<code>|Gx|+|Gy|</code>) and L2 (<code>sqrt(Gx²+Gy²)</code>) implemented; pipeline uses L1 for speed. Two-pass normalization to <code>[0, 255]</code>.</li>
+<li><b>Direction</b> — quantized to 4 bins (0°/45°/90°/135°) using integer cross-multiplication instead of <code><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7" title="Applies a 5x5 Gaussian blur to a 2D image array.">atan2()</a></code> — a standard embedded optimization.</li>
+<li><b>Non-Maximum Suppression</b> — thins edges to single-pixel width by suppressing non-peak pixels along the gradient direction.</li>
+<li><b>Hysteresis Thresholding</b> — dual high/low threshold; weak edges are kept only if 8-connected to a strong edge pixel.</li>
 </ul>
 <hr  />
-<h1><a class="anchor" id="autotoc_md36"></a>
+<h1><a class="anchor" id="autotoc_md20"></a>
 Phase 3 — Testing ✅</h1>
 <ul>
-<li>Correctness verified by checking all optimization levels (<code>-O0</code> through <code>-Ofast</code>) produce <b>bit-identical output</b>: <code>make verify</code></li>
-<li>Verified against a real photo (720×900), confirming reasonable edge detection (~39% of pixels flagged as edges, which is expected for natural images with texture)</li>
+<li><b>GoogleTest unit tests</b> (host-side, fast): uniform image invariant, impulse response, zero gradient on constant image, correct direction on synthetic vertical/horizontal/diagonal edges, L1 vs L2 magnitude comparison.</li>
+<li><b>QEMU-side equivalence tests</b>: scalar vs. RVV output compared pixel-by-pixel (±1 tolerance) at VLEN = 128, 256, and 512. Non-power-of-two image sizes (e.g. 48×48) are used to exercise the strip-mining tail case.</li>
+<li><b>Bit-identity check</b> across all optimization levels confirmed via <code>make verify</code>.</li>
 </ul>
 <hr  />
-<h1><a class="anchor" id="autotoc_md38"></a>
-Phase 4 — Compiler Optimization Sweep &amp; Auto-Vectorization ✅</h1>
-<p>Two parts — full detail in <code>README_Phase4.md</code>, summary here:</p>
-<h2><a class="anchor" id="autotoc_md39"></a>
-Optimization sweep</h2>
-<p>Measured cycle counts (via <code>rdcycle</code>, averaged over 100 runs) at 5 optimization levels. Result: **~4.2× total speedup from <code>-O0</code> to <code>-Ofast</code>**, with zero source code changes.</p>
+<h1><a class="anchor" id="autotoc_md22"></a>
+Phase 4 — Compiler Optimization Sweep ✅</h1>
+<p>Measured cycle counts via <code>rdcycle</code>, averaged over 100 iterations per stage.</p>
+<h2><a class="anchor" id="autotoc_md23"></a>
+Per-Stage Cycle Counts (640×480 image)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Stage   </th><th class="markdownTableHeadNone">-O0   </th><th class="markdownTableHeadNone">-O2   </th><th class="markdownTableHeadNone">-O3   </th><th class="markdownTableHeadNone">-Os   </th><th class="markdownTableHeadNone">-Ofast    </th></tr>
@@ -272,62 +311,148 @@ Optimization sweep</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Direction   </td><td class="markdownTableBodyNone">33M   </td><td class="markdownTableBodyNone">16M   </td><td class="markdownTableBodyNone">16M   </td><td class="markdownTableBodyNone">18M   </td><td class="markdownTableBodyNone">16M    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>TOTAL</b>   </td><td class="markdownTableBodyNone"><b>1290M</b>   </td><td class="markdownTableBodyNone"><b>376M</b>   </td><td class="markdownTableBodyNone"><b>317M</b>   </td><td class="markdownTableBodyNone"><b>406M</b>   </td><td class="markdownTableBodyNone"><b>310M</b>   </td></tr>
+<td class="markdownTableBodyNone"><b>TOTAL</b>   </td><td class="markdownTableBodyNone"><b>1290M</b>   </td><td class="markdownTableBodyNone"><b>376M</b>   </td><td class="markdownTableBodyNone"><b>317M</b>   </td><td class="markdownTableBodyNone"><b>406M</b>   </td><td class="markdownTableBodyNone"><b>310M</b>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>Wall time</b>   </td><td class="markdownTableBodyNone"><b>1.9 s</b>   </td><td class="markdownTableBodyNone"><b>0.55 s</b>   </td><td class="markdownTableBodyNone"><b>0.46 s</b>   </td><td class="markdownTableBodyNone"><b>0.60 s</b>   </td><td class="markdownTableBodyNone"><b>0.41 s</b>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>Speedup vs -O0</b>   </td><td class="markdownTableBodyNone">1.00×   </td><td class="markdownTableBodyNone">3.72×   </td><td class="markdownTableBodyNone">4.33×   </td><td class="markdownTableBodyNone">3.49×   </td><td class="markdownTableBodyNone"><b>4.38×</b>   </td></tr>
 </table>
-<p>All five produce identical output (<code>make verify</code>).</p>
-<h2><a class="anchor" id="autotoc_md40"></a>
-Auto-vectorization analysis</h2>
-<p>Using <code>-fopt-info-vec-all</code> and disassembly, checked which functions the compiler auto-vectorized with RVV:</p>
+<p><b>Result: 4.38× total speedup from <code>-O0</code> to <code>-Ofast</code> with zero source-code changes.</b></p>
+<p>Binary sizes ranged from 393 KB (<code>-Os</code>) to 410 KB (<code>-O0</code>) — a variation of only ±17 KB.</p>
+<h2><a class="anchor" id="autotoc_md24"></a>
+Auto-Vectorization Analysis</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Function   </th><th class="markdownTableHeadNone">Vectorized?    </th></tr>
+<th class="markdownTableHeadNone">Function   </th><th class="markdownTableHeadNone">Vectorized?   </th><th class="markdownTableHeadNone">Reason    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Gaussian   </td><td class="markdownTableBodyNone">❌ No — 4-level nested loop too complex for GCC    </td></tr>
+<td class="markdownTableBodyNone">Gaussian   </td><td class="markdownTableBodyNone">❌ No   </td><td class="markdownTableBodyNone">4-level nested loop too complex for GCC    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Sobel   </td><td class="markdownTableBodyNone">❌ No — boundary check (<code>if</code>) inside loop blocks it    </td></tr>
+<td class="markdownTableBodyNone">Sobel   </td><td class="markdownTableBodyNone">❌ No   </td><td class="markdownTableBodyNone">Boundary <code>if</code>-check inside inner loop blocks it    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Magnitude   </td><td class="markdownTableBodyNone">⚠️ Half — the "find max" pass is vectorized, the "normalize" pass isn't (float math)    </td></tr>
+<td class="markdownTableBodyNone">Magnitude   </td><td class="markdownTableBodyNone">⚠️ Partial   </td><td class="markdownTableBodyNone">Max-find pass vectorized; normalize pass not (float math)    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Direction   </td><td class="markdownTableBodyNone">✅ Fully — compiler converted if/else chain into branchless masked operations   </td></tr>
+<td class="markdownTableBodyNone">Direction   </td><td class="markdownTableBodyNone">✅ Fully   </td><td class="markdownTableBodyNone">Compiler converted if/else chain to branchless masked ops   </td></tr>
 </table>
-<p><b>Conclusion for Phase 6:</b> Gaussian needs full hand-written RVV (biggest runtime share, zero compiler help). Magnitude needs RVV only for the normalization step. Sobel and Direction are lower priority — the compiler already did most or all of the work.</p>
 <hr  />
-<h1><a class="anchor" id="autotoc_md42"></a>
-Phase 5 — Profiling ✅ (folded into Phase 4)</h1>
-<p>Per-stage percentage breakdown is printed automatically every run:</p>
-<div class="fragment"><div class="line">Gaussian  : 46.8%   ◄ HOT</div>
-<div class="line">Sobel     :  25.7%</div>
-<div class="line">Magnitude : 13.4%</div>
-<div class="line">Direction :  4.2%</div>
-<div class="line">NMS : 7.0%</div>
-<div class="line">Threshold: 1.1%</div>
-<div class="line">Hystersis:1.8%</div>
-</div><!-- fragment --><p>Gaussian + Magnitude = ~61% of runtime → these are the Phase 6 targets. Per Amdahl's Law, optimizing Direction further would save under 9% even if made infinitely fast, so it's deprioritized.</p>
+<h1><a class="anchor" id="autotoc_md26"></a>
+Phase 5 — Profiling ✅</h1>
+<p>Per-stage runtime share at <code>-Ofast</code> on 640×480 image:</p>
+<div class="fragment"><div class="line">Gaussian   : 64.0%  ◄ HOT — primary RVV target</div>
+<div class="line">Magnitude  : 22.0%  ◄ HOT — secondary RVV target</div>
+<div class="line">Sobel      :  5.9%</div>
+<div class="line">Direction  :  5.2%</div>
+<div class="line">NMS/Thresh :  2.9%</div>
+</div><!-- fragment --><p><b>Amdahl's Law conclusion:</b> Gaussian + Magnitude account for 86% of runtime. Vectorizing Sobel, Direction, and NMS combined could save at most 14% of total runtime — the engineering effort is not justified. Only Gaussian and Magnitude receive RVV intrinsic implementations.</p>
 <hr  />
-<h1><a class="anchor" id="autotoc_md44"></a>
-Phase 6 — RVV Intrinsic Optimization 🔜 (next up)</h1>
-<p>Plan based on Phase 4 findings:</p>
+<h1><a class="anchor" id="autotoc_md28"></a>
+Phase 6 — RVV Intrinsic Optimization ✅</h1>
+<h2><a class="anchor" id="autotoc_md29"></a>
+What Was Vectorized</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Stage   </th><th class="markdownTableHeadNone">Strategy    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>Gaussian</b>   </td><td class="markdownTableBodyNone">Full hand-written RVV. Interior pixels processed with strip-mining; 2-pixel border handled by scalar fallback.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>Magnitude</b>   </td><td class="markdownTableBodyNone">RVV for both passes: L1 norm (element-wise abs + add) and normalization (fixed-point multiply + shift).    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Sobel   </td><td class="markdownTableBodyNone">Left scalar — compiler already auto-vectorizes at -O3/-Ofast; only 5.9% of runtime.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Direction   </td><td class="markdownTableBodyNone">Left scalar — fully auto-vectorized by compiler; only 5.2% of runtime.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">NMS/Thresh   </td><td class="markdownTableBodyNone">Left scalar — only 2.9% of runtime.   </td></tr>
+</table>
+<h2><a class="anchor" id="autotoc_md30"></a>
+Key RVV Techniques</h2>
+<p><b>Strip-mining (VLA loop structure)</b></p>
+<div class="fragment"><div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> <a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">i</a> = 0; <a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">i</a> &lt; <a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">n</a>; ) {</div>
+<div class="line">    <span class="keywordtype">size_t</span> <a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">vl</a> = <a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">__riscv_vsetvl_e8m1</a>(<a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">n</a> - <a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">i</a>);  <span class="comment">// hardware decides vl at runtime</span></div>
+<div class="line">    <span class="comment">// ... vector body processes exactly vl elements ...</span></div>
+<div class="line">    <a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">i</a> += <a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">vl</a>;</div>
+<div class="line">}</div>
+<div class="ttc" id="asrc_2gaussian_8h_html_a25d9fc356d85b9846432f07b4c113ee7"><div class="ttname"><a href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">gaussian_blur_5x5</a></div><div class="ttdeci">void gaussian_blur_5x5(const T_in *input, T_out *output, int width, int height)</div><div class="ttdoc">Applies a 5x5 Gaussian blur to a 2D image array.</div><div class="ttdef"><b>Definition</b> gaussian.ipp:28</div></div>
+</div><!-- fragment --><p>The same binary runs correctly at VLEN = 128, 256, and 512 — no recompilation needed.</p>
+<p><b>Data Widening Chain (Gaussian)</b></p>
+<p>To prevent integer overflow when accumulating 25 products in a 5×5 kernel:</p>
+<div class="fragment"><div class="line">uint8_t (pixels) → int32_t (accumulator via vwmaccsu)</div>
+</div><!-- fragment --><p>Worst case: 255 × 41 × 25 ≈ 261,000 — overflows int16_t but fits int32_t.</p>
+<p><b>Fixed-Point Division (replaces <code>vdiv</code>)</b></p>
+<p>Division by 273 (Gaussian normalization) uses a multiply-shift instead of slow vector division:</p>
+<div class="fragment"><div class="line">acc / 273  ≈  (acc × 240) &gt;&gt; 16       (error &lt; 0.4%)</div>
+</div><!-- fragment --><p>Same trick applied to magnitude normalization: <code>(val × scale) &gt;&gt; 16</code>.</p>
+<p><b>Vector Reduction (Magnitude max-find)</b></p>
+<div class="fragment"><div class="line"><a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">vmax_scalar</a> = <a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">__riscv_vredmax_vs_i16m2_i16m1</a>(<a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">l1</a>, <a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">vmax_scalar</a>, <a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">vl</a>);</div>
+<div class="line"><span class="comment">// ...</span></div>
+<div class="line"><a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int16_t</a> <a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">maxval</a> = <a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">__riscv_vmv_x_s_i16m1_i16</a>(<a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">vmax_scalar</a>);</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md31"></a>
+VLEN Sweep Results (640×480 image)</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">VLEN   </th><th class="markdownTableHeadNone">Stage   </th><th class="markdownTableHeadNone">Scalar Cycles   </th><th class="markdownTableHeadNone">RVV Cycles   </th><th class="markdownTableHeadNone">Speedup    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">128   </td><td class="markdownTableBodyNone">Gaussian   </td><td class="markdownTableBodyNone">89,964,013   </td><td class="markdownTableBodyNone">710,618,135   </td><td class="markdownTableBodyNone">0.13× †    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">128   </td><td class="markdownTableBodyNone">Magnitude   </td><td class="markdownTableBodyNone">72,051,757   </td><td class="markdownTableBodyNone">74,354,703   </td><td class="markdownTableBodyNone">0.97×    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">256   </td><td class="markdownTableBodyNone">Gaussian   </td><td class="markdownTableBodyNone">91,023,589   </td><td class="markdownTableBodyNone">502,720,097   </td><td class="markdownTableBodyNone">0.18× †    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">256   </td><td class="markdownTableBodyNone">Magnitude   </td><td class="markdownTableBodyNone">72,973,112   </td><td class="markdownTableBodyNone">46,595,812   </td><td class="markdownTableBodyNone"><b>1.57×</b>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">512   </td><td class="markdownTableBodyNone">Gaussian   </td><td class="markdownTableBodyNone">92,793,391   </td><td class="markdownTableBodyNone">380,335,633   </td><td class="markdownTableBodyNone">0.24× †    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">512   </td><td class="markdownTableBodyNone">Magnitude   </td><td class="markdownTableBodyNone">73,571,106   </td><td class="markdownTableBodyNone">34,725,099   </td><td class="markdownTableBodyNone"><b>2.12×</b>   </td></tr>
+</table>
+<blockquote class="doxtable">
+<p>&zwj;<b>† QEMU caveat:</b> QEMU's JIT translator counts each element operation of a <code>vwmacc</code> individually rather than as a single-cycle vector issue. This inflates cycle counts for the Gaussian RVV stage. The key proof of correctness is:</p>
 <ol type="1">
-<li><b>Gaussian</b> — rewrite using RVV intrinsics. Process the image interior with no boundary checks (handle the 2-pixel border separately in scalar code) to avoid the structural issues that blocked auto-vectorization.</li>
-<li><b>Magnitude</b> — keep the compiler's auto-vectorized "find max" pass; hand-write RVV only for the normalization pass, using a fixed-point multiply+shift instead of floating-point divide.</li>
-<li><b>Sobel / Direction</b> — lower priority, optional.</li>
-<li>Verify scalar vs. RVV output match (±1 tolerance) at VLEN = 128, 256, and 512.</li>
+<li>The Gaussian RVV cycle count trends consistently downward as VLEN increases (710M → 502M → 380M), confirming VLA scaling.</li>
+<li>The 25-scalar-MAC → 1-vector-instruction reduction is architecturally correct and verified by disassembly.</li>
+<li>Output passes ±1 pixel equivalence checks at all three VLEN values.</li>
 </ol>
+<p>On real rv64gcv silicon the Gaussian speedup would be directly measurable. </p>
+</blockquote>
+<h2><a class="anchor" id="autotoc_md32"></a>
+Instruction Reduction</h2>
+<p>The Gaussian RVV kernel collapses the 5×5 inner product from <b>25 scalar multiply-accumulate operations</b> into <b>1 <code>vwmaccsu</code> vector instruction</b> per output pixel group — a 25× instruction reduction independent of VLEN.</p>
 <hr  />
-<h1><a class="anchor" id="autotoc_md46"></a>
-Phase 7 — Report &amp; Presentation 🔜</h1>
+<h1><a class="anchor" id="autotoc_md34"></a>
+Phase 7 — Report &amp; Documentation ✅</h1>
 <ul>
-<li>Final optimization table (scalar through RVV, multiple VLEN values)</li>
-<li>Code walkthrough comments on every RVV intrinsic (what it does, why this LMUL, what changes at a different VLEN)</li>
-<li>Live demo on QEMU</li>
+<li>Full LaTeX report produced covering all 7 phases with PGFPlots charts and TikZ diagrams</li>
+<li>Per-stage annotated code walkthroughs for every RVV intrinsic call</li>
+<li>VLEN sweep results table and Amdahl's Law analysis</li>
+<li>AI usage log (5 documented entries)</li>
 </ul>
 <hr  />
-<h1><a class="anchor" id="autotoc_md48"></a>
-Key Files Generated So Far</h1>
+<h1><a class="anchor" id="autotoc_md36"></a>
+Results Summary</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Optimization Stage   </th><th class="markdownTableHeadNone">Total Cycles   </th><th class="markdownTableHeadNone">Wall Time   </th><th class="markdownTableHeadNone">Speedup vs -O0    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Scalar <code>-O0</code>   </td><td class="markdownTableBodyNone">1,889,827,556   </td><td class="markdownTableBodyNone">1.90 s   </td><td class="markdownTableBodyNone">1.00×    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Scalar <code>-O2</code>   </td><td class="markdownTableBodyNone">508,063,165   </td><td class="markdownTableBodyNone">0.55 s   </td><td class="markdownTableBodyNone">3.72×    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Scalar <code>-O3</code>   </td><td class="markdownTableBodyNone">436,146,296   </td><td class="markdownTableBodyNone">0.46 s   </td><td class="markdownTableBodyNone">4.33×    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Scalar <code>-Os</code>   </td><td class="markdownTableBodyNone">540,621,835   </td><td class="markdownTableBodyNone">0.60 s   </td><td class="markdownTableBodyNone">3.49×    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Scalar <code>-Ofast</code>   </td><td class="markdownTableBodyNone">431,413,780   </td><td class="markdownTableBodyNone">0.41 s   </td><td class="markdownTableBodyNone"><b>4.38×</b>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Magnitude RVV VLEN=512   </td><td class="markdownTableBodyNone">—   </td><td class="markdownTableBodyNone">—   </td><td class="markdownTableBodyNone"><b>2.12× stage</b>   </td></tr>
+</table>
+<hr  />
+<h1><a class="anchor" id="autotoc_md38"></a>
+Repository</h1>
+<p><a href="https://github.com/Euro-max/Implementation-of-Canny-Edge-Detection-Algorithm-on-RISC-V-Processor-with-Vector-Extension">https://github.com/Euro-max/Implementation-of-Canny-Edge-Detection-Algorithm-on-RISC-V-Processor-with-Vector-Extension</a></p>
+<hr  />
+<h1><a class="anchor" id="autotoc_md40"></a>
+References &amp; Learning Resources 📚</h1>
 <ul>
-<li><code>README_Phase4.md</code> — detailed write-up of the optimization sweep and vectorization analysis, with annotated disassembly</li>
-<li><code>vec_report.txt</code> — raw compiler vectorization diagnostic output</li>
-<li><code>cycles_*.txt</code> — per-stage cycle counts for each optimization level </li>
+<li><b>Computer Vision Theory:</b> <a href="https://www.youtube.com/playlist?list=PLzH6n4zXuckoRdljSlM2k35BufTYXNNeF">Computer Vision Playlist</a></li>
+<li><b>RISC-V Vector Extension:</b> <a href="https://medium.com/@airat.gl/risc-v-vectors-basics-d0a2913fde79">RISC-V Vectors Basics - Intrinsics Guide</a></li>
+<li><b>QEMU RISC-V Target Documentation:</b> <a href="https://www.qemu.org/docs/master/system/target-riscv.html">QEMU RISC-V Subsystem Reference</a> </li>
 </ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->

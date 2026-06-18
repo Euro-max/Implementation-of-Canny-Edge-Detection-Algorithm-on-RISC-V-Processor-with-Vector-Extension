@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['5_20—_20profiling_20✅_20folded_20into_20phase_204_0',['Phase 5 — Profiling ✅ (folded into Phase 4)',['../index.html#autotoc_md42',1,'']]]
+  ['5_0',['Scalar Pipeline (Phases 4/5)',['../index.html#autotoc_md12',1,'']]],
+  ['5_20—_20profiling_20✅_1',['Phase 5 — Profiling ✅',['../index.html#autotoc_md26',1,'']]]
 ];

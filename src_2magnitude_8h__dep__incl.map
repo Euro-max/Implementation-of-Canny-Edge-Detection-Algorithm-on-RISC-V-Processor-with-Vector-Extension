@@ -1,0 +1,9 @@
+<map id="src/magnitude.h" name="src/magnitude.h">
+<area shape="rect" id="Node000001" title="Declarations for gradient magnitude computation." alt="" coords="161,5,288,31"/>
+<area shape="rect" id="Node000002" href="$magnitude_8cpp.html" title="Implementation of gradient magnitude computation (L1 and L2 norms)." alt="" coords="5,79,148,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,39,102,81,100,76,188,34"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html" title="Main execution entry point for Canny Edge Detection (7&#45;stage pipeline)." alt="" coords="172,79,277,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="227,44,227,79,222,79,222,44"/>
+<area shape="rect" id="Node000004" href="$main__rvv_8cpp.html" title="RVV pipeline entry point: benchmarks scalar vs RVV at VLEN=128/256/512." alt="" coords="301,79,433,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="261,34,345,76,343,81,258,39"/>
+</map>

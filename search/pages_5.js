@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['project_20readme_0',['Canny Edge Detection on RISC-V — Project README',['../index.html',1,'']]]
+  ['risc_20v_0',['Canny Edge Detection on RISC-V',['../index.html',1,'']]]
 ];

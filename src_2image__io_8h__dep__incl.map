@@ -1,0 +1,11 @@
+<map id="src/image_io.h" name="src/image_io.h">
+<area shape="rect" id="Node000001" title="Declarations for raw image file I/O and aligned memory allocation." alt="" coords="284,5,401,31"/>
+<area shape="rect" id="Node000002" href="$gen__test__image_8cpp.html" title="Synthetic test image generator for the Canny Edge Detection pipeline." alt="" coords="5,79,181,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="290,37,134,81,133,76,289,32"/>
+<area shape="rect" id="Node000003" href="$image__io_8cpp.html" title="Implementation of raw image file I/O and aligned memory allocation." alt="" coords="206,79,338,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="323,43,285,80,282,77,319,39"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html" title="Main execution entry point for Canny Edge Detection (7&#45;stage pipeline)." alt="" coords="362,79,467,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="366,39,405,77,401,80,363,43"/>
+<area shape="rect" id="Node000005" href="$main__rvv_8cpp.html" title="RVV pipeline entry point: benchmarks scalar vs RVV at VLEN=128/256/512." alt="" coords="491,79,623,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="391,32,523,76,522,81,389,37"/>
+</map>

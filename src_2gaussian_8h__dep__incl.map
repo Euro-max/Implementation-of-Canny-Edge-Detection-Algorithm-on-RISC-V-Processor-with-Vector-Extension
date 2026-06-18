@@ -1,0 +1,9 @@
+<map id="src/gaussian.h" name="src/gaussian.h">
+<area shape="rect" id="Node000001" title="Declarations for the Gaussian blur filter." alt="" coords="156,5,271,31"/>
+<area shape="rect" id="Node000002" href="$gaussian_8cpp.html" title="Implementation of a 5x5 Gaussian blur filter." alt="" coords="5,79,136,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,39,95,81,93,76,177,34"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html" title="Main execution entry point for Canny Edge Detection (7&#45;stage pipeline)." alt="" coords="161,79,266,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="216,44,216,79,211,79,211,44"/>
+<area shape="rect" id="Node000004" href="$main__rvv_8cpp.html" title="RVV pipeline entry point: benchmarks scalar vs RVV at VLEN=128/256/512." alt="" coords="290,79,422,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="250,34,334,76,331,81,247,39"/>
+</map>

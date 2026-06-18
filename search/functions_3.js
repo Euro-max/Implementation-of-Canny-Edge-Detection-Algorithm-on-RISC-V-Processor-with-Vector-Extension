@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dirbuffers_0',['DirBuffers',['../structDirBuffers.html#a79883b93901cac122298bf5ce9b772e2',1,'DirBuffers']]]
+  ['expected_0',['expected',['../structMagBuffers.html#ae9c2d7dbb3c98c2787040a9a1c31bcab',1,'MagBuffers']]]
 ];

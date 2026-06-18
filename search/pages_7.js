@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['test_20list_0',['Test List',['../test.html',1,'']]]
+  ['v_0',['Canny Edge Detection on RISC-V',['../index.html',1,'']]]
 ];

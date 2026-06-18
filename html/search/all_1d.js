@@ -1,6 +1,10 @@
 var searchData=
 [
-  ['w_0',['w',['../structDirBuffers.html#a1f35b3256c022fc35d33d6b2645decb8',1,'DirBuffers::W'],['../structMagBuffers.html#a962a337991cbed5ab42b9e042f5b1b56',1,'MagBuffers::W'],['../structSobelBuffers.html#ac3862130947d88ab9ce9b0b645580e75',1,'SobelBuffers::W']]],
-  ['widening_20chain_1',['Data-widening chain',['../rvv__gaussian_8cpp.html#autotoc_md3',1,'']]],
-  ['write_5fraw_2',['write_raw',['../classImageIOTest.html#a4a63e59c4e0dd8f0935111c14c5d3611',1,'ImageIOTest']]]
+  ['was_20vectorized_0',['What Was Vectorized',['../md_README.html#autotoc_md52',1,'']]],
+  ['we_20did_20in_20this_20phase_1',['What We Did In This Phase',['../md_PHASE5__README.html#autotoc_md1',1,'']]],
+  ['what_20the_20numbers_20mean_2',['What The Numbers Mean',['../md_PHASE5__README.html#autotoc_md14',1,'']]],
+  ['what_20was_20vectorized_3',['What Was Vectorized',['../md_README.html#autotoc_md52',1,'']]],
+  ['what_20we_20did_20in_20this_20phase_4',['What We Did In This Phase',['../md_PHASE5__README.html#autotoc_md1',1,'']]],
+  ['where_20to_20focus_20phase_207_5',['Amdahl&apos;s Law — Where to Focus Phase 7',['../md_PHASE5__README.html#autotoc_md20',1,'']]],
+  ['works_6',['How The Timing Works',['../md_PHASE5__README.html#autotoc_md7',1,'']]]
 ];

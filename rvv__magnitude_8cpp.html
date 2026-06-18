@@ -122,72 +122,48 @@ Include dependency graph for rvv_magnitude.cpp:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a4960ed5e95b24018327e045f4fad9aa0" id="r_a4960ed5e95b24018327e045f4fad9aa0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rvv__magnitude_8cpp.html#a4960ed5e95b24018327e045f4fad9aa0">compute_magnitude_l1_rvv</a> (<a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">const</a> <a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int16_t</a> *gx, <a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">const</a> <a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int16_t</a> *gy, <a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">uint8_t</a> *<a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">output</a>, <a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int</a> <a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">width</a>, <a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int</a> <a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">height</a>)</td></tr>
-<tr class="memdesc:a4960ed5e95b24018327e045f4fad9aa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">RVV-accelerated L1 gradient magnitude with normalisation.  <br /></td></tr>
-<tr class="separator:a4960ed5e95b24018327e045f4fad9aa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb85b32928802dae5200fd48c51a7431" id="r_acb85b32928802dae5200fd48c51a7431"><td class="memItemLeft" align="right" valign="top"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rvv__magnitude_8cpp.html#acb85b32928802dae5200fd48c51a7431">compute_magnitude_l1_rvv</a> (<a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">const</a> <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int16_t</a> *<a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">__restrict</a> gx, <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">const</a> <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int16_t</a> *<a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">__restrict</a> gy, <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">uint8_t</a> *<a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">__restrict</a> <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">output</a>, <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int</a> <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">width</a>, <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int</a> <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">height</a>)</td></tr>
+<tr class="memdesc:acb85b32928802dae5200fd48c51a7431"><td class="mdescLeft">&#160;</td><td class="mdescRight">RVV-accelerated L1 gradient magnitude with global normalisation.  <br /></td></tr>
+<tr class="separator:acb85b32928802dae5200fd48c51a7431"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>RVV-accelerated L1 gradient magnitude with two-pass normalisation. </p>
-<h2><a class="anchor" id="autotoc_md9"></a>
-Algorithm recap (matching scalar baseline in magnitude.cpp)</h2>
-<p><b>Pass 1</b> — for every pixel i: <code>temp[i] = |Gx[i]| + |Gy[i]|</code> (int32_t, maximum value ≈ 2×32 767 = 65 534) Track the running maximum across the whole image.</p>
-<p><b>Pass 2</b> — normalise to [0, 255]: <code>output[i] = (uint8_t)(temp[i] * 255 / max_mag)</code></p>
-<h2><a class="anchor" id="autotoc_md10"></a>
-Why this is a good RVV candidate</h2>
-<ul>
-<li>Pass 1 is purely element-wise on the SoA Gx/Gy arrays — a perfect fit for strip-mined vector abs + add.</li>
-<li>The running max across the image requires a <b>vector reduction</b> at the end of each strip: <code>vredmax</code> folds a vector of N elements into a single scalar.</li>
-<li>Pass 2 multiplies every temp value by the same scalar (255/max_mag) — another broadcast-scalar × vector pattern.</li>
-<li>No boundary conditions at all — this is a flat 1-D loop over W×H elements.</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md11"></a>
-New RVV concept: vector reduction</h2>
-<p><code>__riscv_vredmax_vs_i32m4_i32m1(vs2, vs1, vl)</code>:</p><ul>
-<li><code>vs2</code> : the vector to reduce (m4 — LMUL=4, i.e. our accumulation register).</li>
-<li><code>vs1</code> : a scalar vector holding the initial value (identity for max = INT32_MIN).</li>
-<li>Returns a LMUL=m1 vector whose element [0] holds the maximum.</li>
-<li>Extract element [0] with <code>__riscv_vmv_x_s_i32m1_i32</code>.</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md12"></a>
-LMUL choice</h2>
-<p>Gx and Gy are int16_t. After abs and add the result is int32_t (to avoid overflow: max |Gx|+|Gy| is 65 534, fits in int16_t actually, but we keep int32_t to match the scalar baseline and avoid signed-overflow UB).</p>
-<p>For widening int16→int32 we use LMUL=m2 for the int16 load, giving m4 for the int32 accumulation. This lets us process more elements per iteration (at VLEN=256, m2 holds 32 int16 elements → 512 bits).</p>
 <dl class="section author"><dt>Author</dt><dd>Adham (The_GOAT branch) — Phase 6 RVV Optimization </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a4960ed5e95b24018327e045f4fad9aa0" name="a4960ed5e95b24018327e045f4fad9aa0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4960ed5e95b24018327e045f4fad9aa0">&#9670;&#160;</a></span>compute_magnitude_l1_rvv()</h2>
+<a id="acb85b32928802dae5200fd48c51a7431" name="acb85b32928802dae5200fd48c51a7431"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb85b32928802dae5200fd48c51a7431">&#9670;&#160;</a></span>compute_magnitude_l1_rvv()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a> compute_magnitude_l1_rvv </td>
+          <td class="memname"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a> compute_magnitude_l1_rvv </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">const</a> <a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int16_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">const</a> <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int16_t</a> *<a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">__restrict</a>&#160;</td>
           <td class="paramname"><em>gx</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">const</a> <a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int16_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">const</a> <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int16_t</a> *<a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">__restrict</a>&#160;</td>
           <td class="paramname"><em>gy</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">uint8_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">uint8_t</a> *<a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">__restrict</a>&#160;</td>
           <td class="paramname"><em>output</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int</a>&#160;</td>
           <td class="paramname"><em>width</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int</a>&#160;</td>
           <td class="paramname"><em>height</em>&#160;</td>
         </tr>
         <tr>
@@ -198,24 +174,17 @@ LMUL choice</h2>
       </table>
 </div><div class="memdoc">
 
-<p>RVV-accelerated L1 gradient magnitude with normalisation. </p>
-<p>RVV-accelerated L1 gradient magnitude with global normalisation.</p>
-<p>Drop-in replacement for <code><a class="el" href="magnitude_8cpp.html#a457bd35a995dee57fec739515466e279" title="Computes the gradient magnitude using the L1 norm (Manhattan distance).">compute_magnitude_l1()</a></code> from <a class="el" href="magnitude_8cpp.html" title="Implementation of gradient magnitude computation (L1 and L2 norms).">magnitude.cpp</a>. Allocates a temporary int32_t buffer on the stack via VLA (or the caller could pre-allocate it; here we use a static local to avoid heap allocation in the timed hot path — if image size is fixed this is safe).</p>
-<dl class="section warning"><dt>Warning</dt><dd>The temporary buffer is heap-allocated here to support arbitrary image sizes. For a fixed-size embedded deployment, a static array would save the malloc overhead.</dd></dl>
-<h3><a class="anchor" id="autotoc_md15"></a>
-Two-pass structure</h3>
-<ul>
-<li><b>Pass 1</b> (<code>rvv_pass1_magnitude</code>): fill temp_mag[], return global max.</li>
-<li><b>Pass 2</b> (<code>rvv_pass2_normalise</code>): normalise temp_mag[] → output[].</li>
+<p>RVV-accelerated L1 gradient magnitude with global normalisation. </p>
+<p>Two-pass algorithm:</p><ul>
+<li>Pass 1: <code>temp[i] = |Gx[i]| + |Gy[i]|</code>, track max.</li>
+<li>Pass 2: <code>output[i] = (uint8_t)(temp[i] * 255 / max)</code>.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md16"></a>
-Equivalence guarantee</h3>
-<p>Results match <code>compute_magnitude_l1</code> within ±1 LSB. The scalar baseline uses <code>float scale = 255.0f / max_mag</code> and then <code>(uint8_t)(temp[i] * scale)</code>, which can differ from integer division by ±1 at rounding boundaries.</p>
+<p>Results match <code>compute_magnitude_l1</code> within ±1 LSB (integer vs float rounding difference in the normalisation step).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">gx</td><td>Sobel X gradient (int16_t SoA, width×height elements). </td></tr>
-    <tr><td class="paramname">gy</td><td>Sobel Y gradient (int16_t SoA, width×height elements). </td></tr>
-    <tr><td class="paramname">output</td><td>Output magnitude image (uint8_t, caller-allocated). </td></tr>
+    <tr><td class="paramname">gx</td><td>Sobel X gradient buffer (int16_t, width×height elements). </td></tr>
+    <tr><td class="paramname">gy</td><td>Sobel Y gradient buffer (int16_t, width×height elements). </td></tr>
+    <tr><td class="paramname">output</td><td>Output image buffer (uint8_t, caller-allocated). </td></tr>
     <tr><td class="paramname">width</td><td>Image width in pixels. </td></tr>
     <tr><td class="paramname">height</td><td>Image height in pixels. </td></tr>
   </table>

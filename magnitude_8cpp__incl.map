@@ -1,6 +1,6 @@
 <map id="src/magnitude.cpp" name="src/magnitude.cpp">
 <area shape="rect" id="Node000001" title="Implementation of gradient magnitude computation (L1 and L2 norms)." alt="" coords="143,5,286,31"/>
-<area shape="rect" id="Node000002" href="$magnitude_8h.html" title="Declarations for gradient magnitude computation." alt="" coords="5,79,109,104"/>
+<area shape="rect" id="Node000002" href="$src_2magnitude_8h.html" title="Declarations for gradient magnitude computation." alt="" coords="5,79,109,104"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,33,96,75,94,71,188,28"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="134,79,197,104"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="209,33,183,69,179,66,204,29"/>

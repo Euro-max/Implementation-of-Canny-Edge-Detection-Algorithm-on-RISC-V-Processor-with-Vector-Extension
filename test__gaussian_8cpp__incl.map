@@ -1,16 +1,11 @@
 <map id="tests/test_gaussian.cpp" name="tests/test_gaussian.cpp">
-<area shape="rect" id="Node000001" title="Unit tests for the 5x5 Gaussian blur filter." alt="" coords="93,5,267,31"/>
+<area shape="rect" id="Node000001" title="Unit tests for the 5x5 Gaussian blur filter." alt="" coords="102,5,277,31"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,79,85,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,33,81,74,78,70,157,28"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,33,82,75,80,70,165,28"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="109,79,179,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="176,32,158,68,154,65,172,30"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="183,152,249,177"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="186,30,212,138,207,139,180,32"/>
-<area shape="rect" id="Node000005" href="$gaussian_8h.html" title="Declarations for the Gaussian blur filter." alt="" coords="254,79,346,104"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="201,28,270,69,267,74,198,33"/>
-<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="288,106,242,145,239,141,285,102"/>
-<area shape="rect" id="Node000006" href="$gaussian_8ipp.html" title="Template implementation for a 5x5 Gaussian blur filter." alt="" coords="273,152,377,177"/>
-<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="307,103,319,138,314,140,302,105"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="283,225,368,251"/>
-<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="328,178,328,212,323,212,323,178"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="184,32,161,69,156,66,180,30"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="203,79,269,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="199,30,223,66,219,69,195,32"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="294,79,386,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="215,28,304,70,302,75,212,33"/>
 </map>

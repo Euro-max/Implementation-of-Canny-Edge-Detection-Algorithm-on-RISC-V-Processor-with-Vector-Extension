@@ -1,4 +1,10 @@
 var searchData=
 [
-  ['h_0',['h',['../structDirBuffers.html#a058b3a044078fd174ce515a0c2a1688b',1,'DirBuffers::H'],['../structMagBuffers.html#aae51af44163ec448d830f1d1a0abad25',1,'MagBuffers::H'],['../structSobelBuffers.html#ad5bcc19e7aeb8078056af5f53a688c39',1,'SobelBuffers::H']]]
+  ['image_0',['image',['../index.html#autotoc_md23',1,'Per-Stage Cycle Counts (640×480 image)'],['../index.html#autotoc_md31',1,'VLEN Sweep Results (640×480 image)']]],
+  ['image_20preparation_1',['Image Preparation',['../index.html#autotoc_md11',1,'']]],
+  ['image_5fio_2ecpp_2',['image_io.cpp',['../image__io_8cpp.html',1,'']]],
+  ['image_5fio_2eh_3',['image_io.h',['../src_2image__io_8h.html',1,'']]],
+  ['imageiotest_4',['ImageIOTest',['../classImageIOTest.html',1,'']]],
+  ['instruction_20reduction_5',['Instruction Reduction',['../index.html#autotoc_md32',1,'']]],
+  ['intrinsic_20optimization_20✅_6',['Phase 6 — RVV Intrinsic Optimization ✅',['../index.html#autotoc_md28',1,'']]]
 ];

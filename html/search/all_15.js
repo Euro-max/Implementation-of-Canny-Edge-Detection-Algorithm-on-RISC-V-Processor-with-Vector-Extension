@@ -1,8 +1,11 @@
 var searchData=
 [
-  ['on_20risc_20v_20—_20project_20readme_0',['Canny Edge Detection on RISC-V — Project README',['../index.html',1,'']]],
-  ['optimization_20🔜_20next_20up_1',['Phase 6 — RVV Intrinsic Optimization 🔜 (next up)',['../index.html#autotoc_md31',1,'']]],
-  ['optimization_20sweep_2',['Optimization sweep',['../index.html#autotoc_md26',1,'']]],
-  ['optimization_20sweep_20auto_20vectorization_20✅_3',['Phase 4 — Compiler Optimization Sweep &amp; Auto-Vectorization ✅',['../index.html#autotoc_md25',1,'']]],
-  ['overview_4',['overview',['../rvv__gaussian_8cpp.html#autotoc_md2',1,'Design Overview'],['../index.html#autotoc_md5',1,'Project Overview']]]
+  ['o0_20→_20o3_0',['Sobel: 70.5x speedup (O0 → O3)',['../md_PHASE5__README.html#autotoc_md15',1,'']]],
+  ['o3_1',['Sobel: 70.5x speedup (O0 → O3)',['../md_PHASE5__README.html#autotoc_md15',1,'']]],
+  ['on_20risc_20v_2',['Canny Edge Detection on RISC-V',['../md_README.html',1,'']]],
+  ['only_206_206x_20speedup_3',['Gaussian: only 6.6x speedup',['../md_PHASE5__README.html#autotoc_md16',1,'']]],
+  ['optimization_20✅_4',['Phase 6 — RVV Intrinsic Optimization ✅',['../md_README.html#autotoc_md51',1,'']]],
+  ['optimization_20sweep_5',['Phase 5: Compiler Optimization Sweep',['../md_PHASE5__README.html',1,'']]],
+  ['optimization_20sweep_20✅_6',['Phase 4 — Compiler Optimization Sweep ✅',['../md_README.html#autotoc_md45',1,'']]],
+  ['overview_7',['Project Overview',['../md_README.html#autotoc_md24',1,'']]]
 ];

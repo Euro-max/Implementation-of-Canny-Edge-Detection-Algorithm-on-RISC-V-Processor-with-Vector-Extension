@@ -1,6 +1,6 @@
 <map id="src/sobel.cpp" name="src/sobel.cpp">
 <area shape="rect" id="Node000001" title="Implementation of the Sobel edge detection operator." alt="" coords="5,5,112,31"/>
-<area shape="rect" id="Node000002" href="$sobel_8h.html" title="Declarations for the Sobel operator gradient computation." alt="" coords="24,79,93,104"/>
+<area shape="rect" id="Node000002" href="$src_2sobel_8h.html" title="Declarations for the Sobel operator gradient computation." alt="" coords="24,79,93,104"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,31,61,65,56,65,56,31"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="25,152,92,177"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="61,104,61,138,56,138,56,104"/>

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['key_20files_20generated_20so_20far_0',['Key Files Generated So Far',['../index.html#autotoc_md48',1,'']]],
-  ['kx_20is_20scalar_1',['Why the outer loop (ky, kx) is scalar',['../rvv__gaussian_8cpp.html#autotoc_md5',1,'']]],
-  ['ky_20kx_20is_20scalar_2',['Why the outer loop (ky, kx) is scalar',['../rvv__gaussian_8cpp.html#autotoc_md5',1,'']]]
+  ['learning_20resources_20📚_0',['References &amp; Learning Resources 📚',['../index.html#autotoc_md40',1,'']]],
+  ['list_1',['Test List',['../test.html',1,'']]],
+  ['load_5fraw_2',['load_raw',['../image__io_8cpp.html#a95c6a1349ae17447fd543a777fa3b7ef',1,'load_raw(const char *path, uint8_t *buffer, int width, int height):&#160;image_io.cpp'],['../src_2image__io_8h.html#a95c6a1349ae17447fd543a777fa3b7ef',1,'load_raw(const char *path, uint8_t *buffer, int width, int height):&#160;image_io.cpp']]]
 ];

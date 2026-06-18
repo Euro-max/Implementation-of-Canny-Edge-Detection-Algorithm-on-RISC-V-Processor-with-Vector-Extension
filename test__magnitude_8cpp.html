@@ -102,42 +102,41 @@ $(document).ready(function(){initNavTree('test__magnitude_8cpp.html',''); initRe
 <code>#include &lt;cassert&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
-<code>#include &quot;<a class="el" href="magnitude_8h_source.html">magnitude.h</a>&quot;</code><br />
+<code>#include &quot;magnitude.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for test_magnitude.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="test__magnitude_8cpp__incl.png" border="0" usemap="#atests_2test__magnitude_8cpp" alt=""/></div>
 <map name="atests_2test__magnitude_8cpp" id="atests_2test__magnitude_8cpp">
-<area shape="rect" title="Unit tests for gradient magnitude computation (L1 and L2 norms)." alt="" coords="123,5,309,31"/>
+<area shape="rect" title="Unit tests for gradient magnitude computation (L1 and L2 norms)." alt="" coords="143,5,329,31"/>
 <area shape="rect" title=" " alt="" coords="5,79,85,104"/>
-<area shape="poly" title=" " alt="" coords="190,33,87,76,85,71,188,28"/>
+<area shape="poly" title=" " alt="" coords="206,33,90,76,88,71,204,28"/>
 <area shape="rect" title=" " alt="" coords="109,79,179,104"/>
-<area shape="poly" title=" " alt="" coords="206,33,167,71,164,67,202,29"/>
-<area shape="rect" title=" " alt="" coords="271,152,337,177"/>
-<area shape="poly" title=" " alt="" coords="220,30,228,64,245,103,261,123,280,141,276,145,257,127,240,105,223,66,215,32"/>
-<area shape="rect" title=" " alt="" coords="254,79,317,104"/>
-<area shape="poly" title=" " alt="" coords="229,29,267,67,263,71,226,33"/>
-<area shape="rect" href="magnitude_8h.html" title="Declarations for gradient magnitude computation." alt="" coords="341,79,445,104"/>
-<area shape="poly" title=" " alt="" coords="245,28,353,71,351,76,244,33"/>
-<area shape="poly" title=" " alt="" coords="381,106,331,145,328,141,377,102"/>
+<area shape="poly" title=" " alt="" coords="223,33,171,72,168,68,220,29"/>
+<area shape="rect" title=" " alt="" coords="203,79,269,104"/>
+<area shape="poly" title=" " alt="" coords="239,31,239,65,233,65,233,31"/>
+<area shape="rect" title=" " alt="" coords="294,79,357,104"/>
+<area shape="poly" title=" " alt="" coords="252,29,302,68,298,72,249,33"/>
+<area shape="rect" title=" " alt="" coords="381,79,485,104"/>
+<area shape="poly" title=" " alt="" coords="269,28,389,71,387,76,267,33"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af6cd2d91c2a62e23647fdde925c3bbd3" id="r_af6cd2d91c2a62e23647fdde925c3bbd3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__magnitude_8cpp.html#af6cd2d91c2a62e23647fdde925c3bbd3">test_zero_gradient</a> ()</td></tr>
+<tr class="memitem:af6cd2d91c2a62e23647fdde925c3bbd3" id="r_af6cd2d91c2a62e23647fdde925c3bbd3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__magnitude_8cpp.html#af6cd2d91c2a62e23647fdde925c3bbd3">test_zero_gradient</a> ()</td></tr>
 <tr class="memdesc:af6cd2d91c2a62e23647fdde925c3bbd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifies that zero gradients produce an absolute zero magnitude.  <br /></td></tr>
 <tr class="separator:af6cd2d91c2a62e23647fdde925c3bbd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ff59cde90824825355fb4b68a57c7ae" id="r_a8ff59cde90824825355fb4b68a57c7ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__magnitude_8cpp.html#a8ff59cde90824825355fb4b68a57c7ae">test_output_range</a> ()</td></tr>
+<tr class="memitem:a8ff59cde90824825355fb4b68a57c7ae" id="r_a8ff59cde90824825355fb4b68a57c7ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__magnitude_8cpp.html#a8ff59cde90824825355fb4b68a57c7ae">test_output_range</a> ()</td></tr>
 <tr class="memdesc:a8ff59cde90824825355fb4b68a57c7ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensures that computed magnitudes strictly bounded within the 8-bit range.  <br /></td></tr>
 <tr class="separator:a8ff59cde90824825355fb4b68a57c7ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a146c52ac77bb2281e92513a5858ee90d" id="r_a146c52ac77bb2281e92513a5858ee90d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__magnitude_8cpp.html#a146c52ac77bb2281e92513a5858ee90d">test_l1_greater_than_l2</a> ()</td></tr>
+<tr class="memitem:a146c52ac77bb2281e92513a5858ee90d" id="r_a146c52ac77bb2281e92513a5858ee90d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__magnitude_8cpp.html#a146c52ac77bb2281e92513a5858ee90d">test_l1_greater_than_l2</a> ()</td></tr>
 <tr class="memdesc:a146c52ac77bb2281e92513a5858ee90d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the mathematical property that L1 norm &gt;= L2 norm.  <br /></td></tr>
 <tr class="separator:a146c52ac77bb2281e92513a5858ee90d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c765ff88e23a4a5296dcd3ae55006bb" id="r_a6c765ff88e23a4a5296dcd3ae55006bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__magnitude_8cpp.html#a6c765ff88e23a4a5296dcd3ae55006bb">test_uniform_magnitude</a> ()</td></tr>
+<tr class="memitem:a6c765ff88e23a4a5296dcd3ae55006bb" id="r_a6c765ff88e23a4a5296dcd3ae55006bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__magnitude_8cpp.html#a6c765ff88e23a4a5296dcd3ae55006bb">test_uniform_magnitude</a> ()</td></tr>
 <tr class="memdesc:a6c765ff88e23a4a5296dcd3ae55006bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifies that a spatially uniform gradient field yields a uniform output.  <br /></td></tr>
 <tr class="separator:a6c765ff88e23a4a5296dcd3ae55006bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__magnitude_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
+<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__magnitude_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main execution entry point for magnitude tests.  <br /></td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -154,7 +153,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int</a> main </td>
+          <td class="memname"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int</a> main </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -178,7 +177,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a> test_l1_greater_than_l2 </td>
+          <td class="memname"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a> test_l1_greater_than_l2 </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -200,7 +199,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a> test_output_range </td>
+          <td class="memname"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a> test_output_range </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -222,7 +221,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a> test_uniform_magnitude </td>
+          <td class="memname"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a> test_uniform_magnitude </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -244,7 +243,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a> test_zero_gradient </td>
+          <td class="memname"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a> test_zero_gradient </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>

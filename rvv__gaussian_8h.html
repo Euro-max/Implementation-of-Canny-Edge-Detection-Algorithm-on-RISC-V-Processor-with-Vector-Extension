@@ -126,43 +126,43 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aaaed23d178508946cb16f8dc1ebda1dd" id="r_aaaed23d178508946cb16f8dc1ebda1dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rvv__gaussian_8h.html#aaaed23d178508946cb16f8dc1ebda1dd">gaussian_blur_rvv</a> (const uint8_t *src, uint8_t *dst, int width, int height)</td></tr>
-<tr class="memdesc:aaaed23d178508946cb16f8dc1ebda1dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">RVV-accelerated 5×5 Gaussian blur.  <br /></td></tr>
-<tr class="separator:aaaed23d178508946cb16f8dc1ebda1dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25cc1791c0fd141f71ca0e4d74174c91" id="r_a25cc1791c0fd141f71ca0e4d74174c91"><td class="memItemLeft" align="right" valign="top"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rvv__gaussian_8h.html#a25cc1791c0fd141f71ca0e4d74174c91">gaussian_blur_rvv</a> (<a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">const</a> <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">uint8_t</a> *<a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">__restrict</a> src, <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">uint8_t</a> *<a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">__restrict</a> <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">dst</a>, <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int</a> <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">width</a>, <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int</a> <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">height</a>)</td></tr>
+<tr class="memdesc:a25cc1791c0fd141f71ca0e4d74174c91"><td class="mdescLeft">&#160;</td><td class="mdescRight">RVV-accelerated 5×5 Gaussian blur.  <br /></td></tr>
+<tr class="separator:a25cc1791c0fd141f71ca0e4d74174c91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Public interface for the RVV-accelerated 5×5 Gaussian blur. </p>
 <p>Drop-in replacement for <code>gaussian_blur_5x5&lt;uint8_t, uint8_t, int32_t&gt;</code>. Only compiled for the RISC-V target (requires <code>&lt;riscv_vector.h&gt;</code>).</p>
 <dl class="section author"><dt>Author</dt><dd>Adham (The_GOAT branch) — Phase 6 RVV Optimization </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="aaaed23d178508946cb16f8dc1ebda1dd" name="aaaed23d178508946cb16f8dc1ebda1dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaaed23d178508946cb16f8dc1ebda1dd">&#9670;&#160;</a></span>gaussian_blur_rvv()</h2>
+<a id="a25cc1791c0fd141f71ca0e4d74174c91" name="a25cc1791c0fd141f71ca0e4d74174c91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25cc1791c0fd141f71ca0e4d74174c91">&#9670;&#160;</a></span>gaussian_blur_rvv()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void gaussian_blur_rvv </td>
+          <td class="memname"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">void</a> gaussian_blur_rvv </td>
           <td>(</td>
-          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramtype"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">const</a> <a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">uint8_t</a> *<a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">__restrict</a>&#160;</td>
           <td class="paramname"><em>src</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramtype"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">uint8_t</a> *<a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">__restrict</a>&#160;</td>
           <td class="paramname"><em>dst</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int</a>&#160;</td>
           <td class="paramname"><em>width</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">int</a>&#160;</td>
           <td class="paramname"><em>height</em>&#160;</td>
         </tr>
         <tr>
@@ -174,32 +174,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>RVV-accelerated 5×5 Gaussian blur. </p>
-<p>Semantically identical to the scalar baseline: </p><div class="fragment"><div class="line"><a class="code hl_function" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">gaussian_blur_5x5&lt;uint8_t, uint8_t, int32_t&gt;</a>(src, <a class="code hl_function" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">dst</a>, <a class="code hl_function" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">width</a>, <a class="code hl_function" href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">height</a>);</div>
-<div class="ttc" id="agaussian_8h_html_a25d9fc356d85b9846432f07b4c113ee7"><div class="ttname"><a href="gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">gaussian_blur_5x5</a></div><div class="ttdeci">void gaussian_blur_5x5(const T_in *input, T_out *output, int width, int height)</div><div class="ttdoc">Applies a 5x5 Gaussian blur to a 2D image array.</div><div class="ttdef"><b>Definition</b> gaussian.ipp:28</div></div>
+<p>Semantically identical to the scalar baseline: </p><div class="fragment"><div class="line"><a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">gaussian_blur_5x5&lt;uint8_t, uint8_t, int32_t&gt;</a>(src, <a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">dst</a>, <a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">width</a>, <a class="code hl_function" href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">height</a>);</div>
+<div class="ttc" id="asrc_2gaussian_8h_html_a25d9fc356d85b9846432f07b4c113ee7"><div class="ttname"><a href="src_2gaussian_8h.html#a25d9fc356d85b9846432f07b4c113ee7">gaussian_blur_5x5</a></div><div class="ttdeci">void gaussian_blur_5x5(const T_in *input, T_out *output, int width, int height)</div><div class="ttdoc">Applies a 5x5 Gaussian blur to a 2D image array.</div><div class="ttdef"><b>Definition</b> gaussian.ipp:28</div></div>
 </div><!-- fragment --><p>Results may differ by ±1 LSB from the scalar version due to integer division rounding — this is expected and acceptable (tested in equivalence tests with ±1 tolerance).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">src</td><td>Read-only input image (width × height uint8_t, row-major). </td></tr>
     <tr><td class="paramname">dst</td><td>Output image buffer (same size, caller-allocated). </td></tr>
-    <tr><td class="paramname">width</td><td>Image width in pixels. </td></tr>
-    <tr><td class="paramname">height</td><td>Image height in pixels.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Produces output byte-for-byte identical to <code>gaussian_blur_5x5&lt;uint8_t,uint8_t,int32_t&gt;</code> from the scalar baseline (within ±1 due to integer division rounding).</p>
-<h3><a class="anchor" id="autotoc_md7"></a>
-Correctness guarantee</h3>
-<ul>
-<li>Border pixels (row &lt; 2, row ≥ H-2, col &lt; 2, col ≥ W-2): handled by <code>scalar_pixel()</code> which is a direct copy of the baseline logic.</li>
-<li>Interior pixels: handled by <code>rvv_process_interior_row()</code> which accumulates with the same coefficients and divides by 273.</li>
-</ul>
-<h3><a class="anchor" id="autotoc_md8"></a>
-VLEN-agnosticism</h3>
-<p>No VLEN value is hardcoded anywhere. <code>vsetvl</code> asks the hardware at runtime. Running this binary at VLEN=128, 256, or 512 must produce identical output.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">src</td><td>Input image (width × height bytes, row-major, uint8_t). </td></tr>
-    <tr><td class="paramname">dst</td><td>Output image (same dimensions, caller-allocated). </td></tr>
     <tr><td class="paramname">width</td><td>Image width in pixels. </td></tr>
     <tr><td class="paramname">height</td><td>Image height in pixels. </td></tr>
   </table>

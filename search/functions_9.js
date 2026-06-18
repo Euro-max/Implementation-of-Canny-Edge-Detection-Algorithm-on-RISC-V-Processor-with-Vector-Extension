@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['read_5fcycles_0',['read_cycles',['../summary_8cpp.html#aba1266de6f326183af3ac5a0d0ee18ca',1,'summary.cpp']]],
-  ['read_5fraw_1',['read_raw',['../classImageIOTest.html#a8b28bc42446066efdb5425afc48a480f',1,'ImageIOTest']]],
-  ['run_2',['run',['../structDirBuffers.html#a6476e6536b4c79b28539178896b2a96b',1,'DirBuffers::run()'],['../structMagBuffers.html#abf819f931cb8ab6e290c968a17cac22f',1,'MagBuffers::run()'],['../structSobelBuffers.html#a7afe3e481009bc540ec8860d93ffb086',1,'SobelBuffers::run()']]]
+  ['save_5fraw_0',['save_raw',['../image__io_8cpp.html#a2d49ca1c7c23e6b7c6ad81d2829ecf37',1,'save_raw(const char *path, const uint8_t *buffer, int width, int height):&#160;image_io.cpp'],['../src_2image__io_8h.html#a2d49ca1c7c23e6b7c6ad81d2829ecf37',1,'save_raw(const char *path, const uint8_t *buffer, int width, int height):&#160;image_io.cpp']]],
+  ['setup_1',['SetUp',['../classImageIOTest.html#a081614cdeadb58d1dc4dbd3dfafca4c1',1,'ImageIOTest']]],
+  ['sobelbuffers_2',['SobelBuffers',['../structSobelBuffers.html#a48fcb4b4357c4e45620b083dc07faac1',1,'SobelBuffers']]]
 ];

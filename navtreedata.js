@@ -25,7 +25,7 @@
 var NAVTREE =
 [
   [ "RISC-V Canny Edge Detection", "index.html", [
-    [ "Canny Edge Detection on RISC-V — Project README", "index.html", "index" ],
+    [ "Canny Edge Detection on RISC-V", "index.html", "index" ],
     [ "Test List", "test.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
@@ -41,8 +41,7 @@ var NAVTREE =
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ],
-        [ "Macros", "globals_defs.html", null ]
+        [ "Functions", "globals_func.html", null ]
       ] ]
     ] ]
   ] ]
@@ -50,8 +49,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html",
-"test__image__io_8cpp.html#a545ac4bd6b28186460d959e6a09fdc23"
+"annotated.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

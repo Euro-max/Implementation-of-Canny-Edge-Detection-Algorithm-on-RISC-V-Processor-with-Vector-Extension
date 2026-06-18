@@ -1,17 +1,13 @@
 <map id="src/gaussian.ipp" name="src/gaussian.ipp">
-<area shape="rect" id="Node000001" title="Template implementation for a 5x5 Gaussian blur filter." alt="" coords="412,5,539,31"/>
-<area shape="rect" id="Node000002" href="$gaussian_8h.html" title="Declarations for the Gaussian blur filter." alt="" coords="418,79,533,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="478,44,478,79,473,79,473,44"/>
-<area shape="rect" id="Node000003" href="$gtest__gaussian_8cpp.html" title="Google Test suite for 5x5 Gaussian blur." alt="" coords="5,152,148,192"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="405,108,160,155,149,157,148,152,159,149,404,103"/>
-<area shape="rect" id="Node000004" href="$gtest__pipeline_8cpp.html" title="Google Test suite for the Canny Edge Detection math kernels." alt="" coords="172,152,315,192"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="429,111,300,154,298,149,428,106"/>
-<area shape="rect" id="Node000005" href="$gaussian_8cpp.html" title="Implementation of a 5x5 Gaussian blur filter." alt="" coords="339,159,470,185"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="458,116,417,161,413,157,454,113"/>
-<area shape="rect" id="Node000006" href="$main_8cpp.html" title="Main execution entry point for Canny Edge Detection (7&#45;stage pipeline)." alt="" coords="495,159,600,185"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="497,112,539,157,535,161,493,116"/>
-<area shape="rect" id="Node000007" href="$main__rvv_8cpp.html" title="RVV pipeline entry point: benchmarks scalar vs RVV at VLEN=128/256/512." alt="" coords="624,159,756,185"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="520,106,660,157,658,162,518,111"/>
-<area shape="rect" id="Node000008" href="$test__gaussian_8cpp.html" title="Unit tests for the 5x5 Gaussian blur filter." alt="" coords="780,159,955,185"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="546,104,811,157,810,162,545,109"/>
+<area shape="rect" id="Node000001" title="Template implementation for a 5x5 Gaussian blur filter." alt="" coords="89,5,216,31"/>
+<area shape="rect" id="Node000002" href="$include_2gaussian_8h_source.html" title=" " alt="" coords="5,79,148,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,42,91,80,87,76,129,38"/>
+<area shape="rect" id="Node000003" href="$src_2gaussian_8h.html" title="Declarations for the Gaussian blur filter." alt="" coords="173,79,287,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="177,38,219,76,216,80,173,42"/>
+<area shape="rect" id="Node000004" href="$gaussian_8cpp.html" title="Implementation of a 5x5 Gaussian blur filter." alt="" coords="22,152,153,177"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="196,112,112,154,109,149,194,108"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Main execution entry point for Canny Edge Detection (7&#45;stage pipeline)." alt="" coords="177,152,283,177"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="233,118,233,152,227,152,227,118"/>
+<area shape="rect" id="Node000006" href="$main__rvv_8cpp.html" title="RVV pipeline entry point: benchmarks scalar vs RVV at VLEN=128/256/512." alt="" coords="307,152,439,177"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="266,108,351,149,348,154,264,112"/>
 </map>

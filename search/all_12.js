@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['linux_5fo_5fappend_0',['LINUX_O_APPEND',['../syscalls_8cpp.html#a84dccc9d9fa8d69dafe37511d414229d',1,'syscalls.cpp']]],
-  ['linux_5fo_5fcreat_1',['LINUX_O_CREAT',['../syscalls_8cpp.html#a996b42184331652b36079f1a4598c813',1,'syscalls.cpp']]],
-  ['linux_5fo_5ftrunc_2',['LINUX_O_TRUNC',['../syscalls_8cpp.html#a693e457534fd21cb0ea6670565c33e7c',1,'syscalls.cpp']]],
-  ['list_3',['Test List',['../test.html',1,'']]],
-  ['lmul_20choice_4',['LMUL choice',['../rvv__magnitude_8cpp.html#autotoc_md12',1,'']]],
-  ['lmul_20choices_20and_20the_20widening_20chain_5',['LMUL choices and the widening chain',['../rvv__gaussian_8cpp.html#autotoc_md6',1,'']]],
-  ['load_5fraw_6',['load_raw',['../image__io_8cpp.html#a95c6a1349ae17447fd543a777fa3b7ef',1,'load_raw(const char *path, uint8_t *buffer, int width, int height):&#160;image_io.cpp'],['../image__io_8h.html#a95c6a1349ae17447fd543a777fa3b7ef',1,'load_raw(const char *path, uint8_t *buffer, int width, int height):&#160;image_io.cpp']]],
-  ['loop_20ky_20kx_20is_20scalar_7',['Why the outer loop (ky, kx) is scalar',['../rvv__gaussian_8cpp.html#autotoc_md5',1,'']]]
+  ['mag_0',['mag',['../structMagBuffers.html#af103003f5596fd56faa6684cd059968c',1,'MagBuffers']]],
+  ['magbuffers_1',['magbuffers',['../structMagBuffers.html#aa0420731558958e84e8f5b4d9517ecf1',1,'MagBuffers::MagBuffers()'],['../structMagBuffers.html',1,'MagBuffers']]],
+  ['magnitude_2ecpp_2',['magnitude.cpp',['../magnitude_8cpp.html',1,'']]],
+  ['magnitude_2eh_3',['magnitude.h',['../src_2magnitude_8h.html',1,'']]],
+  ['main_4',['main',['../main__rvv_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;main_rvv.cpp'],['../test__sobel_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;test_sobel.cpp'],['../test__nms_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;test_nms.cpp'],['../test__magnitude_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;test_magnitude.cpp'],['../test__image__io_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;test_image_io.cpp'],['../test__gaussian_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;test_gaussian.cpp'],['../test__direction_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;test_direction.cpp'],['../summary_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;summary.cpp'],['../gen__test__image_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;gen_test_image.cpp']]],
+  ['main_2ecpp_5',['main.cpp',['../main_8cpp.html',1,'']]],
+  ['main_5frvv_2ecpp_6',['main_rvv.cpp',['../main__rvv_8cpp.html',1,'']]],
+  ['makefile_20targets_7',['Makefile Targets',['../index.html#autotoc_md10',1,'']]]
 ];

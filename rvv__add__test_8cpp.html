@@ -95,6 +95,9 @@ $(document).ready(function(){initNavTree('rvv__add__test_8cpp.html',''); initRes
   <div class="headertitle"><div class="title">rvv_add_test.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Sandbox test to verify RVV strip-mining and tail case handling.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;riscv_vector.h&gt;</code><br />
@@ -103,7 +106,7 @@ Include dependency graph for rvv_add_test.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="rvv__add__test_8cpp__incl.png" border="0" usemap="#asrc_2rvv__add__test_8cpp" alt=""/></div>
 <map name="asrc_2rvv__add__test_8cpp" id="asrc_2rvv__add__test_8cpp">
-<area shape="rect" title=" " alt="" coords="54,5,210,31"/>
+<area shape="rect" title="Sandbox test to verify RVV strip&#45;mining and tail case handling." alt="" coords="54,5,210,31"/>
 <area shape="rect" title=" " alt="" coords="5,79,72,104"/>
 <area shape="poly" title=" " alt="" coords="119,33,66,72,63,68,115,29"/>
 <area shape="rect" title=" " alt="" coords="97,79,167,104"/>
@@ -115,87 +118,16 @@ Include dependency graph for rvv_add_test.cpp:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a77cb0fc641d7961765467ef34e2f7867" id="r_a77cb0fc641d7961765467ef34e2f7867"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rvv__add__test_8cpp.html#a77cb0fc641d7961765467ef34e2f7867">vector_add_scalar</a> (int32_t *array, int32_t value, int n)</td></tr>
-<tr class="memdesc:a77cb0fc641d7961765467ef34e2f7867"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a scalar value to every element in an array using RVV instructions.  <br /></td></tr>
+<tr class="memitem:a77cb0fc641d7961765467ef34e2f7867" id="r_a77cb0fc641d7961765467ef34e2f7867"><td class="memItemLeft" align="right" valign="top"><a id="a77cb0fc641d7961765467ef34e2f7867" name="a77cb0fc641d7961765467ef34e2f7867"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>vector_add_scalar</b> (int32_t *array, int32_t value, int n)</td></tr>
 <tr class="separator:a77cb0fc641d7961765467ef34e2f7867"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rvv__add__test_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
-<tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main execution entry point.  <br /></td></tr>
+<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top"><a id="ae66f6b31b5ad750f1fe042a706a4e3d4" name="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> ()</td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="ae66f6b31b5ad750f1fe042a706a4e3d4" name="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">&#9670;&#160;</a></span>main()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Main execution entry point. </p>
-<ul>
-<li>Initializes a 10-element test array to verify the RVV strip-mining loop. Purposefully uses an array size of 10 to ensure the vector length (vl) correctly handles fractional/tail iterations on hardware where VLEN is typically a power of 2.</li>
-<li><dl class="section return"><dt>Returns</dt><dd>0 on successful execution. </dd></dl>
-</li>
-</ul>
-
-</div>
-</div>
-<a id="a77cb0fc641d7961765467ef34e2f7867" name="a77cb0fc641d7961765467ef34e2f7867"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77cb0fc641d7961765467ef34e2f7867">&#9670;&#160;</a></span>vector_add_scalar()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void vector_add_scalar </td>
-          <td>(</td>
-          <td class="paramtype">int32_t *&#160;</td>
-          <td class="paramname"><em>array</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>n</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds a scalar value to every element in an array using RVV instructions. </p>
-<ul>
-<li>This function utilizes hardware vectorization to process multiple array elements simultaneously. It dynamically queries the CPU for the maximum number of elements it can process per iteration (Vector Length, or 'vl') and steps through the array until all elements, including the remainder (tail), are processed.</li>
-<li><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">array</td><td>Pointer to the start of the 32-bit integer array. </td></tr>
-    <tr><td class="paramname">value</td><td>The scalar value to add to every element. </td></tr>
-    <tr><td class="paramname">n</td><td>The total number of elements in the array. </td></tr>
-  </table>
-  </dd>
-</dl>
-</li>
-</ul>
-
-</div>
-</div>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Sandbox test to verify RVV strip-mining and tail case handling. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

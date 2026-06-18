@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['v_20—_20project_20readme_0',['Canny Edge Detection on RISC-V — Project README',['../index.html',1,'']]],
-  ['vector_5fadd_5fscalar_1',['vector_add_scalar',['../rvv__add__test_8cpp.html#a77cb0fc641d7961765467ef34e2f7867',1,'rvv_add_test.cpp']]],
-  ['vectorization_20✅_2',['Phase 4 — Compiler Optimization Sweep &amp; Auto-Vectorization ✅',['../index.html#autotoc_md25',1,'']]],
-  ['vectorization_20analysis_3',['Auto-vectorization analysis',['../index.html#autotoc_md27',1,'']]]
+  ['v_0',['Canny Edge Detection on RISC-V',['../md_README.html',1,'']]],
+  ['vectorization_20analysis_1',['Auto-Vectorization Analysis',['../md_README.html#autotoc_md47',1,'']]],
+  ['vectorized_2',['What Was Vectorized',['../md_README.html#autotoc_md52',1,'']]],
+  ['vlen_20sweep_20results_20640×480_20image_3',['VLEN Sweep Results (640×480 image)',['../md_README.html#autotoc_md54',1,'']]]
 ];

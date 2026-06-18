@@ -1,25 +1,4 @@
 var searchData=
 [
-  ['pass_0',['Why we can&apos;t fuse Pass 1 and Pass 2 into one pass',['../rvv__magnitude_8cpp.html#autotoc_md14',1,'']]],
-  ['pass_201_20and_20pass_202_20into_20one_20pass_1',['Why we can&apos;t fuse Pass 1 and Pass 2 into one pass',['../rvv__magnitude_8cpp.html#autotoc_md14',1,'']]],
-  ['pass_20structure_2',['Two-pass structure',['../rvv__magnitude_8h.html#autotoc_md15',1,'']]],
-  ['phase_201_20—_20environment_20setup_20✅_3',['Phase 1 — Environment Setup ✅',['../index.html#autotoc_md32',1,'']]],
-  ['phase_202_20—_20scalar_20baseline_20pipeline_20✅_4',['Phase 2 — Scalar Baseline Pipeline ✅',['../index.html#autotoc_md34',1,'']]],
-  ['phase_203_20—_20testing_20✅_5',['Phase 3 — Testing ✅',['../index.html#autotoc_md36',1,'']]],
-  ['phase_204_20—_20compiler_20optimization_20sweep_20auto_20vectorization_20✅_6',['Phase 4 — Compiler Optimization Sweep &amp; Auto-Vectorization ✅',['../index.html#autotoc_md38',1,'']]],
-  ['phase_205_20—_20profiling_20✅_20folded_20into_20phase_204_7',['Phase 5 — Profiling ✅ (folded into Phase 4)',['../index.html#autotoc_md42',1,'']]],
-  ['phase_206_8',['RVV Pipeline (Phase 6)',['../index.html#autotoc_md30',1,'']]],
-  ['phase_206_20—_20rvv_20intrinsic_20optimization_20🔜_20next_20up_9',['Phase 6 — RVV Intrinsic Optimization 🔜 (next up)',['../index.html#autotoc_md44',1,'']]],
-  ['phase_207_20—_20report_20presentation_20🔜_10',['Phase 7 — Report &amp; Presentation 🔜',['../index.html#autotoc_md46',1,'']]],
-  ['pipeline_11',['Scalar Pipeline',['../index.html#autotoc_md29',1,'']]],
-  ['pipeline_20✅_12',['Phase 2 — Scalar Baseline Pipeline ✅',['../index.html#autotoc_md34',1,'']]],
-  ['pipeline_20phase_206_13',['RVV Pipeline (Phase 6)',['../index.html#autotoc_md30',1,'']]],
-  ['preparation_14',['Image Preparation',['../index.html#autotoc_md28',1,'']]],
-  ['prerequisites_15',['Prerequisites',['../index.html#autotoc_md21',1,'']]],
-  ['presentation_20🔜_16',['Phase 7 — Report &amp; Presentation 🔜',['../index.html#autotoc_md46',1,'']]],
-  ['profiling_20✅_20folded_20into_20phase_204_17',['Phase 5 — Profiling ✅ (folded into Phase 4)',['../index.html#autotoc_md42',1,'']]],
-  ['project_20overview_18',['Project Overview',['../index.html#autotoc_md18',1,'']]],
-  ['project_20readme_19',['Canny Edge Detection on RISC-V — Project README',['../index.html',1,'']]],
-  ['project_20structure_20',['Project Structure',['../index.html#autotoc_md23',1,'']]],
-  ['purpose_21',['Purpose',['../main__rvv_8cpp.html#autotoc_md0',1,'']]]
+  ['quick_20start_0',['Quick Start',['../index.html#autotoc_md8',1,'']]]
 ];

@@ -99,11 +99,11 @@ $(document).ready(function(){initNavTree('main_8cpp.html',''); initResizable(); 
 
 <p>Main execution entry point for Canny Edge Detection (7-stage pipeline).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="image__io_8h_source.html">image_io.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="gaussian_8h_source.html">gaussian.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="sobel_8h_source.html">sobel.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="magnitude_8h_source.html">magnitude.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="direction_8h_source.html">direction.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="src_2image__io_8h_source.html">image_io.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="src_2gaussian_8h_source.html">gaussian.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="src_2sobel_8h_source.html">sobel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="src_2magnitude_8h_source.html">magnitude.h</a>&quot;</code><br />
+<code>#include &quot;direction.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="nms__threshold_8h_source.html">nms_threshold.h</a>&quot;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
@@ -114,15 +114,15 @@ Include dependency graph for main.cpp:</div>
 <div class="center"><img src="main_8cpp__incl.png" border="0" usemap="#asrc_2main_8cpp" alt=""/></div>
 <map name="asrc_2main_8cpp" id="asrc_2main_8cpp">
 <area shape="rect" title="Main execution entry point for Canny Edge Detection (7&#45;stage pipeline)." alt="" coords="455,5,560,31"/>
-<area shape="rect" href="image__io_8h.html" title="Declarations for raw image file I/O and aligned memory allocation." alt="" coords="5,79,100,104"/>
+<area shape="rect" href="src_2image__io_8h.html" title="Declarations for raw image file I/O and aligned memory allocation." alt="" coords="5,79,100,104"/>
 <area shape="poly" title=" " alt="" coords="455,29,114,81,113,76,454,24"/>
-<area shape="rect" href="gaussian_8h.html" title="Declarations for the Gaussian blur filter." alt="" coords="461,79,553,104"/>
+<area shape="rect" href="src_2gaussian_8h.html" title="Declarations for the Gaussian blur filter." alt="" coords="461,79,553,104"/>
 <area shape="poly" title=" " alt="" coords="510,31,510,65,505,65,505,31"/>
-<area shape="rect" href="sobel_8h.html" title="Declarations for the Sobel operator gradient computation." alt="" coords="125,79,194,104"/>
+<area shape="rect" href="src_2sobel_8h.html" title="Declarations for the Sobel operator gradient computation." alt="" coords="125,79,194,104"/>
 <area shape="poly" title=" " alt="" coords="455,32,208,81,207,76,454,26"/>
-<area shape="rect" href="magnitude_8h.html" title="Declarations for gradient magnitude computation." alt="" coords="218,79,322,104"/>
+<area shape="rect" href="src_2magnitude_8h.html" title="Declarations for gradient magnitude computation." alt="" coords="218,79,322,104"/>
 <area shape="poly" title=" " alt="" coords="470,33,322,77,321,72,468,28"/>
-<area shape="rect" href="direction_8h.html" title=" " alt="" coords="346,79,437,104"/>
+<area shape="rect" href="src_2direction_8h_source.html" title=" " alt="" coords="346,79,437,104"/>
 <area shape="poly" title=" " alt="" coords="490,33,423,74,421,69,487,28"/>
 <area shape="rect" href="nms__threshold_8h.html" title="Header file for Non&#45;Maximum Suppression, Thresholding, and Hysteresis." alt="" coords="578,79,709,104"/>
 <area shape="poly" title=" " alt="" coords="530,28,610,70,608,75,528,33"/>
@@ -153,7 +153,8 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627" id="r_a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
+<tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627" id="r_a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top"><a id="a3c04138a5bfe5d72780bb7e82a18e627" name="a3c04138a5bfe5d72780bb7e82a18e627"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (int argc, char **argv)</td></tr>
 <tr class="separator:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -189,35 +190,6 @@ Functions</h2></td></tr>
 <div class="line">                100.0*(cyc)/total, \</div>
 <div class="line">                ((cyc)==hot) ? <span class="stringliteral">&quot;&lt; HOT&quot;</span> : <span class="stringliteral">&quot;&quot;</span>)</div>
 </div><!-- fragment -->
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a3c04138a5bfe5d72780bb7e82a18e627" name="a3c04138a5bfe5d72780bb7e82a18e627"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c04138a5bfe5d72780bb7e82a18e627">&#9670;&#160;</a></span>main()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>argc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char **&#160;</td>
-          <td class="paramname"><em>argv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
 </div>
 </div>
 </div><!-- contents -->

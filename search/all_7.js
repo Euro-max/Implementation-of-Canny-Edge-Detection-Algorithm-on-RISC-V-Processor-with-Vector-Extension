@@ -1,14 +1,9 @@
 var searchData=
 [
-  ['_5fclose_0',['_close',['../syscalls_8cpp.html#a58a559c63748012aab165d5f82af766d',1,'syscalls.cpp']]],
-  ['_5fexit_1',['_exit',['../syscalls_8cpp.html#abc96bd69b58b2deaddb484478d911c1b',1,'syscalls.cpp']]],
-  ['_5ffstat_2',['_fstat',['../syscalls_8cpp.html#a6e8d95db883bc4efe10c487d74e96b06',1,'syscalls.cpp']]],
-  ['_5fgetpid_3',['_getpid',['../syscalls_8cpp.html#a945e539df8e0f66d3c73c533fe1968ee',1,'syscalls.cpp']]],
-  ['_5fisatty_4',['_isatty',['../syscalls_8cpp.html#a4284676ccba12d7f2061d338001f71fb',1,'syscalls.cpp']]],
-  ['_5fkill_5',['_kill',['../syscalls_8cpp.html#a062a5101199c3128edd5170f2575bb10',1,'syscalls.cpp']]],
-  ['_5flseek_6',['_lseek',['../syscalls_8cpp.html#a6fd96f1827f22161142519298141cd2f',1,'syscalls.cpp']]],
-  ['_5fopen_7',['_open',['../syscalls_8cpp.html#abcd66721a10b8f78d5957a3409015169',1,'syscalls.cpp']]],
-  ['_5fread_8',['_read',['../syscalls_8cpp.html#ab43394f28de7a1e3ff94e02981ae8492',1,'syscalls.cpp']]],
-  ['_5fsbrk_9',['_sbrk',['../syscalls_8cpp.html#a68125648bcce70b6bb3aa0be50e99700',1,'syscalls.cpp']]],
-  ['_5fwrite_10',['_write',['../syscalls_8cpp.html#a43106060f9615c44ed6a0195f2665028',1,'syscalls.cpp']]]
+  ['allocate_5fbuffer_0',['allocate_buffer',['../image__io_8cpp.html#a95b280d415d802879ac0dcac92afa250',1,'allocate_buffer(int width, int height):&#160;image_io.cpp'],['../src_2image__io_8h.html#a95b280d415d802879ac0dcac92afa250',1,'allocate_buffer(int width, int height):&#160;image_io.cpp']]],
+  ['analysis_1',['Auto-Vectorization Analysis',['../index.html#autotoc_md24',1,'']]],
+  ['apply_5fdouble_5fthreshold_2',['apply_double_threshold',['../nms__threshold_8cpp.html#ac67c200ebd064fe8528419dc010d7c6f',1,'apply_double_threshold(const uint8_t *nms, uint8_t *thresh_out, int W, int H, uint8_t low, uint8_t high):&#160;nms_threshold.cpp'],['../nms__threshold_8h.html#ac67c200ebd064fe8528419dc010d7c6f',1,'apply_double_threshold(const uint8_t *nms, uint8_t *thresh_out, int W, int H, uint8_t low, uint8_t high):&#160;nms_threshold.cpp']]],
+  ['apply_5fhysteresis_3',['apply_hysteresis',['../nms__threshold_8cpp.html#abf66a0e1caa44b0e85c42053a61c7f91',1,'apply_hysteresis(uint8_t *thresh, int W, int H):&#160;nms_threshold.cpp'],['../nms__threshold_8h.html#abf66a0e1caa44b0e85c42053a61c7f91',1,'apply_hysteresis(uint8_t *thresh, int W, int H):&#160;nms_threshold.cpp']]],
+  ['apply_5fnms_4',['apply_nms',['../nms__threshold_8cpp.html#ab85e2aa59a0af2fc69c868ae56695c57',1,'apply_nms(const uint8_t *mag, const uint8_t *dir, uint8_t *nms_out, int W, int H):&#160;nms_threshold.cpp'],['../nms__threshold_8h.html#ab85e2aa59a0af2fc69c868ae56695c57',1,'apply_nms(const uint8_t *mag, const uint8_t *dir, uint8_t *nms_out, int W, int H):&#160;nms_threshold.cpp']]],
+  ['auto_20vectorization_20analysis_5',['Auto-Vectorization Analysis',['../index.html#autotoc_md24',1,'']]]
 ];
