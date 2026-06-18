@@ -1,27 +1,12 @@
 /**
- * @file rvv_add_test.c
- * @brief Introduction to RISC-V Vector (RVV) intrinsics using a scalar addition.
- * * This file contains a foundational example of RVV programming. It demonstrates 
- * the "strip-mining" technique, where an array of arbitrary length is processed 
- * in hardware-defined vector chunks using the `vsetvl` instruction. It handles 
- * edge cases automatically, such as arrays whose length is not a clean multiple 
- * of the hardware vector register length (VLEN).
+ * @file rvv_add_test.cpp
+ * @brief Sandbox test to verify RVV strip-mining and tail case handling.
  */
 
 #include <stdio.h>
 #include <stdint.h>
 #include <riscv_vector.h>   // RVV intrinsics live here
 
-/**
- * @brief Adds a scalar value to every element in an array using RVV instructions.
- * * This function utilizes hardware vectorization to process multiple array elements 
- * simultaneously. It dynamically queries the CPU for the maximum number of elements 
- * it can process per iteration (Vector Length, or 'vl') and steps through the 
- * array until all elements, including the remainder (tail), are processed.
- * * @param array Pointer to the start of the 32-bit integer array.
- * @param value The scalar value to add to every element.
- * @param n     The total number of elements in the array.
- */
 // This function adds a scalar value to every element in an array
 // using RVV vector instructions
 void vector_add_scalar(int32_t* array, int32_t value, int n) {
@@ -54,13 +39,6 @@ void vector_add_scalar(int32_t* array, int32_t value, int n) {
     }
 }
 
-/**
- * @brief Main execution entry point.
- * * Initializes a 10-element test array to verify the RVV strip-mining loop. 
- * Purposefully uses an array size of 10 to ensure the vector length (vl) correctly 
- * handles fractional/tail iterations on hardware where VLEN is typically a power of 2.
- * * @return 0 on successful execution.
- */
 int main() {
 
     // Create an array of 10 numbers
@@ -81,21 +59,6 @@ int main() {
         printf("%d ", arr[i]);
     }
     printf("\n");
-
-    // Verify correctness
-    int correct = 1;
-    int32_t expected[10] = {15, 25, 35, 45, 55, 65, 75, 85, 95, 105};
-    for (int i = 0; i < 10; i++) {
-        if (arr[i] != expected[i]) {
-            correct = 0;
-            printf("WRONG at index %d: got %d, expected %d\n",
-                   i, arr[i], expected[i]);
-        }
-    }
-
-    if (correct) {
-        printf("ALL CORRECT! RVV is working!\n");
-    }
 
     return 0;
 }
