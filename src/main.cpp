@@ -1,6 +1,6 @@
 /**
  * @file main.cpp
- * @brief Main execution entry point for Canny Edge Detection (7-stage pipeline).
+ * @brief Main execution entry point for Edge Detection (4-stage pipeline).
  */
 
 #include "image_io.h"
@@ -8,7 +8,6 @@
 #include "sobel.h"
 #include "magnitude.h"
 #include "direction.h"
-#include "nms_threshold.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,30 +18,26 @@ static inline uint64_t read_cycles() {
     return c;
 }
 
-// 7-arg bottleneck finder
-static uint64_t find_max(uint64_t cyc_gaussian, uint64_t cyc_sobel, uint64_t cyc_mag, 
-                        uint64_t cyc_dir, uint64_t cyc_nms, uint64_t cyc_thresh, uint64_t cyc_hyst) {
+// 4-arg bottleneck finder
+static uint64_t find_max(uint64_t cyc_gaussian, uint64_t cyc_sobel, 
+                         uint64_t cyc_mag,      uint64_t cyc_dir) {
     uint64_t m = cyc_gaussian;
     if (cyc_sobel > m) m = cyc_sobel;
     if (cyc_mag > m) m = cyc_mag;
     if (cyc_dir > m) m = cyc_dir;
-    if (cyc_nms > m) m = cyc_nms;
-    if (cyc_thresh > m) m = cyc_thresh;
-    if (cyc_hyst > m) m = cyc_hyst;
     return m;
 }
 
 static void print_table(uint64_t cyc_gaussian, uint64_t cyc_sobel,
                         uint64_t cyc_mag,      uint64_t cyc_dir,
-                        uint64_t cyc_nms,      uint64_t cyc_thresh,
-                        uint64_t cyc_hyst,     int reps) {
+                        int reps) {
     
-    uint64_t total = cyc_gaussian + cyc_sobel + cyc_mag + cyc_dir + cyc_nms + cyc_thresh + cyc_hyst;
-    uint64_t hot   = find_max(cyc_gaussian, cyc_sobel, cyc_mag, cyc_dir, cyc_nms, cyc_thresh, cyc_hyst);
+    uint64_t total = cyc_gaussian + cyc_sobel + cyc_mag + cyc_dir;
+    uint64_t hot   = find_max(cyc_gaussian, cyc_sobel, cyc_mag, cyc_dir);
 
     printf("\n+--------------+----------------+--------+--------------+\n");
-    printf("|          Canny Pipeline - Cycle Count Results         |\n");
-    printf("|              (average over %d runs)                 |\n", reps);
+    printf("|          Pipeline - Cycle Count Results               |\n");
+    printf("|              (average over %d runs)                  |\n", reps);
     printf("+--------------+----------------+--------+--------------+\n");
     printf("| Stage        | Cycles         |  %%     | Bottleneck?  |\n");
     printf("+--------------+----------------+--------+--------------+\n");
@@ -57,9 +52,6 @@ static void print_table(uint64_t cyc_gaussian, uint64_t cyc_sobel,
     ROW("Sobel",      cyc_sobel);
     ROW("Magnitude",  cyc_mag);
     ROW("Direction",  cyc_dir);
-    ROW("NMS",        cyc_nms);
-    ROW("Threshold",  cyc_thresh);
-    ROW("Hysteresis", cyc_hyst);
     #undef ROW
 
     printf("+--------------+----------------+--------+--------------+\n");
@@ -78,7 +70,7 @@ int main(int argc, char** argv) {
     int H = atoi(argv[4]);
 
     printf("\n+----------------------------------------------+\n");
-    printf("|        Canny Edge Detection Pipeline         |\n");
+    printf("|        Edge Detection Pipeline (4-Stage)     |\n");
     printf("|        Running on RISC-V via QEMU            |\n");
     printf("+----------------------------------------------+\n");
     printf("|  Input : %-35s|\n", argv[1]);
@@ -92,10 +84,8 @@ int main(int argc, char** argv) {
     int16_t* gy        = (int16_t*)aligned_alloc(64, W*H*sizeof(int16_t));
     uint8_t* img_mag   = allocate_buffer(W, H);
     uint8_t* img_dir   = allocate_buffer(W, H);
-    uint8_t* img_nms   = allocate_buffer(W, H);
-    uint8_t* img_edges = allocate_buffer(W, H);
 
-    if (!img_in || !img_blur || !gx || !gy || !img_mag || !img_dir || !img_nms || !img_edges) {
+    if (!img_in || !img_blur || !gx || !gy || !img_mag || !img_dir) {
         fprintf(stderr, "ERROR: Memory allocation failed!\n");
         return 1;
     }
@@ -122,36 +112,25 @@ int main(int argc, char** argv) {
     for (int i = 0; i < REPS; i++) compute_direction(gx, gy, img_dir, W, H);
     uint64_t cyc_dir = (read_cycles() - c0) / REPS;
 
-    c0 = read_cycles();
-    for (int i = 0; i < REPS; i++) apply_nms(img_mag, img_dir, img_nms, W, H);
-    uint64_t cyc_nms = (read_cycles() - c0) / REPS;
+    // --- THE FIX IS HERE ---
+    // Save the Magnitude buffer (img_mag) instead of Direction (img_dir).
+    // Magnitude contains the actual 0-255 edge strengths so you can see them!
+    save_raw(argv[2], img_mag, W, H);
 
-    c0 = read_cycles();
-    for (int i = 0; i < REPS; i++) apply_double_threshold(img_nms, img_edges, W, H, 30, 90);
-    uint64_t cyc_thresh = (read_cycles() - c0) / REPS;
-
-    c0 = read_cycles();
-    for (int i = 0; i < REPS; i++) apply_hysteresis(img_edges, W, H);
-    uint64_t cyc_hyst = (read_cycles() - c0) / REPS;
-
-    save_raw(argv[2], img_edges, W, H);
-
-    print_table(cyc_gaussian, cyc_sobel, cyc_mag, cyc_dir, cyc_nms, cyc_thresh, cyc_hyst, REPS);
+    print_table(cyc_gaussian, cyc_sobel, cyc_mag, cyc_dir, REPS);
 
     if (argc >= 6) {
         FILE* cf = fopen(argv[5], "w");
         if (cf) {
-            fprintf(cf, "%llu\n%llu\n%llu\n%llu\n%llu\n%llu\n%llu\n", 
+            fprintf(cf, "%llu\n%llu\n%llu\n%llu\n", 
                     (unsigned long long)cyc_gaussian, (unsigned long long)cyc_sobel,
-                    (unsigned long long)cyc_mag, (unsigned long long)cyc_dir,
-                    (unsigned long long)cyc_nms, (unsigned long long)cyc_thresh,
-                    (unsigned long long)cyc_hyst);
+                    (unsigned long long)cyc_mag, (unsigned long long)cyc_dir);
             fclose(cf);
         }
     }
 
     free(img_in); free(img_blur); free(gx); free(gy); 
-    free(img_mag); free(img_dir); free(img_nms); free(img_edges);
+    free(img_mag); free(img_dir);
 
     return 0;
 }

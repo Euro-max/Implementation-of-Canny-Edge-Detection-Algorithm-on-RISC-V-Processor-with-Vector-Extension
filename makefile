@@ -12,7 +12,7 @@ QEMU       = qemu-riscv64
 QEMU_FLAGS = -cpu rv64,v=true,vlen=128
 
 # ─── Source files ────────────────────────────────────────────────────────────
-SRCS = src/main.cpp src/syscalls.cpp src/image_io.cpp src/sobel.cpp src/magnitude.cpp src/direction.cpp src/nms_threshold.cpp
+SRCS = src/main.cpp src/syscalls.cpp src/image_io.cpp src/sobel.cpp src/magnitude.cpp src/direction.cpp 
 
 RV_TEST_SRCS   = $(filter-out src/main.cpp, $(SRCS))
 HOST_TEST_SRCS = $(filter-out src/main.cpp src/syscalls.cpp, $(SRCS))
@@ -27,7 +27,6 @@ RVV_SRCS = src/main_rvv.cpp \
             src/sobel.cpp \
             src/magnitude.cpp \
             src/direction.cpp \
-            src/nms_threshold.cpp \
             src/rvv_gaussian.cpp \
             src/rvv_magnitude.cpp
 

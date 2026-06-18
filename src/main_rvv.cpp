@@ -5,10 +5,10 @@
  * ## Purpose
  *
  * This file replaces `main.cpp` for the RVV build target.  It runs the full
- * 7-stage Canny pipeline twice per image:
+ * 4-stage Edge Detection pipeline twice per image:
  *
- *  1. **Scalar path** (same functions as Phase 4/5 benchmarks).
- *  2. **RVV path**    (rvv_gaussian + rvv_magnitude; other stages unchanged).
+ * 1. **Scalar path** (same functions as Phase 4/5 benchmarks).
+ * 2. **RVV path** (rvv_gaussian + rvv_magnitude; other stages unchanged).
  *
  * After both runs it performs an **equivalence check**: every output pixel of
  * the RVV Gaussian and RVV magnitude is compared against the scalar baseline
@@ -20,13 +20,13 @@
  *
  * ## Usage
  * @code
- *   # build:
- *   make rvv
+ * # build:
+ * make rvv
  *
- *   # VLEN sweep (run from Makefile or manually):
- *   qemu-riscv64 -cpu rv64,v=true,vlen=128 ./build_rv/canny_rvv in.raw out128.raw 720 900
- *   qemu-riscv64 -cpu rv64,v=true,vlen=256 ./build_rv/canny_rvv in.raw out256.raw 720 900
- *   qemu-riscv64 -cpu rv64,v=true,vlen=512 ./build_rv/canny_rvv in.raw out512.raw 720 900
+ * # VLEN sweep (run from Makefile or manually):
+ * qemu-riscv64 -cpu rv64,v=true,vlen=128 ./build_rv/canny_rvv in.raw out128.raw 720 900
+ * qemu-riscv64 -cpu rv64,v=true,vlen=256 ./build_rv/canny_rvv in.raw out256.raw 720 900
+ * qemu-riscv64 -cpu rv64,v=true,vlen=512 ./build_rv/canny_rvv in.raw out512.raw 720 900
  * @endcode
  *
  * @author  Adham (The_GOAT branch) — Phase 6 RVV Optimization
@@ -37,7 +37,6 @@
 #include "sobel.h"
 #include "magnitude.h"
 #include "direction.h"
-#include "nms_threshold.h"
 #include "rvv_gaussian.h"
 #include "rvv_magnitude.h"
 
@@ -145,20 +144,20 @@ static void print_comparison(int reps,
  * @brief Entry point for the RVV benchmark binary.
  *
  * Expected arguments:
- *  @code
- *    ./canny_rvv <input.raw> <output.raw> <width> <height>
- *  @endcode
+ * @code
+ * ./canny_rvv <input.raw> <output.raw> <width> <height>
+ * @endcode
  *
  * Runs:
- *  1. Scalar pipeline (100 reps) — measures per-stage baseline.
- *  2. RVV pipeline (100 reps)    — measures RVV Gaussian and Magnitude.
- *  3. Equivalence checks on blur output and magnitude output.
- *  4. Prints comparison table.
- *  5. Saves the RVV final edge output to <output.raw>.
+ * 1. Scalar pipeline (100 reps) — measures per-stage baseline.
+ * 2. RVV pipeline (100 reps)    — measures RVV Gaussian and Magnitude.
+ * 3. Equivalence checks on blur output and magnitude output.
+ * 4. Prints comparison table.
+ * 5. Saves the RVV magnitude output to <output.raw>.
  *
  * @param argc  Argument count (must be ≥ 5).
  * @param argv  Argument vector: [binary, input.raw, output.raw, width, height].
- * @return      0 on success, 1 on error.
+ * @return      0 on success, 1 on error, 2 on equivalence failure.
  */
 int main(int argc, char** argv) {
     if (argc < 5) {
@@ -183,20 +182,20 @@ int main(int argc, char** argv) {
 
     // ── Allocate all buffers ─────────────────────────────────────────────────
     uint8_t* img_in       = allocate_buffer(W, H);   ///< Raw input image
+    
     // Scalar pipeline intermediate buffers
     uint8_t* blur_scalar  = allocate_buffer(W, H);
     int16_t* gx           = (int16_t*)aligned_alloc(64, (size_t)size * sizeof(int16_t));
     int16_t* gy           = (int16_t*)aligned_alloc(64, (size_t)size * sizeof(int16_t));
     uint8_t* mag_scalar   = allocate_buffer(W, H);
     uint8_t* img_dir      = allocate_buffer(W, H);
-    uint8_t* img_nms      = allocate_buffer(W, H);
-    uint8_t* img_edges    = allocate_buffer(W, H);
-    // RVV pipeline output buffers (only the vectorised stages need separate buffers)
+    
+    // RVV pipeline output buffers
     uint8_t* blur_rvv     = allocate_buffer(W, H);
     uint8_t* mag_rvv      = allocate_buffer(W, H);
 
     if (!img_in || !blur_scalar || !gx || !gy || !mag_scalar ||
-        !img_dir || !img_nms || !img_edges || !blur_rvv || !mag_rvv) {
+        !img_dir || !blur_rvv || !mag_rvv) {
         fprintf(stderr, "ERROR: Memory allocation failed\n");
         return 1;
     }
@@ -273,12 +272,10 @@ int main(int argc, char** argv) {
     compute_sobel(blur_rvv, gx, gy, W, H);
     compute_magnitude_l1_rvv(gx, gy, mag_rvv, W, H);
     compute_direction(gx, gy, img_dir, W, H);
-    apply_nms(mag_rvv, img_dir, img_nms, W, H);
-    apply_double_threshold(img_nms, img_edges, W, H, 30, 90);
-    apply_hysteresis(img_edges, W, H);
 
-    save_raw(argv[2], img_edges, W, H);
-    printf("Edge output saved to %s\n\n", argv[2]);
+    // Save the RVV Magnitude buffer so the output is visible!
+    save_raw(argv[2], mag_rvv, W, H);
+    printf("Magnitude output saved to %s\n\n", argv[2]);
 
     if (!ok_gauss || !ok_mag) {
         fprintf(stderr, "WARNING: Equivalence check FAILED — "
@@ -287,7 +284,7 @@ int main(int argc, char** argv) {
 
     // ── Free all buffers ─────────────────────────────────────────────────────
     free(img_in);   free(blur_scalar); free(gx);      free(gy);
-    free(mag_scalar); free(img_dir);  free(img_nms);  free(img_edges);
+    free(mag_scalar); free(img_dir);  
     free(blur_rvv); free(mag_rvv);
 
     return (!ok_gauss || !ok_mag) ? 2 : 0;
