@@ -19,7 +19,7 @@ Include dependency graph for rvv\+\_\+gaussian.\+cpp\+:\nopagebreak
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{rvv__gaussian_8cpp_aaaed23d178508946cb16f8dc1ebda1dd}{gaussian\+\_\+blur\+\_\+rvv}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}src, uint8\+\_\+t \texorpdfstring{$\ast$}{*}dst, int width, int height)
+void \mbox{\hyperlink{rvv__gaussian_8cpp_a25cc1791c0fd141f71ca0e4d74174c91}{gaussian\+\_\+blur\+\_\+rvv}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}\+\_\+\+\_\+restrict src, uint8\+\_\+t \texorpdfstring{$\ast$}{*}\+\_\+\+\_\+restrict dst, int width, int height)
 \begin{DoxyCompactList}\small\item\em RVV-\/accelerated 5×5 Gaussian blur. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -38,17 +38,7 @@ This file replaces that with two regions\+:
 \end{DoxyItemize}\hypertarget{rvv__gaussian_8cpp_autotoc_md3}{}\doxysubsubsection{\texorpdfstring{Data-\/widening chain}{Data-widening chain}}\label{rvv__gaussian_8cpp_autotoc_md3}
 uint8\+\_\+t pixels → widen to int16\+\_\+t → multiply by int16\+\_\+t kernel coefficient → accumulate into int32\+\_\+t → divide by 273 → clamp → uint8\+\_\+t output
 
-Widening doubles LMUL at each step, so with LMUL=m1 for the int16 load the int32 accumulator is m2. This caps the practical LMUL at m2 (widened result would be m4, which is still legal but leaves fewer registers for temporaries).\hypertarget{rvv__gaussian_8cpp_autotoc_md4}{}\doxysubsubsection{\texorpdfstring{Strip-\/mining}{Strip-mining}}\label{rvv__gaussian_8cpp_autotoc_md4}
-The canonical RVV strip-\/mining pattern\+: 
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n;\ )\ \{}
-\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{size\_t}\ vl\ =\ \_\_riscv\_vsetvl\_e8m1(n\ -\/\ i);\ \ \ \textcolor{comment}{//\ ask\ HW:\ how\ many\ fit?}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ ...\ process\ vl\ elements\ ...}}
-\DoxyCodeLine{\ \ \ \ i\ +=\ vl;}
-\DoxyCodeLine{\}}
-
-\end{DoxyCode}
- {\ttfamily vl} is determined at runtime by the hardware based on VLEN and LMUL. At VLEN=128 with LMUL=m1\+: vl = 16 bytes. At VLEN=256 with LMUL=m1\+: vl = 32 bytes. At VLEN=512 with LMUL=m1\+: vl = 64 bytes. The same binary, the same source — different throughput on different hardware.
+Widening doubles LMUL at each step, so with LMUL=m1 for the int16 load the int32 accumulator is m2. This caps the practical LMUL at m2 (widened result would be m4, which is still legal but leaves fewer registers for temporaries).
 
 \begin{DoxyAuthor}{Author}
 Adham (The\+\_\+\+GOAT branch) — Phase 6 RVV Optimization 
@@ -56,29 +46,30 @@ Adham (The\+\_\+\+GOAT branch) — Phase 6 RVV Optimization
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{rvv__gaussian_8cpp_aaaed23d178508946cb16f8dc1ebda1dd}\label{rvv__gaussian_8cpp_aaaed23d178508946cb16f8dc1ebda1dd} 
+\Hypertarget{rvv__gaussian_8cpp_a25cc1791c0fd141f71ca0e4d74174c91}\label{rvv__gaussian_8cpp_a25cc1791c0fd141f71ca0e4d74174c91} 
 \index{rvv\_gaussian.cpp@{rvv\_gaussian.cpp}!gaussian\_blur\_rvv@{gaussian\_blur\_rvv}}
 \index{gaussian\_blur\_rvv@{gaussian\_blur\_rvv}!rvv\_gaussian.cpp@{rvv\_gaussian.cpp}}
 \doxysubsubsection{\texorpdfstring{gaussian\_blur\_rvv()}{gaussian\_blur\_rvv()}}
-{\footnotesize\ttfamily void gaussian\+\_\+blur\+\_\+rvv (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{src,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{dst,  }\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void gaussian\+\_\+blur\+\_\+rvv (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}\+\_\+\+\_\+restrict}]{src,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}\+\_\+\+\_\+restrict}]{dst,  }\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
 
 
 
 RVV-\/accelerated 5×5 Gaussian blur. 
 
-Produces output byte-\/for-\/byte identical to {\ttfamily gaussian\+\_\+blur\+\_\+5x5\texorpdfstring{$<$}{<}uint8\+\_\+t,uint8\+\_\+t,int32\+\_\+t\texorpdfstring{$>$}{>}} from the scalar baseline (within ±1 due to integer division rounding).\hypertarget{rvv__gaussian_8h_autotoc_md7}{}\doxysubsubsubsection{\texorpdfstring{Correctness guarantee}{Correctness guarantee}}\label{rvv__gaussian_8h_autotoc_md7}
+Semantically identical to the scalar baseline\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{gaussian\_blur\_5x5<uint8\_t,\ uint8\_t,\ int32\_t>}}(src,\ \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{dst}},\ \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{width}},\ \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{height}});}
 
-\begin{DoxyItemize}
-\item Border pixels (row \texorpdfstring{$<$}{<} 2, row ≥ H-\/2, col \texorpdfstring{$<$}{<} 2, col ≥ W-\/2)\+: handled by {\ttfamily scalar\+\_\+pixel()} which is a direct copy of the baseline logic.
-\item Interior pixels\+: handled by {\ttfamily rvv\+\_\+process\+\_\+interior\+\_\+row()} which accumulates with the same coefficients and divides by 273.
-\end{DoxyItemize}\hypertarget{rvv__gaussian_8h_autotoc_md8}{}\doxysubsubsubsection{\texorpdfstring{VLEN-\/agnosticism}{VLEN-agnosticism}}\label{rvv__gaussian_8h_autotoc_md8}
-No VLEN value is hardcoded anywhere. {\ttfamily vsetvl} asks the hardware at runtime. Running this binary at VLEN=128, 256, or 512 must produce identical output.
+\end{DoxyCode}
+
+
+Results may differ by ±1 LSB from the scalar version due to integer division rounding — this is expected and acceptable (tested in equivalence tests with ±1 tolerance).
 
 
 \begin{DoxyParams}{Parameters}
-{\em src} & Input image (width × height bytes, row-\/major, uint8\+\_\+t). \\
+{\em src} & Read-\/only input image (width × height uint8\+\_\+t, row-\/major). \\
 \hline
-{\em dst} & Output image (same dimensions, caller-\/allocated). \\
+{\em dst} & Output image buffer (same size, caller-\/allocated). \\
 \hline
 {\em width} & Image width in pixels. \\
 \hline

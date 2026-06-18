@@ -19,34 +19,12 @@ Include dependency graph for rvv\+\_\+magnitude.\+cpp\+:\nopagebreak
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{rvv__magnitude_8cpp_a4960ed5e95b24018327e045f4fad9aa0}{compute\+\_\+magnitude\+\_\+l1\+\_\+rvv}} (\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int16\+\_\+t}} \texorpdfstring{$\ast$}{*}gx, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int16\+\_\+t}} \texorpdfstring{$\ast$}{*}gy, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{uint8\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{output}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{width}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{height}})
-\begin{DoxyCompactList}\small\item\em RVV-\/accelerated L1 gradient magnitude with normalisation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} \mbox{\hyperlink{rvv__magnitude_8cpp_acb85b32928802dae5200fd48c51a7431}{compute\+\_\+magnitude\+\_\+l1\+\_\+rvv}} (\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int16\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{\+\_\+\+\_\+restrict}} gx, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int16\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{\+\_\+\+\_\+restrict}} gy, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{uint8\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{\+\_\+\+\_\+restrict}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{output}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{width}}, \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{height}})
+\begin{DoxyCompactList}\small\item\em RVV-\/accelerated L1 gradient magnitude with global normalisation. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 RVV-\/accelerated L1 gradient magnitude with two-\/pass normalisation. 
-
-\hypertarget{rvv__magnitude_8cpp_autotoc_md9}{}\doxysubsubsection{\texorpdfstring{Algorithm recap (matching scalar baseline in magnitude.\+cpp)}{Algorithm recap (matching scalar baseline in magnitude.cpp)}}\label{rvv__magnitude_8cpp_autotoc_md9}
-{\bfseries{Pass 1}} — for every pixel i\+: {\ttfamily temp\mbox{[}i\mbox{]} = \texorpdfstring{$\vert$}{|}\+Gx\mbox{[}i\mbox{]}\texorpdfstring{$\vert$}{|} + \texorpdfstring{$\vert$}{|}\+Gy\mbox{[}i\mbox{]}\texorpdfstring{$\vert$}{|}} (int32\+\_\+t, maximum value ≈ 2×32 767 = 65 534) Track the running maximum across the whole image.
-
-{\bfseries{Pass 2}} — normalise to \mbox{[}0, 255\mbox{]}\+: {\ttfamily output\mbox{[}i\mbox{]} = (uint8\+\_\+t)(temp\mbox{[}i\mbox{]} \texorpdfstring{$\ast$}{*} 255 / max\+\_\+mag)}\hypertarget{rvv__magnitude_8cpp_autotoc_md10}{}\doxysubsubsection{\texorpdfstring{Why this is a good RVV candidate}{Why this is a good RVV candidate}}\label{rvv__magnitude_8cpp_autotoc_md10}
-
-\begin{DoxyItemize}
-\item Pass 1 is purely element-\/wise on the SoA Gx/\+Gy arrays — a perfect fit for strip-\/mined vector abs + add.
-\item The running max across the image requires a {\bfseries{vector reduction}} at the end of each strip\+: {\ttfamily vredmax} folds a vector of N elements into a single scalar.
-\item Pass 2 multiplies every temp value by the same scalar (255/max\+\_\+mag) — another broadcast-\/scalar × vector pattern.
-\item No boundary conditions at all — this is a flat 1-\/D loop over W×H elements.
-\end{DoxyItemize}\hypertarget{rvv__magnitude_8cpp_autotoc_md11}{}\doxysubsubsection{\texorpdfstring{New RVV concept\+: vector reduction}{New RVV concept: vector reduction}}\label{rvv__magnitude_8cpp_autotoc_md11}
-{\ttfamily \+\_\+\+\_\+riscv\+\_\+vredmax\+\_\+vs\+\_\+i32m4\+\_\+i32m1(vs2, vs1, vl)}\+:
-\begin{DoxyItemize}
-\item {\ttfamily vs2} \+: the vector to reduce (m4 — LMUL=4, i.\+e. our accumulation register).
-\item {\ttfamily vs1} \+: a scalar vector holding the initial value (identity for max = INT32\+\_\+\+MIN).
-\item Returns a LMUL=m1 vector whose element \mbox{[}0\mbox{]} holds the maximum.
-\item Extract element \mbox{[}0\mbox{]} with {\ttfamily \+\_\+\+\_\+riscv\+\_\+vmv\+\_\+x\+\_\+s\+\_\+i32m1\+\_\+i32}.
-\end{DoxyItemize}\hypertarget{rvv__magnitude_8cpp_autotoc_md12}{}\doxysubsubsection{\texorpdfstring{LMUL choice}{LMUL choice}}\label{rvv__magnitude_8cpp_autotoc_md12}
-Gx and Gy are int16\+\_\+t. After abs and add the result is int32\+\_\+t (to avoid overflow\+: max \texorpdfstring{$\vert$}{|}\+Gx\texorpdfstring{$\vert$}{|}+\texorpdfstring{$\vert$}{|}\+Gy\texorpdfstring{$\vert$}{|} is 65 534, fits in int16\+\_\+t actually, but we keep int32\+\_\+t to match the scalar baseline and avoid signed-\/overflow UB).
-
-For widening int16→int32 we use LMUL=m2 for the int16 load, giving m4 for the int32 accumulation. This lets us process more elements per iteration (at VLEN=256, m2 holds 32 int16 elements → 512 bits).
 
 \begin{DoxyAuthor}{Author}
 Adham (The\+\_\+\+GOAT branch) — Phase 6 RVV Optimization 
@@ -54,38 +32,31 @@ Adham (The\+\_\+\+GOAT branch) — Phase 6 RVV Optimization
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{rvv__magnitude_8cpp_a4960ed5e95b24018327e045f4fad9aa0}\label{rvv__magnitude_8cpp_a4960ed5e95b24018327e045f4fad9aa0} 
+\Hypertarget{rvv__magnitude_8cpp_acb85b32928802dae5200fd48c51a7431}\label{rvv__magnitude_8cpp_acb85b32928802dae5200fd48c51a7431} 
 \index{rvv\_magnitude.cpp@{rvv\_magnitude.cpp}!compute\_magnitude\_l1\_rvv@{compute\_magnitude\_l1\_rvv}}
 \index{compute\_magnitude\_l1\_rvv@{compute\_magnitude\_l1\_rvv}!rvv\_magnitude.cpp@{rvv\_magnitude.cpp}}
 \doxysubsubsection{\texorpdfstring{compute\_magnitude\_l1\_rvv()}{compute\_magnitude\_l1\_rvv()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} compute\+\_\+magnitude\+\_\+l1\+\_\+rvv (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int16\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{gx,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int16\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{gy,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{uint8\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{output,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{width,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{height }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{void}} compute\+\_\+magnitude\+\_\+l1\+\_\+rvv (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int16\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{\+\_\+\+\_\+restrict}}}]{gx,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{const}} \mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int16\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{\+\_\+\+\_\+restrict}}}]{gy,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{uint8\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{\+\_\+\+\_\+restrict}}}]{output,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{width,  }\item[{\mbox{\hyperlink{gaussian_8h_a25d9fc356d85b9846432f07b4c113ee7}{int}}}]{height }\end{DoxyParamCaption})}
 
 
 
-RVV-\/accelerated L1 gradient magnitude with normalisation. 
+RVV-\/accelerated L1 gradient magnitude with global normalisation. 
 
-RVV-\/accelerated L1 gradient magnitude with global normalisation.
-
-Drop-\/in replacement for {\ttfamily \doxylink{magnitude_8cpp_a457bd35a995dee57fec739515466e279}{compute\+\_\+magnitude\+\_\+l1()}} from \doxylink{magnitude_8cpp}{magnitude.\+cpp}. Allocates a temporary int32\+\_\+t buffer on the stack via VLA (or the caller could pre-\/allocate it; here we use a static local to avoid heap allocation in the timed hot path — if image size is fixed this is safe).
-
-\begin{DoxyWarning}{Warning}
-The temporary buffer is heap-\/allocated here to support arbitrary image sizes. For a fixed-\/size embedded deployment, a static array would save the malloc overhead.
-\end{DoxyWarning}
-\hypertarget{rvv__magnitude_8h_autotoc_md15}{}\doxysubsubsubsection{\texorpdfstring{Two-\/pass structure}{Two-pass structure}}\label{rvv__magnitude_8h_autotoc_md15}
-
+Two-\/pass algorithm\+:
 \begin{DoxyItemize}
-\item {\bfseries{Pass 1}} ({\ttfamily rvv\+\_\+pass1\+\_\+magnitude})\+: fill temp\+\_\+mag\mbox{[}\mbox{]}, return global max.
-\item {\bfseries{Pass 2}} ({\ttfamily rvv\+\_\+pass2\+\_\+normalise})\+: normalise temp\+\_\+mag\mbox{[}\mbox{]} → output\mbox{[}\mbox{]}.
-\end{DoxyItemize}\hypertarget{rvv__magnitude_8h_autotoc_md16}{}\doxysubsubsubsection{\texorpdfstring{Equivalence guarantee}{Equivalence guarantee}}\label{rvv__magnitude_8h_autotoc_md16}
-Results match {\ttfamily compute\+\_\+magnitude\+\_\+l1} within ±1 LSB. The scalar baseline uses {\ttfamily float scale = 255.\+0f / max\+\_\+mag} and then {\ttfamily (uint8\+\_\+t)(temp\mbox{[}i\mbox{]} \texorpdfstring{$\ast$}{*} scale)}, which can differ from integer division by ±1 at rounding boundaries.
+\item Pass 1\+: {\ttfamily temp\mbox{[}i\mbox{]} = \texorpdfstring{$\vert$}{|}\+Gx\mbox{[}i\mbox{]}\texorpdfstring{$\vert$}{|} + \texorpdfstring{$\vert$}{|}\+Gy\mbox{[}i\mbox{]}\texorpdfstring{$\vert$}{|}}, track max.
+\item Pass 2\+: {\ttfamily output\mbox{[}i\mbox{]} = (uint8\+\_\+t)(temp\mbox{[}i\mbox{]} \texorpdfstring{$\ast$}{*} 255 / max)}.
+\end{DoxyItemize}
+
+Results match {\ttfamily compute\+\_\+magnitude\+\_\+l1} within ±1 LSB (integer vs float rounding difference in the normalisation step).
 
 
 \begin{DoxyParams}{Parameters}
-{\em gx} & Sobel X gradient (int16\+\_\+t SoA, width×height elements). \\
+{\em gx} & Sobel X gradient buffer (int16\+\_\+t, width×height elements). \\
 \hline
-{\em gy} & Sobel Y gradient (int16\+\_\+t SoA, width×height elements). \\
+{\em gy} & Sobel Y gradient buffer (int16\+\_\+t, width×height elements). \\
 \hline
-{\em output} & Output magnitude image (uint8\+\_\+t, caller-\/allocated). \\
+{\em output} & Output image buffer (uint8\+\_\+t, caller-\/allocated). \\
 \hline
 {\em width} & Image width in pixels. \\
 \hline

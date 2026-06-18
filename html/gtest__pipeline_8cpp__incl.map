@@ -1,0 +1,32 @@
+<map id="google_tests/gtest_pipeline.cpp" name="google_tests/gtest_pipeline.cpp">
+<area shape="rect" id="Node000001" title="Google Test suite for the Canny Edge Detection math kernels." alt="" coords="369,5,511,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,109,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="369,44,123,94,122,89,368,39"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="625,167,692,192"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="369,31,289,38,212,53,184,65,166,79,162,87,162,95,174,117,195,128,237,138,359,155,498,166,612,173,611,178,497,172,358,160,236,143,193,133,170,121,157,97,157,85,162,76,181,60,211,48,288,33,368,26"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="184,93,251,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="388,48,264,91,262,86,386,43"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="275,93,338,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="409,48,339,89,337,84,407,43"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="362,93,427,119"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="431,47,411,83,406,80,427,44"/>
+<area shape="rect" id="Node000007" href="$gaussian_8h.html" title="Declarations for the Gaussian blur filter." alt="" coords="907,93,999,119"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="512,33,682,57,894,90,893,96,681,62,511,39"/>
+<area shape="rect" id="Node000010" href="$sobel_8h.html" title="Declarations for the Sobel operator gradient computation." alt="" coords="452,93,521,119"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="454,44,475,80,470,83,449,47"/>
+<area shape="rect" id="Node000011" href="$magnitude_8h.html" title="Declarations for gradient magnitude computation." alt="" coords="545,93,649,119"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="479,43,563,85,561,89,477,48"/>
+<area shape="rect" id="Node000012" href="$direction_8h.html" title=" " alt="" coords="673,93,764,119"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="507,43,665,87,664,92,506,48"/>
+<area shape="rect" id="Node000013" href="$image__io_8h.html" title="Declarations for raw image file I/O and aligned memory allocation." alt="" coords="789,93,883,119"/>
+<area shape="poly" id="edge16_Node000001_Node000013" title=" " alt="" coords="512,38,776,90,775,95,511,43"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="908,121,706,169,705,164,907,116"/>
+<area shape="rect" id="Node000008" href="$gaussian_8ipp.html" title="Template implementation for a 5x5 Gaussian blur filter." alt="" coords="901,167,1005,192"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="956,119,956,153,951,153,951,119"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="911,240,996,265"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="956,192,956,226,951,226,951,192"/>
+<area shape="poly" id="edge11_Node000010_Node000003" title=" " alt="" coords="515,116,619,159,617,164,513,121"/>
+<area shape="poly" id="edge13_Node000011_Node000003" title=" " alt="" coords="609,117,642,154,638,158,605,121"/>
+<area shape="poly" id="edge15_Node000012_Node000003" title=" " alt="" coords="711,121,679,158,675,154,707,117"/>
+<area shape="poly" id="edge17_Node000013_Node000003" title=" " alt="" coords="808,121,701,164,699,159,807,116"/>
+</map>

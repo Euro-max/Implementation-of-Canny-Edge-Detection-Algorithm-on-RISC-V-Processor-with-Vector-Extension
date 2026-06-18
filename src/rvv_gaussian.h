@@ -18,7 +18,7 @@
  *
  * Semantically identical to the scalar baseline:
  * @code
- *   gaussian_blur_5x5<uint8_t, uint8_t, int32_t>(src, dst, width, height);
+ * gaussian_blur_5x5<uint8_t, uint8_t, int32_t>(src, dst, width, height);
  * @endcode
  *
  * Results may differ by ±1 LSB from the scalar version due to integer
@@ -30,6 +30,6 @@
  * @param width  Image width in pixels.
  * @param height Image height in pixels.
  */
-void gaussian_blur_rvv(const uint8_t* src, uint8_t* dst, int width, int height);
+void gaussian_blur_rvv(const uint8_t* __restrict src, uint8_t* __restrict dst, int width, int height);
 
 #endif /* RVV_GAUSSIAN_H */

@@ -17,8 +17,8 @@
  * @brief RVV-accelerated L1 gradient magnitude with global normalisation.
  *
  * Two-pass algorithm:
- *  - Pass 1: `temp[i] = |Gx[i]| + |Gy[i]|`, track max.
- *  - Pass 2: `output[i] = (uint8_t)(temp[i] * 255 / max)`.
+ * - Pass 1: `temp[i] = |Gx[i]| + |Gy[i]|`, track max.
+ * - Pass 2: `output[i] = (uint8_t)(temp[i] * 255 / max)`.
  *
  * Results match `compute_magnitude_l1` within ±1 LSB (integer vs float
  * rounding difference in the normalisation step).
@@ -29,7 +29,7 @@
  * @param width   Image width in pixels.
  * @param height  Image height in pixels.
  */
-void compute_magnitude_l1_rvv(const int16_t* gx, const int16_t* gy,
-                               uint8_t* output, int width, int height);
+void compute_magnitude_l1_rvv(const int16_t* __restrict gx, const int16_t* __restrict gy,
+                               uint8_t* __restrict output, int width, int height);
 
 #endif /* RVV_MAGNITUDE_H */

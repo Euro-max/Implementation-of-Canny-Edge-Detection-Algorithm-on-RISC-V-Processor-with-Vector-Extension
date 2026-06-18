@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['save_5fraw_0',['save_raw',['../image__io_8h.html#a2d49ca1c7c23e6b7c6ad81d2829ecf37',1,'save_raw(const char *path, const uint8_t *buffer, int width, int height):&#160;image_io.cpp'],['../image__io_8cpp.html#a2d49ca1c7c23e6b7c6ad81d2829ecf37',1,'save_raw(const char *path, const uint8_t *buffer, int width, int height):&#160;image_io.cpp']]],
+  ['scalar_20baseline_20pipeline_20✅_1',['Phase 2 — Scalar Baseline Pipeline ✅',['../index.html#autotoc_md21',1,'']]],
+  ['scalar_20pipeline_2',['Scalar Pipeline',['../index.html#autotoc_md16',1,'']]],
+  ['setup_3',['SetUp',['../classImageIOTest.html#a081614cdeadb58d1dc4dbd3dfafca4c1',1,'ImageIOTest']]],
+  ['setup_20✅_4',['Phase 1 — Environment Setup ✅',['../index.html#autotoc_md19',1,'']]],
+  ['so_20far_5',['Key Files Generated So Far',['../index.html#autotoc_md35',1,'']]],
+  ['sobel_2ecpp_6',['sobel.cpp',['../sobel_8cpp.html',1,'']]],
+  ['sobel_2eh_7',['sobel.h',['../sobel_8h.html',1,'']]],
+  ['sobelbuffers_8',['sobelbuffers',['../structSobelBuffers.html#a48fcb4b4357c4e45620b083dc07faac1',1,'SobelBuffers::SobelBuffers()'],['../structSobelBuffers.html',1,'SobelBuffers']]],
+  ['src_9',['src',['../structSobelBuffers.html#ab744e1c320c42937b3a092881bb0e14c',1,'SobelBuffers']]],
+  ['start_10',['Quick Start',['../index.html#autotoc_md12',1,'']]],
+  ['structure_11',['Project Structure',['../index.html#autotoc_md10',1,'']]],
+  ['summary_2ecpp_12',['summary.cpp',['../summary_8cpp.html',1,'']]],
+  ['sweep_13',['Optimization sweep',['../index.html#autotoc_md26',1,'']]],
+  ['sweep_20auto_20vectorization_20✅_14',['Phase 4 — Compiler Optimization Sweep &amp; Auto-Vectorization ✅',['../index.html#autotoc_md25',1,'']]],
+  ['sys_5fbrk_15',['SYS_brk',['../syscalls_8cpp.html#af108d15cba04878eac778176897d7b8a',1,'syscalls.cpp']]],
+  ['sys_5fclose_16',['SYS_close',['../syscalls_8cpp.html#a8ac7ddcf0e4789f3e705f35b8da40af3',1,'syscalls.cpp']]],
+  ['sys_5fexit_17',['SYS_exit',['../syscalls_8cpp.html#a9ffbbdd04d43fb4c0d05d4363d351772',1,'syscalls.cpp']]],
+  ['sys_5ffstat_18',['SYS_fstat',['../syscalls_8cpp.html#a71105a873ad172a54a16aa2f2d85534a',1,'syscalls.cpp']]],
+  ['sys_5flseek_19',['SYS_lseek',['../syscalls_8cpp.html#aaafd617a1c739e39d3a183d5806be86f',1,'syscalls.cpp']]],
+  ['sys_5fopenat_20',['SYS_openat',['../syscalls_8cpp.html#adc8f5467b14f701dce000c7226575a6e',1,'syscalls.cpp']]],
+  ['sys_5fread_21',['SYS_read',['../syscalls_8cpp.html#a4481bc3f0d65944cd6a9ecd6c5b93a55',1,'syscalls.cpp']]],
+  ['sys_5fwrite_22',['SYS_write',['../syscalls_8cpp.html#aa7425a6f80dc9c0ec789079cb6547542',1,'syscalls.cpp']]],
+  ['syscalls_2ecpp_23',['syscalls.cpp',['../syscalls_8cpp.html',1,'']]]
+];
