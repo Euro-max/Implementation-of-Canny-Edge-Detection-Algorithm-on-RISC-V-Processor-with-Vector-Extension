@@ -2,15 +2,12 @@
  * @file gtest_sobel.cpp
  * @brief Google Test suite for Sobel edge detection operator
  * @ingroup tests
- * 
- * Tests the compute_sobel() function which computes horizontal and
+ * * Tests the compute_sobel() function which computes horizontal and
  * vertical gradients using 3x3 Sobel kernels.
- * 
- * Sobel kernels:
+ * * Sobel kernels:
  * - Gx: [[-1,0,1], [-2,0,2], [-1,0,1]]  (horizontal edges)
  * - Gy: [[-1,-2,-1], [0,0,0], [1,2,1]]  (vertical edges)
- * 
- * @see compute_sobel()
+ * * @see compute_sobel()
  */
 
 #include <gtest/gtest.h>
@@ -18,6 +15,7 @@
 #include <vector>
 #include <cstdint>
 #include <cstring>
+#include <cmath>
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Helpers
@@ -26,8 +24,7 @@
 /**
  * @struct SobelBuffers
  * @brief Test helper structure for Sobel gradient tests
- * 
- * Manages source image and gradient buffers with convenient initialization.
+ * * Manages source image and gradient buffers with convenient initialization.
  */
 struct SobelBuffers {
     int W, H;                         ///< Image dimensions
@@ -56,8 +53,7 @@ struct SobelBuffers {
 /**
  * @test ConstantImageZeroGradient
  * @brief Verify constant image produces zero gradients
- * 
- * Sobel operator computes derivatives, so constant image should
+ * * Sobel operator computes derivatives, so constant image should
  * yield zero gradients everywhere.
  */
 TEST(Sobel, ConstantImageZeroGradient) {
@@ -79,8 +75,8 @@ TEST(Sobel, ConstantImageZeroGradient) {
 /**
  * @test VerticalEdgeStrongGx
  * @brief Verify vertical edge produces strong horizontal gradient response
- * 
- * At a vertical edge (intensity changes horizontally), Gx should be large.
+ * * At a vertical edge (intensity changes horizontally), Gx should be large,
+ * and Gy should be zero.
  */
 TEST(Sobel, VerticalEdgeStrongGx) {
     const int W = 16, H = 16;
@@ -92,10 +88,13 @@ TEST(Sobel, VerticalEdgeStrongGx) {
 
     b.run();
 
-    // At the edge column (x == W/2), interior rows should have large |Gx|
-    for (int y = 1; y < H - 1; ++y)
+    // At the edge column (x == W/2), interior rows should have large |Gx| and zero Gy
+    for (int y = 1; y < H - 1; ++y) {
         EXPECT_GT(std::abs(b.gx[y * W + W / 2]), 0)
             << "Expected nonzero Gx at edge column, y=" << y;
+        EXPECT_EQ(b.gy[y * W + W / 2], 0)
+            << "Expected zero Gy at vertical edge column, y=" << y;
+    }
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
@@ -105,8 +104,8 @@ TEST(Sobel, VerticalEdgeStrongGx) {
 /**
  * @test HorizontalEdgeStrongGy
  * @brief Verify horizontal edge produces strong vertical gradient response
- * 
- * At a horizontal edge (intensity changes vertically), Gy should be large.
+ * * At a horizontal edge (intensity changes vertically), Gy should be large,
+ * and Gx should be zero.
  */
 TEST(Sobel, HorizontalEdgeStrongGy) {
     const int W = 16, H = 16;
@@ -118,9 +117,12 @@ TEST(Sobel, HorizontalEdgeStrongGy) {
 
     b.run();
 
-    for (int x = 1; x < W - 1; ++x)
+    for (int x = 1; x < W - 1; ++x) {
         EXPECT_GT(std::abs(b.gy[(H / 2) * W + x]), 0)
             << "Expected nonzero Gy at edge row, x=" << x;
+        EXPECT_EQ(b.gx[(H / 2) * W + x], 0)
+            << "Expected zero Gx at horizontal edge row, x=" << x;
+    }
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
@@ -130,8 +132,7 @@ TEST(Sobel, HorizontalEdgeStrongGy) {
 /**
  * @test HorizontalRampOnlyGx
  * @brief Verify horizontal ramp produces only Gx, not Gy
- * 
- * When intensity varies only horizontally (each row is identical),
+ * * When intensity varies only horizontally (each row is identical),
  * Gy should be zero everywhere.
  */
 TEST(Sobel, HorizontalRampOnlyGx) {
@@ -159,8 +160,7 @@ TEST(Sobel, HorizontalRampOnlyGx) {
 /**
  * @test VerticalRampOnlyGy
  * @brief Verify vertical ramp produces only Gy, not Gx
- * 
- * When intensity varies only vertically (each column is identical),
+ * * When intensity varies only vertically (each column is identical),
  * Gx should be zero everywhere.
  */
 TEST(Sobel, VerticalRampOnlyGy) {
@@ -204,8 +204,7 @@ TEST(Sobel, AllZeroImage) {
 /**
  * @test MinimumSizeNoCrash
  * @brief Verify Sobel works with minimum 3×3 image
- * 
- * The Sobel kernel is 3x3, so 3×3 is the smallest valid image size.
+ * * The Sobel kernel is 3x3, so 3×3 is the smallest valid image size.
  */
 TEST(Sobel, MinimumSizeNoCrash) {
     SobelBuffers b(3, 3, 50);
@@ -219,8 +218,7 @@ TEST(Sobel, MinimumSizeNoCrash) {
 /**
  * @test GxSignCorrect
  * @brief Verify Gx sign indicates direction of horizontal intensity change
- * 
- * When brighter pixels are to the right, Gx should be positive.
+ * * When brighter pixels are to the right, Gx should be positive.
  */
 TEST(Sobel, GxSignCorrect) {
     const int W = 8, H = 8;
@@ -246,8 +244,7 @@ TEST(Sobel, GxSignCorrect) {
 /**
  * @test GySignCorrect
  * @brief Verify Gy sign indicates direction of vertical intensity change
- * 
- * When brighter pixels are below, Gy should be positive.
+ * * When brighter pixels are below, Gy should be positive.
  */
 TEST(Sobel, GySignCorrect) {
     const int W = 8, H = 8;
@@ -271,8 +268,7 @@ TEST(Sobel, GySignCorrect) {
 /**
  * @test FlippedImageNegatesGx
  * @brief Verify Gx antisymmetry property under horizontal flip
- * 
- * Sobel operator is antisymmetric: flipping the image horizontally
+ * * Sobel operator is antisymmetric: flipping the image horizontally
  * should negate the Gx output.
  */
 TEST(Sobel, FlippedImageNegatesGx) {
@@ -294,4 +290,31 @@ TEST(Sobel, FlippedImageNegatesGx) {
             EXPECT_EQ(a.gx[y * W + ax], -b.gx[y * W + bx])
                 << "Antisymmetry broken at (" << x << "," << y << ")";
         }
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
+// 11. Diagonal edge produces significant values in both Gx and Gy
+// ──────────────────────────────────────────────────────────────────────────────
+
+/**
+ * @test DiagonalEdgeSignificantBoth
+ * @brief Verify diagonal edge produces significant Gx and Gy
+ * * A diagonal edge should trigger both horizontal and vertical kernels.
+ */
+TEST(Sobel, DiagonalEdgeSignificantBoth) {
+    const int W = 16, H = 16;
+    SobelBuffers b(W, H);
+
+    // Create a diagonal edge (top-left black, bottom-right white)
+    for (int y = 0; y < H; ++y) {
+        for (int x = 0; x < W; ++x) {
+            if (x > y) b.src[y * W + x] = 255;
+        }
+    }
+    b.run();
+
+    // Check a pixel exactly on the diagonal boundary (e.g., center)
+    int test_idx = 5 * W + 5; 
+    EXPECT_GT(std::abs(b.gx[test_idx]), 50) << "Expected significant Gx on diagonal";
+    EXPECT_GT(std::abs(b.gy[test_idx]), 50) << "Expected significant Gy on diagonal";
 }

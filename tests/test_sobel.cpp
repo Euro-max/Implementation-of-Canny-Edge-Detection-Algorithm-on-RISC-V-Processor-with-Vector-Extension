@@ -110,6 +110,34 @@ void test_black_image() {
 }
 
 /**
+ * @brief Verifies a diagonal edge produces both Gx and Gy.
+ * * A diagonal boundary changes intensity in both the X and Y axes,
+ * so both the horizontal and vertical Sobel kernels should fire.
+ */
+// Test 5: Diagonal edge detected in both Gx and Gy
+void test_diagonal_edge() {
+    int W = 10, H = 10;
+    uint8_t input[100] = {0};
+    int16_t gx[100] = {0}, gy[100] = {0};
+
+    // Create a diagonal edge (top-left black, bottom-right white)
+    for (int y = 0; y < H; ++y) {
+        for (int x = 0; x < W; ++x) {
+            if (x > y) input[y * W + x] = 255;
+        }
+    }
+
+    compute_sobel(input, gx, gy, W, H);
+
+    // Check a pixel directly on the diagonal boundary
+    int center_pixel = 5 * W + 5;
+    assert(gx[center_pixel] != 0);
+    assert(gy[center_pixel] != 0);
+
+    std::cout << "✓ Test 5 PASSED: Diagonal edge detected in both\n";
+}
+
+/**
  * @brief Main execution entry point for Sobel tests.
  * * Runs all test cases sequentially. If any assert fails, the program 
  * will abort immediately. Otherwise, it prints a success summary.
@@ -121,6 +149,7 @@ int main() {
     test_vertical_edge();
     test_horizontal_edge();
     test_black_image();
+    test_diagonal_edge();
     std::cout << "\n✅ All Sobel tests PASSED!\n";
     return 0;
 }
