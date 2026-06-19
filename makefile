@@ -16,7 +16,7 @@ QEMU_FLAGS = -cpu rv64,v=true,vlen=128
 # ─── Source files ────────────────────────────────────────────────────────────
 SRCS = src/main.cpp src/syscalls.cpp src/image_io.cpp src/sobel.cpp src/magnitude.cpp src/direction.cpp src/nms_threshold.cpp
 
-RV_TEST_SRCS   = $(filter-out src/main.cpp, $(SRCS))
+RV_TEST_SRCS   = $(filter-out src/main.cpp, $(SRCS)) src/rvv_gaussian.cpp src/rvv_magnitude.cpp
 HOST_TEST_SRCS = $(filter-out src/main.cpp src/syscalls.cpp, $(SRCS))
 
 # Phase 6 RVV Sources (Removes main.cpp, adds main_rvv.cpp + RVV implementations)
