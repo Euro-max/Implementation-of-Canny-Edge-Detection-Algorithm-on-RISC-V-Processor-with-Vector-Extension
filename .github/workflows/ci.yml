@@ -52,7 +52,7 @@ jobs:
         run: |
           make test_legacy RV_CXX=riscv-none-elf-g++
 
-      # Generate the Canny Edge .raw outputs
+      # Generate the Canny Edge .raw outputs (Kept exactly as you wrote it)
       - name: Run Canny Edge Pipeline
         run: |
           make run             # Generates out.raw (Scalar)
@@ -60,11 +60,25 @@ jobs:
           make vlen_256        # Generates out_rvv_256.raw
           make vlen_512        # Generates out_rvv_512.raw
 
+      # NEW: Collect the performance data into a clean text file
+      - name: Generate Benchmark Summary
+        run: |
+          echo "========================================" > benchmark_summary.txt
+          echo "          RVV VLEN BENCHMARKS           " >> benchmark_summary.txt
+          echo "========================================" >> benchmark_summary.txt
+          make vlen_sweep RV_CXX=riscv-none-elf-g++ >> benchmark_summary.txt
+
+          echo "" >> benchmark_summary.txt
+          echo "========================================" >> benchmark_summary.txt
+          echo "      COMPILER OPTIMIZATION SWEEP       " >> benchmark_summary.txt
+          echo "========================================" >> benchmark_summary.txt
+          make sweep RV_CXX=riscv-none-elf-g++ >> benchmark_summary.txt
+
       - name: Convert Output .raw files to .png
         run: |
           make view_all
 
-      - name: Upload 5 Final Images
+      - name: Upload Final Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: canny-edge-results
@@ -73,3 +87,4 @@ jobs:
             out_rvv_128.png
             out_rvv_256.png
             out_rvv_512.png
+            benchmark_summary.txt
