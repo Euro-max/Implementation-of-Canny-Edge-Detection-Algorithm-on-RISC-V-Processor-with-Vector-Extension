@@ -7,6 +7,7 @@
 // This file overrides newlib's stubs with correct RISC-V Linux ABI syscalls.
 
 #include <sys/stat.h>
+#include <time.h>
 #include <stdint.h>
 #include <stddef.h>
 
@@ -20,7 +21,8 @@
 #define SYS_fstat    80
 #define SYS_exit     93
 #define AT_FDCWD    -100
-
+#define SYS_exit     93
+#define SYS_clock_gettime 113
 // Flag Translation Constants (Newlib vs Linux)
 #define LINUX_O_CREAT   0x0040
 #define LINUX_O_TRUNC   0x0200
@@ -28,6 +30,20 @@
 #define NEWLIB_O_CREAT  0x0200
 #define NEWLIB_O_TRUNC  0x0400
 #define NEWLIB_O_APPEND 0x0008
+
+// Add near the other _sc1/_sc3/_sc4 helpers:
+
+static inline long _sc2(long n, long a0, long a1) {
+    register long _n  asm("a7") = n;
+    register long _a0 asm("a0") = a0;
+    register long _a1 asm("a1") = a1;
+    asm volatile("ecall" : "+r"(_a0) : "r"(_n),"r"(_a1) : "memory");
+    return _a0;
+}
+// Add inside the existing extern "C" { ... } block, alongside _open/_close/etc:
+int _clock_gettime(clockid_t clk_id, struct timespec* tp) {
+    return (int)_sc2(SYS_clock_gettime, (long)clk_id, (long)tp);
+}
 
 // ── Syscall wrappers ──────────────────────────────────────────────────────────
 static inline long _sc1(long n, long a0) {
@@ -84,7 +100,11 @@ int _isatty(int fd) { return (fd == 0 || fd == 1 || fd == 2) ? 1 : 0; }
 void _exit(int status) { _sc1(SYS_exit, status); __builtin_unreachable(); }
 int _getpid(void) { return 1; }
 int _kill(int pid, int sig) { (void)pid; (void)sig; return -1; }
+// _clock_gettime: real-time/monotonic clock read via syscall 113
 
+int clock_gettime(clockid_t clk_id, struct timespec* tp) {
+    return _clock_gettime(clk_id, tp);
+}
 void* _sbrk(ptrdiff_t incr) {
     long current_brk = _sc1(SYS_brk, 0);
     if (incr == 0) return (void*)current_brk;
