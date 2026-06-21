@@ -9,13 +9,13 @@ A fully optimized Canny Edge Detection pipeline cross-compiled for bare-metal RI
 
 ## Team
 
-| Name | ID | Section | Bench No. |
-|---|---|---|---|
-| Ahmed Hassan Labib | 91240075 | 1 | 7 |
-| Ahmed Wael Mohammed | 91240930 | 1 | 16 |
-| Adham Mohammed ElSadiq | 91240142 | 1 | 17 |
-| Muhammad Sameer AbdelHamid | 91240662 | 3 | 21 |
-| Muhammad Sayed AbdelSalam | 91240663 | 3 | 22 |
+| Name | ID | Section | Bench No. | Email |
+|---|---|---|---|---|
+| Ahmed Hassan Labib | 91240075 | 1 | 7 | ahmed.labib05@eng-st.cu.edu.eg |
+| Ahmed Wael Mohammed | 91240930 | 1 | 16 | ahmed2005stem@gmail.com |
+| Adham Mohammed ElSadiq | 91240142 | 1 | 17 | adham.alsagher05@eng-st.cu.edu.eg |
+| Muhammad Sameer AbdelHamid | 91240662 | 3 | 21 | muhammad.Abdelhay05@eng-st.cu.edu.eg |
+| Muhammad Sayed AbdelSalam | 91240663 | 3 | 22 | mohamed.ibrahim061@eng-st.cu.edu.eg |
 
 ---
 
