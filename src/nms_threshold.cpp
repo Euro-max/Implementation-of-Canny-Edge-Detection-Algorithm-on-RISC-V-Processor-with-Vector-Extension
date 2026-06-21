@@ -6,6 +6,7 @@
 #include "nms_threshold.h"
 #include <stdint.h>
 #include <algorithm>
+#include <vector>
 
 /**
  * @brief Non-Maximum Suppression
@@ -57,31 +58,56 @@ void apply_double_threshold(const uint8_t* nms, uint8_t* thresh_out, int W, int 
 /**
  * @brief Hysteresis
  * Promotes weak edges to strong edges if they are connected to strong edges.
+ * Iterative implementation to protect the hardware call stack.
  */
-static void trace_edge(uint8_t* data, int x, int y, int W, int H) {
-    for (int i = -1; i <= 1; i++) {
-        for (int j = -1; j <= 1; j++) {
-            int nx = x + j;
-            int ny = y + i;
-            if (nx >= 0 && nx < W && ny >= 0 && ny < H) {
-                if (data[ny * W + nx] == 128) {
-                    data[ny * W + nx] = 255;
-                    trace_edge(data, nx, ny, W, H);
+void apply_hysteresis(uint8_t* thresh, int W, int H) {
+    // Explicit stack for Depth-First Search. 
+    // This moves memory allocation to the heap, preventing bare-metal stack overflows.
+    std::vector<int> stack;
+    
+    // Pre-allocate memory to prevent costly reallocations during the trace
+    stack.reserve(1024);
+
+    for (int y = 0; y < H; y++) {
+        for (int x = 0; x < W; x++) {
+            if (thresh[y * W + x] == 255) {
+                // We found a Strong pixel. Push its 1D index onto the stack to start tracing.
+                stack.push_back(y * W + x);
+
+                // Iterative trace (replaces the recursive trace_edge function)
+                while (!stack.empty()) {
+                    // Pop the current pixel index off the stack
+                    int idx = stack.back();
+                    stack.pop_back();
+
+                    // Convert 1D index back to 2D coordinates
+                    int cx = idx % W;
+                    int cy = idx / W;
+
+                    // Inspect all 8 surrounding neighbors
+                    for (int i = -1; i <= 1; i++) {
+                        for (int j = -1; j <= 1; j++) {
+                            int nx = cx + j;
+                            int ny = cy + i;
+
+                            // Ensure neighbor is within image boundaries
+                            if (nx >= 0 && nx < W && ny >= 0 && ny < H) {
+                                int n_idx = ny * W + nx;
+                                
+                                // If the neighbor is a Weak edge, promote it and push it to the stack
+                                if (thresh[n_idx] == 128) {
+                                    thresh[n_idx] = 255;
+                                    stack.push_back(n_idx);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
     }
-}
-
-void apply_hysteresis(uint8_t* thresh, int W, int H) {
-    for (int y = 0; y < H; y++) {
-        for (int x = 0; x < W; x++) {
-            if (thresh[y * W + x] == 255) {
-                trace_edge(thresh, x, y, W, H);
-            }
-        }
-    }
-    // Final pass: cleanup any remaining weak edges
+    
+    // Final pass: cleanup any remaining weak edges that were never connected
     for (int i = 0; i < W * H; i++) {
         if (thresh[i] == 128) thresh[i] = 0;
     }
