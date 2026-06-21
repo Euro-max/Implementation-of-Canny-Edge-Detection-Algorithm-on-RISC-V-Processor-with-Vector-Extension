@@ -189,6 +189,30 @@ Measured cycle counts via `rdcycle`, averaged over 100 iterations per stage.
 
 Binary sizes ranged from 393 KB (`-Os`) to 410 KB (`-O0`) — a variation of only ±17 KB.
 
+**Per-Stage Performance (387×516 image) with excution time** 
+
+| Stage | Metric | `-O0` | `-O2` | `-O3` | `-Os` | `-Ofast` |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Gaussian** | Cycles | 174.0M | 59.9M | 26.2M | 67.0M | 26.3M |
+| | Time (ms) | 54.5 | 18.7 | 8.2 | 21.0 | 8.2 |
+| **Sobel** | Cycles | 85.8M | 33.3M | 5.6M | 31.4M | 5.5M |
+| | Time (ms) | 26.9 | 10.4 | 1.8 | 9.8 | 1.7 |
+| **Magnitude** | Cycles | 121.6M | 21.0M | 22.2M | 23.4M | 21.4M |
+| | Time (ms) | 38.1 | 6.6 | 6.9 | 7.3 | 6.7 |
+| **Direction** | Cycles | 10.7M | 4.8M | 29.2M | 5.4M | 38.8M |
+| | Time (ms) | 3.3 | 1.5 | 9.1 | 1.7 | 12.1 |
+| **NMS** | Cycles | 15.2M | 7.4M | 7.1M | 8.1M | 6.7M |
+| | Time (ms) | 4.8 | 2.3 | 2.2 | 2.5 | 2.1 |
+| **Threshold** | Cycles | 3.6M | 2.5M | 2.7M | 2.8M | 2.5M |
+| | Time (ms) | 1.1 | 0.8 | 0.9 | 0.9 | 0.8 |
+| **Hysteresis** | Cycles | 6.6M | 4.1M | 4.2M | 4.9M | 3.8M |
+| | Time (ms) | 2.1 | 1.3 | 1.3 | 1.5 | 1.2 |
+| **TOTAL** | **Cycles** | **417.6M** | **132.9M** | **97.2M** | **143.0M** | **105.0M** |
+| | **Time (ms)**| **130.7** | **41.6** | **30.4** | **44.8** | **32.9** |
+| **Speedup vs -O0**| **(Wall Time)** | **1.00x** | **3.14x** | **4.29x** | **2.92x** | **3.98x** |
+
+**Result: 4.29× maximum speedup from `-O0` to `-O3` with zero source-code changes.** Binary sizes ranged from 395 KB (`-Os`) to 412 KB (`-O0`) — a variation of only 17 KB.
+
 ### Auto-Vectorization Analysis
 
 | Function | Vectorized? | Reason |
