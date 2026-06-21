@@ -145,17 +145,21 @@ Clean, templated C++ implementation of the full 7-stage pipeline:
 - **Hysteresis Thresholding** — dual high/low threshold; weak edges are kept only if 8-connected to a strong edge pixel.
 
 ### 🖼️ Full Pipeline Stage-by-Stage Visual Auditing
-To simplify grading and debugging, Phase 2 tracks and exports the full progression of the Canny algorithm. Running `make run` followed by `make view_all` breaks the continuous processing down into 8 distinct visual milestones:
+## Canny Edge Detection: Pipeline Stages
 
-1. **`stage1_grayscale.png`** — Pure single-channel intensity matrix extraction.
-2. **`stage2_gaussian.png`** — Separable 1D spatial filtering to smooth out high-frequency sensor noise.
-3. **`stage3_sobel_gx.png` & `stage3_sobel_gy.png`** — Horizontal and vertical structural derivative field maps.
-4. **`stage4_magnitude.png`** — Aggregated $L_1$ edge strength field, globally scaled and normalized to `[0, 255]`.
-5. **`stage5_direction.png`** — Quantized 4-bin discrete angular sector map (essential for local search directions).
-6. **`stage6_nms.png`** — Precise ridge thinning that eliminates lateral blur down to 1-pixel thin boundaries.
-7. **`stage7_threshold.png`** — Double-threshold map partitioning pixels strictly into Strong, Weak, or Non-Edge pools.
-8. **`stage8_hysteresis.png`** — The final clean edge skeleton after recursive 8-connected component tracking.
----
+The following table visualizes the output of our RISC-V implementation at every stage of the Canny Edge Detection algorithm.
+
+| Stage | Process | Visualization |
+| :---: | :--- | :--- |
+| **1** | **Grayscale Conversion** | <img src="stage1_grayscale.png" width="300" alt="Grayscale Output"> |
+| **2** | **Gaussian Blur** | <img src="stage2_gaussian.png" width="300" alt="Gaussian Blur Output"> |
+| **3** | **Sobel X Gradient** (Vertical Edges) | <img src="stage3_sobel_gx.png" width="300" alt="Sobel X Output"> |
+| **3** | **Sobel Y Gradient** (Horizontal Edges) | <img src="stage3_sobel_gy.png" width="300" alt="Sobel Y Output"> |
+| **4** | **Gradient Magnitude** | <img src="stage4_magnitude.png" width="300" alt="Magnitude Output"> |
+| **5** | **Gradient Direction** | <img src="stage5_direction.png" width="300" alt="Direction Output"> |
+| **6** | **Non-Maximum Suppression** | <img src="stage6_nms.png" width="300" alt="NMS Output"> |
+| **7** | **Double Thresholding** | <img src="stage7_threshold.png" width="300" alt="Thresholding Output"> |
+| **8** | **Hysteresis Edge Tracing** | <img src="stage8_hysteresis.png" width="300" alt="Hysteresis Output"> |
 
 ## Phase 3 — Testing ✅
 
