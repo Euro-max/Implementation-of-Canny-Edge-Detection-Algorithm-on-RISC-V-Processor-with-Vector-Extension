@@ -1,6 +1,12 @@
 /**
  * @file main.cpp
  * @brief Main execution entry point for Canny Edge Detection (7-stage pipeline).
+ *
+ * MODIFIED: this version also dumps the intermediate buffer after every
+ * stage to its own .raw file, so the pipeline can be visually inspected
+ * stage by stage (grayscale -> gaussian -> sobel -> magnitude -> direction
+ * -> nms -> double threshold -> hysteresis). The cycle-counting / timing
+ * logic is unchanged from the original.
  */
 
 #include "image_io.h"
@@ -95,7 +101,14 @@ int main(int argc, char** argv) {
     uint8_t* img_nms   = allocate_buffer(W, H);
     uint8_t* img_edges = allocate_buffer(W, H);
 
-    if (!img_in || !img_blur || !gx || !gy || !img_mag || !img_dir || !img_nms || !img_edges) {
+    // Extra visualization-only buffers (8-bit, scaled/clamped versions of
+    // signed or low-range data so they can be viewed as normal grayscale)
+    uint8_t* gx_vis       = allocate_buffer(W, H);
+    uint8_t* gy_vis       = allocate_buffer(W, H);
+    uint8_t* img_dir_vis  = allocate_buffer(W, H);
+
+    if (!img_in || !img_blur || !gx || !gy || !img_mag || !img_dir || !img_nms || !img_edges
+        || !gx_vis || !gy_vis || !img_dir_vis) {
         fprintf(stderr, "ERROR: Memory allocation failed!\n");
         return 1;
     }
@@ -105,35 +118,66 @@ int main(int argc, char** argv) {
     const int REPS = 100;
     uint64_t c0;
 
-    // Execution Loop
+    // ── Stage 1: Grayscale input ────────────────────────────────────────
+    save_raw("stage1_grayscale.raw", img_in, W, H);
+
+    // ── Stage 2: Gaussian blur ──────────────────────────────────────────
     c0 = read_cycles();
     for (int i = 0; i < REPS; i++) gaussian_blur_5x5<uint8_t, uint8_t, int32_t>(img_in, img_blur, W, H);
     uint64_t cyc_gaussian = (read_cycles() - c0) / REPS;
+    save_raw("stage2_gaussian.raw", img_blur, W, H);
 
+    // ── Stage 3: Sobel Gx/Gy ────────────────────────────────────────────
     c0 = read_cycles();
     for (int i = 0; i < REPS; i++) compute_sobel(img_blur, gx, gy, W, H);
     uint64_t cyc_sobel = (read_cycles() - c0) / REPS;
 
+    // gx/gy are signed int16_t and can't be saved directly as 8-bit raw.
+    // Take |Gx| and |Gy|, clamp to 255, so they're viewable as grayscale.
+    for (int i = 0; i < W * H; i++) {
+        int vx = gx[i]; if (vx < 0) vx = -vx; if (vx > 255) vx = 255;
+        int vy = gy[i]; if (vy < 0) vy = -vy; if (vy > 255) vy = 255;
+        gx_vis[i] = (uint8_t)vx;
+        gy_vis[i] = (uint8_t)vy;
+    }
+    save_raw("stage3_sobel_gx.raw", gx_vis, W, H);
+    save_raw("stage3_sobel_gy.raw", gy_vis, W, H);
+
+    // ── Stage 4: Gradient magnitude ─────────────────────────────────────
     c0 = read_cycles();
     for (int i = 0; i < REPS; i++) compute_magnitude_l1(gx, gy, img_mag, W, H);
     uint64_t cyc_mag = (read_cycles() - c0) / REPS;
+    save_raw("stage4_magnitude.raw", img_mag, W, H);
 
+    // ── Stage 5: Gradient direction ─────────────────────────────────────
     c0 = read_cycles();
     for (int i = 0; i < REPS; i++) compute_direction(gx, gy, img_dir, W, H);
     uint64_t cyc_dir = (read_cycles() - c0) / REPS;
 
+    // img_dir only holds 0,1,2,3 - scale up by 85 (0,85,170,255) so the
+    // four direction bins are visually distinguishable in a viewer.
+    for (int i = 0; i < W * H; i++) img_dir_vis[i] = (uint8_t)(img_dir[i] * 85);
+    save_raw("stage5_direction.raw", img_dir_vis, W, H);
+
+    // ── Stage 6: Non-Maximum Suppression ────────────────────────────────
     c0 = read_cycles();
     for (int i = 0; i < REPS; i++) apply_nms(img_mag, img_dir, img_nms, W, H);
     uint64_t cyc_nms = (read_cycles() - c0) / REPS;
+    save_raw("stage6_nms.raw", img_nms, W, H);
 
+    // ── Stage 7: Double thresholding ────────────────────────────────────
     c0 = read_cycles();
     for (int i = 0; i < REPS; i++) apply_double_threshold(img_nms, img_edges, W, H, 30, 90);
     uint64_t cyc_thresh = (read_cycles() - c0) / REPS;
+    save_raw("stage7_threshold.raw", img_edges, W, H);
 
+    // ── Stage 8: Hysteresis (final output) ──────────────────────────────
     c0 = read_cycles();
     for (int i = 0; i < REPS; i++) apply_hysteresis(img_edges, W, H);
     uint64_t cyc_hyst = (read_cycles() - c0) / REPS;
+    save_raw("stage8_hysteresis.raw", img_edges, W, H);
 
+    // Keep the original final-output save too (path comes from argv[2])
     save_raw(argv[2], img_edges, W, H);
 
     print_table(cyc_gaussian, cyc_sobel, cyc_mag, cyc_dir, cyc_nms, cyc_thresh, cyc_hyst, REPS);
@@ -152,6 +196,7 @@ int main(int argc, char** argv) {
 
     free(img_in); free(img_blur); free(gx); free(gy); 
     free(img_mag); free(img_dir); free(img_nms); free(img_edges);
+    free(gx_vis); free(gy_vis); free(img_dir_vis);
 
     return 0;
 }

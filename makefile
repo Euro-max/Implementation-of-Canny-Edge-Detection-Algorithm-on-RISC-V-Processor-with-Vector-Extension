@@ -30,7 +30,7 @@ H     ?= $(word 2,$(_SIZE))
 VLEN ?= 128
 
 # ─── Default target ──────────────────────────────────────────────────────────
-.PHONY: all run sweep sweep_O0 sweep_O2 sweep_O3 sweep_Os sweep_Ofast vect vect-asm clean help test_all test_legacy test_gtest test_legacy_single test_gtest_single convert view sizes verify table rvv vlen_128 vlen_256 vlen_512 vlen_sweep view_rvv view_rvv_128 view_rvv_256 view_rvv_512 view_all
+.PHONY: all run sweep sweep_O0 sweep_O2 sweep_O3 sweep_Os sweep_Ofast vect vect-asm clean help test_all test_legacy test_gtest test_legacy_single test_gtest_single convert view sizes verify table rvv vlen_128 vlen_256 vlen_512 vlen_sweep view_rvv view_rvv_128 view_rvv_256 view_rvv_512 view_all stages view_stages
 
 all: build_rv/canny_rv
 
@@ -196,6 +196,20 @@ view:
 	@python3 -c "import numpy as np; from PIL import Image; arr = np.fromfile('out.raw', dtype=np.uint8).reshape($(H), $(W)); Image.fromarray(arr).save('out.png')"
 	@echo "[ OK ] Saved out.png"
 
+stages: build_rv/canny_rv
+	@w=$$(cat .img_size 2>/dev/null | awk '{print $$1}' || echo "640"); \
+	h=$$(cat .img_size 2>/dev/null | awk '{print $$2}' || echo "480"); \
+	$(QEMU) $(QEMU_FLAGS) ./build_rv/canny_rv ./$(IMG) ./out.raw $$w $$h
+	@echo "[ OK ] Stage .raw files written (Detected $$w x $$h): stage1_grayscale.raw ... stage8_hysteresis.raw"
+
+view_stages:
+	@python3 -c "import os, numpy as np; from PIL import Image; \
+	s = open('.img_size').read().split() if os.path.exists('.img_size') else [640, 480]; \
+	W, H = int(s[0]), int(s[1]); \
+	names=['stage1_grayscale','stage2_gaussian','stage3_sobel_gx','stage3_sobel_gy','stage4_magnitude','stage5_direction','stage6_nms','stage7_threshold','stage8_hysteresis']; \
+	saved = []; \
+	[ (Image.fromarray(np.fromfile(n+'.raw',dtype=np.uint8).reshape(H,W)).save(n+'.png'), saved.append(n+'.png')) for n in names if os.path.exists(n+'.raw') ]; \
+	print('[ OK ] Saved ' + str(len(saved)) + ' PNGs (Size: ' + str(W) + 'x' + str(H) + ')')"
 view_rvv_128:
 	@python3 -c "import numpy as np; from PIL import Image; arr = np.fromfile('out_rvv_128.raw', dtype=np.uint8).reshape($(H), $(W)); Image.fromarray(arr).save('out_rvv_128.png')"
 	@echo "[ OK ] Saved out_rvv_128.png"
