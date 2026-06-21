@@ -12,7 +12,7 @@ A fully optimized Canny Edge Detection pipeline cross-compiled for bare-metal RI
 | Name | ID | Section | Bench No. | Email |
 |---|---|---|---|---|
 | Ahmed Hassan Labib | 91240075 | 1 | 7 | ahmed.labib05@eng-st.cu.edu.eg |
-| Ahmed Wael Mohammed | 91240930 | 1 | 16 | ahmed2005stem@gmail.com |
+| Ahmed Wael Mohammed | 91240930 | 1 | 16 | ahmed.kamal05@eng-st.cu.edu.eg |
 | Adham Mohammed ElSadiq | 91240142 | 1 | 17 | adham.alsagher05@eng-st.cu.edu.eg |
 | Muhammad Sameer AbdelHamid | 91240662 | 3 | 21 | muhammad.Abdelhay05@eng-st.cu.edu.eg |
 | Muhammad Sayed AbdelSalam | 91240663 | 3 | 22 | mohamed.ibrahim061@eng-st.cu.edu.eg |
@@ -71,7 +71,7 @@ A fully optimized Canny Edge Detection pipeline cross-compiled for bare-metal RI
 # 1. Convert any photo to raw grayscale (auto-saves width/height)
 make convert IMG=yourphoto.jpg
 
-# 2. Build and run the scalar pipeline on QEMU
+# 2. Build and run the scalar pipeline on QEMU (generates all intermediate stage outputs)
 make run
 
 # 3. View the output as a PNG
@@ -85,46 +85,38 @@ Width and height are detected automatically from `make convert` — you never ne
 ## Makefile Targets
 
 ### Image Preparation
-
 | Target | Description |
 |---|---|
 | `make convert IMG=photo.jpg` | Convert JPG/PNG → `test_input.raw`, auto-detect size |
-| `make view` | Convert `out.raw` → `out.png` |
-| `make view_all` | Convert all `.raw` outputs → `.png` |
+| `make view` | Convert final `out.raw` → `out.png` |
 
 ### Scalar Pipeline (Phases 4/5)
-
 | Target | Description |
 |---|---|
-| `make run` | Build with `-O2`, run scalar pipeline on QEMU |
+| `make run` | Build with `-O2`, run scalar pipeline on QEMU and dump intermediate stages |
 | `make sweep` | Build and run at `-O0 -O2 -O3 -Os -Ofast`, print comparison table |
 | `make table` | Print Phase 4 runtime/size summary table |
-| `make sizes` | Print binary sizes at each optimization level |
-| `make verify` | Confirm all optimization levels produce bit-identical output |
 
 ### RVV Pipeline (Phase 6)
-
 | Target | Description |
 |---|---|
 | `make rvv` | Build RVV binary (`-Ofast`) |
+| `make vlen_sweep` | Run all three VLEN values sequentially (128, 256, 512) |
 | `make vlen_128` | Run RVV at VLEN=128 → `out_rvv_128.raw` |
 | `make vlen_256` | Run RVV at VLEN=256 → `out_rvv_256.raw` |
 | `make vlen_512` | Run RVV at VLEN=512 → `out_rvv_512.raw` |
-| `make vlen_sweep` | Run all three VLEN values sequentially |
 | `make view_rvv` | View VLEN=128 output (default) |
 | `make view_rvv_128` | View VLEN=128 output |
 | `make view_rvv_256` | View VLEN=256 output |
 | `make view_rvv_512` | View VLEN=512 output |
 
 ### Testing & Utilities
-
 | Target | Description |
 |---|---|
 | `make test_all` | Run all host-side (GoogleTest) and QEMU-side tests |
-| `make test_gtest` | Run GoogleTest suite natively on host |
-| `make test_legacy` | Run all assert-based tests on QEMU |
+| `make view_all` | Convert ALL intermediate `.raw` stage outputs → viewable `.png` images |
+| `make verify` | Compare O0 vs Ofast outputs to confirm bit-identical execution |
 | `make clean` | Remove all build artifacts and output files |
-| `make help` | Print target list in terminal |
 
 ---
 
@@ -152,6 +144,17 @@ Clean, templated C++ implementation of the full 7-stage pipeline:
 - **Non-Maximum Suppression** — thins edges to single-pixel width by suppressing non-peak pixels along the gradient direction.
 - **Hysteresis Thresholding** — dual high/low threshold; weak edges are kept only if 8-connected to a strong edge pixel.
 
+### 🖼️ Full Pipeline Stage-by-Stage Visual Auditing
+To simplify grading and debugging, Phase 2 tracks and exports the full progression of the Canny algorithm. Running `make run` followed by `make view_all` breaks the continuous processing down into 8 distinct visual milestones:
+
+1. **`stage1_grayscale.png`** — Pure single-channel intensity matrix extraction.
+2. **`stage2_gaussian.png`** — Separable 1D spatial filtering to smooth out high-frequency sensor noise.
+3. **`stage3_sobel_gx.png` & `stage3_sobel_gy.png`** — Horizontal and vertical structural derivative field maps.
+4. **`stage4_magnitude.png`** — Aggregated $L_1$ edge strength field, globally scaled and normalized to `[0, 255]`.
+5. **`stage5_direction.png`** — Quantized 4-bin discrete angular sector map (essential for local search directions).
+6. **`stage6_nms.png`** — Precise ridge thinning that eliminates lateral blur down to 1-pixel thin boundaries.
+7. **`stage7_threshold.png`** — Double-threshold map partitioning pixels strictly into Strong, Weak, or Non-Edge pools.
+8. **`stage8_hysteresis.png`** — The final clean edge skeleton after recursive 8-connected component tracking.
 ---
 
 ## Phase 3 — Testing ✅
