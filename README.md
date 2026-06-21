@@ -145,17 +145,21 @@ Clean, templated C++ implementation of the full 7-stage pipeline:
 - **Hysteresis Thresholding** — dual high/low threshold; weak edges are kept only if 8-connected to a strong edge pixel.
 
 ### 🖼️ Full Pipeline Stage-by-Stage Visual Auditing
-To simplify grading and debugging, Phase 2 tracks and exports the full progression of the Canny algorithm. Running `make run` followed by `make view_all` breaks the continuous processing down into 8 distinct visual milestones:
+## Canny Edge Detection: Pipeline Stages
 
-1. **`stage1_grayscale.png`** — Pure single-channel intensity matrix extraction.
-2. **`stage2_gaussian.png`** — Separable 1D spatial filtering to smooth out high-frequency sensor noise.
-3. **`stage3_sobel_gx.png` & `stage3_sobel_gy.png`** — Horizontal and vertical structural derivative field maps.
-4. **`stage4_magnitude.png`** — Aggregated $L_1$ edge strength field, globally scaled and normalized to `[0, 255]`.
-5. **`stage5_direction.png`** — Quantized 4-bin discrete angular sector map (essential for local search directions).
-6. **`stage6_nms.png`** — Precise ridge thinning that eliminates lateral blur down to 1-pixel thin boundaries.
-7. **`stage7_threshold.png`** — Double-threshold map partitioning pixels strictly into Strong, Weak, or Non-Edge pools.
-8. **`stage8_hysteresis.png`** — The final clean edge skeleton after recursive 8-connected component tracking.
----
+The following table visualizes the output of our RISC-V implementation at every stage of the Canny Edge Detection algorithm.
+
+| Stage | Process | Visualization |
+| :---: | :--- | :--- |
+| **1** | **Grayscale Conversion** | <img src="stage1_grayscale.png" width="300" alt="Grayscale Output"> |
+| **2** | **Gaussian Blur** | <img src="stage2_gaussian.png" width="300" alt="Gaussian Blur Output"> |
+| **3** | **Sobel X Gradient** (Vertical Edges) | <img src="stage3_sobel_gx.png" width="300" alt="Sobel X Output"> |
+| **3** | **Sobel Y Gradient** (Horizontal Edges) | <img src="stage3_sobel_gy.png" width="300" alt="Sobel Y Output"> |
+| **4** | **Gradient Magnitude** | <img src="stage4_magnitude.png" width="300" alt="Magnitude Output"> |
+| **5** | **Gradient Direction** | <img src="stage5_direction.png" width="300" alt="Direction Output"> |
+| **6** | **Non-Maximum Suppression** | <img src="stage6_nms.png" width="300" alt="NMS Output"> |
+| **7** | **Double Thresholding** | <img src="stage7_threshold.png" width="300" alt="Thresholding Output"> |
+| **8** | **Hysteresis Edge Tracing** | <img src="stage8_hysteresis.png" width="300" alt="Hysteresis Output"> |
 
 ## Phase 3 — Testing ✅
 
@@ -184,6 +188,30 @@ Measured cycle counts via `rdcycle`, averaged over 100 iterations per stage.
 **Result: 4.38× total speedup from `-O0` to `-Ofast` with zero source-code changes.**
 
 Binary sizes ranged from 393 KB (`-Os`) to 410 KB (`-O0`) — a variation of only ±17 KB.
+
+**Per-Stage Performance (387×516 image) with excution time** 
+
+| Stage | Metric | `-O0` | `-O2` | `-O3` | `-Os` | `-Ofast` |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Gaussian** | Cycles | 174.0M | 59.9M | 26.2M | 67.0M | 26.3M |
+| | Time (ms) | 54.5 | 18.7 | 8.2 | 21.0 | 8.2 |
+| **Sobel** | Cycles | 85.8M | 33.3M | 5.6M | 31.4M | 5.5M |
+| | Time (ms) | 26.9 | 10.4 | 1.8 | 9.8 | 1.7 |
+| **Magnitude** | Cycles | 121.6M | 21.0M | 22.2M | 23.4M | 21.4M |
+| | Time (ms) | 38.1 | 6.6 | 6.9 | 7.3 | 6.7 |
+| **Direction** | Cycles | 10.7M | 4.8M | 29.2M | 5.4M | 38.8M |
+| | Time (ms) | 3.3 | 1.5 | 9.1 | 1.7 | 12.1 |
+| **NMS** | Cycles | 15.2M | 7.4M | 7.1M | 8.1M | 6.7M |
+| | Time (ms) | 4.8 | 2.3 | 2.2 | 2.5 | 2.1 |
+| **Threshold** | Cycles | 3.6M | 2.5M | 2.7M | 2.8M | 2.5M |
+| | Time (ms) | 1.1 | 0.8 | 0.9 | 0.9 | 0.8 |
+| **Hysteresis** | Cycles | 6.6M | 4.1M | 4.2M | 4.9M | 3.8M |
+| | Time (ms) | 2.1 | 1.3 | 1.3 | 1.5 | 1.2 |
+| **TOTAL** | **Cycles** | **417.6M** | **132.9M** | **97.2M** | **143.0M** | **105.0M** |
+| | **Time (ms)**| **130.7** | **41.6** | **30.4** | **44.8** | **32.9** |
+| **Speedup vs -O0**| **(Wall Time)** | **1.00x** | **3.14x** | **4.29x** | **2.92x** | **3.98x** |
+
+**Result: 4.29× maximum speedup from `-O0` to `-O3` with zero source-code changes.** Binary sizes ranged from 395 KB (`-Os`) to 412 KB (`-O0`) — a variation of only 17 KB.
 
 ### Auto-Vectorization Analysis
 
