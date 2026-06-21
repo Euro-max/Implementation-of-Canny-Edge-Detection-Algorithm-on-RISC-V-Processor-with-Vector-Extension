@@ -1,0 +1,302 @@
+========================================
+          RVV VLEN BENCHMARKS           
+========================================
+
+>>> [VLEN SWEEP] VLEN=128 <<<
+qemu-riscv64 -cpu rv64,v=true,vlen=128 ./build_rv/canny_rvv ./test_input.raw ./out_rvv_128.raw 387 516
+
++----------------------------------------------+
+|     Canny RVV Benchmark — Phase 6            |
+|     RISC-V Vector Extension                  |
++----------------------------------------------+
+|  Input : ./test_input.raw                    |
+|  Output: ./out_rvv_128.raw                   |
+|  Size  : 387x516                            |
++----------------------------------------------+
+
+--- Equivalence checks ---
+[PASS] Gaussian: outputs match within ±1 tolerance (199692 pixels checked)
+[PASS] Magnitude: outputs match within ±1 tolerance (199692 pixels checked)
+
++------------+----------------+----------------+----------+
+| Stage      | Scalar -Ofast  | RVV Pipeline   | Apparent |
+|            |  avg 100 runs  |  avg 100 runs  | Speedup  |
++------------+----------------+----------------+----------+
+| Gaussian   |       35632001 |      245345749 |   0.15x |
+| Magnitude  |       17934465 |       26251586 |   0.68x |
++------------+----------------+----------------+----------+
+  * Note: RVV speedup artifacts are expected under QEMU User-Mode.
+    Verify true VLA scaling via 'make vlen_sweep'.
+
+Edge output saved to ./out_rvv_128.raw
+
+
+>>> [VLEN SWEEP] VLEN=256 <<<
+qemu-riscv64 -cpu rv64,v=true,vlen=256 ./build_rv/canny_rvv ./test_input.raw ./out_rvv_256.raw 387 516
+
++----------------------------------------------+
+|     Canny RVV Benchmark — Phase 6            |
+|     RISC-V Vector Extension                  |
++----------------------------------------------+
+|  Input : ./test_input.raw                    |
+|  Output: ./out_rvv_256.raw                   |
+|  Size  : 387x516                            |
++----------------------------------------------+
+
+--- Equivalence checks ---
+[PASS] Gaussian: outputs match within ±1 tolerance (199692 pixels checked)
+[PASS] Magnitude: outputs match within ±1 tolerance (199692 pixels checked)
+
++------------+----------------+----------------+----------+
+| Stage      | Scalar -Ofast  | RVV Pipeline   | Apparent |
+|            |  avg 100 runs  |  avg 100 runs  | Speedup  |
++------------+----------------+----------------+----------+
+| Gaussian   |       35344350 |      176202087 |   0.20x |
+| Magnitude  |       17760706 |       24661347 |   0.72x |
++------------+----------------+----------------+----------+
+  * Note: RVV speedup artifacts are expected under QEMU User-Mode.
+    Verify true VLA scaling via 'make vlen_sweep'.
+
+Edge output saved to ./out_rvv_256.raw
+
+
+>>> [VLEN SWEEP] VLEN=512 <<<
+qemu-riscv64 -cpu rv64,v=true,vlen=512 ./build_rv/canny_rvv ./test_input.raw ./out_rvv_512.raw 387 516
+
++----------------------------------------------+
+|     Canny RVV Benchmark — Phase 6            |
+|     RISC-V Vector Extension                  |
++----------------------------------------------+
+|  Input : ./test_input.raw                    |
+|  Output: ./out_rvv_512.raw                   |
+|  Size  : 387x516                            |
++----------------------------------------------+
+
+--- Equivalence checks ---
+[PASS] Gaussian: outputs match within ±1 tolerance (199692 pixels checked)
+[PASS] Magnitude: outputs match within ±1 tolerance (199692 pixels checked)
+
++------------+----------------+----------------+----------+
+| Stage      | Scalar -Ofast  | RVV Pipeline   | Apparent |
+|            |  avg 100 runs  |  avg 100 runs  | Speedup  |
++------------+----------------+----------------+----------+
+| Gaussian   |       35122923 |      150720971 |   0.23x |
+| Magnitude  |       17757478 |       23206285 |   0.77x |
++------------+----------------+----------------+----------+
+  * Note: RVV speedup artifacts are expected under QEMU User-Mode.
+    Verify true VLA scaling via 'make vlen_sweep'.
+
+Edge output saved to ./out_rvv_512.raw
+
+
+========================================
+      COMPILER OPTIMIZATION SWEEP       
+========================================
+
+>>> [SWEEP] Running -O0 <<<
+
++----------------------------------------------+
+|        Canny Edge Detection Pipeline         |
+|        Running on RISC-V via QEMU            |
++----------------------------------------------+
+|  Input : ./test_input.raw                   |
+|  Output: ./out_O0.raw                       |
+|  Size  : 387x516                           |
++----------------------------------------------+
+
+
++--------------+----------------+--------+-------------+--------+--------------+
+|                  Canny Pipeline - Performance Results                        |
+|                    (average over 100 runs)                                    |
++--------------+----------------+--------+-------------+--------+--------------+
+| Stage        | Cycles         |  %     | Time (us)   |  %     | Bottleneck?  |
++--------------+----------------+--------+-------------+--------+--------------+
+| Gaussian     |      151712096 |  48.9% |   62038.960 |  48.9% | < HOT        |
+| Sobel        |       78357427 |  25.2% |   32042.597 |  25.2% |              |
+| Magnitude    |       42479642 |  13.7% |   17371.214 |  13.7% |              |
+| Direction    |        9741189 |   3.1% |    3983.614 |   3.1% |              |
+| NMS          |       13157369 |   4.2% |    5380.555 |   4.2% |              |
+| Threshold    |        3208234 |   1.0% |    1312.065 |   1.0% |              |
+| Hysteresis   |       11758367 |   3.8% |    4808.475 |   3.8% |              |
++--------------+----------------+--------+-------------+--------+--------------+
+| TOTAL        |      310414324 | 100.0% |  126937.480 | 100.0% |              |
++--------------+----------------+--------+-------------+--------+--------------+
+| Cycles = RISC-V rdcycle CSR (instruction-count proxy, not wall time)         |
+| Time   = host wall-clock via clock_gettime(CLOCK_MONOTONIC), real seconds    |
++--------------------------------------------------------------------------------+
+
+
+>>> [SWEEP] Running -O2 <<<
+
++----------------------------------------------+
+|        Canny Edge Detection Pipeline         |
+|        Running on RISC-V via QEMU            |
++----------------------------------------------+
+|  Input : ./test_input.raw                   |
+|  Output: ./out_O2.raw                       |
+|  Size  : 387x516                           |
++----------------------------------------------+
+
+
++--------------+----------------+--------+-------------+--------+--------------+
+|                  Canny Pipeline - Performance Results                        |
+|                    (average over 100 runs)                                    |
++--------------+----------------+--------+-------------+--------+--------------+
+| Stage        | Cycles         |  %     | Time (us)   |  %     | Bottleneck?  |
++--------------+----------------+--------+-------------+--------+--------------+
+| Gaussian     |       96535586 |  56.1% |   39476.132 |  56.1% | < HOT        |
+| Sobel        |       41644108 |  24.2% |   17029.538 |  24.2% |              |
+| Magnitude    |       17907995 |  10.4% |    7323.204 |  10.4% |              |
+| Direction    |        4157876 |   2.4% |    1700.381 |   2.4% |              |
+| NMS          |        5972718 |   3.5% |    2442.564 |   3.5% |              |
+| Threshold    |        1836894 |   1.1% |     751.244 |   1.1% |              |
+| Hysteresis   |        3886377 |   2.3% |    1589.349 |   2.3% |              |
++--------------+----------------+--------+-------------+--------+--------------+
+| TOTAL        |      171941554 | 100.0% |   70312.412 | 100.0% |              |
++--------------+----------------+--------+-------------+--------+--------------+
+| Cycles = RISC-V rdcycle CSR (instruction-count proxy, not wall time)         |
+| Time   = host wall-clock via clock_gettime(CLOCK_MONOTONIC), real seconds    |
++--------------------------------------------------------------------------------+
+
+
+>>> [SWEEP] Running -O3 <<<
+
++----------------------------------------------+
+|        Canny Edge Detection Pipeline         |
+|        Running on RISC-V via QEMU            |
++----------------------------------------------+
+|  Input : ./test_input.raw                   |
+|  Output: ./out_O3.raw                       |
+|  Size  : 387x516                           |
++----------------------------------------------+
+
+
++--------------+----------------+--------+-------------+--------+--------------+
+|                  Canny Pipeline - Performance Results                        |
+|                    (average over 100 runs)                                    |
++--------------+----------------+--------+-------------+--------+--------------+
+| Stage        | Cycles         |  %     | Time (us)   |  %     | Bottleneck?  |
++--------------+----------------+--------+-------------+--------+--------------+
+| Gaussian     |       25853968 |  39.1% |   10572.604 |  39.1% | < HOT        |
+| Sobel        |        6765705 |  10.2% |    2766.804 |  10.2% |              |
+| Magnitude    |       18125602 |  27.4% |    7412.184 |  27.4% |              |
+| Direction    |        4150098 |   6.3% |    1697.181 |   6.3% |              |
+| NMS          |        5813942 |   8.8% |    2377.635 |   8.8% |              |
+| Threshold    |        1831519 |   2.8% |     749.107 |   2.8% |              |
+| Hysteresis   |        3577160 |   5.4% |    1462.944 |   5.4% |              |
++--------------+----------------+--------+-------------+--------+--------------+
+| TOTAL        |       66117994 | 100.0% |   27038.459 | 100.0% |              |
++--------------+----------------+--------+-------------+--------+--------------+
+| Cycles = RISC-V rdcycle CSR (instruction-count proxy, not wall time)         |
+| Time   = host wall-clock via clock_gettime(CLOCK_MONOTONIC), real seconds    |
++--------------------------------------------------------------------------------+
+
+
+>>> [SWEEP] Running -Os <<<
+
++----------------------------------------------+
+|        Canny Edge Detection Pipeline         |
+|        Running on RISC-V via QEMU            |
++----------------------------------------------+
+|  Input : ./test_input.raw                   |
+|  Output: ./out_Os.raw                       |
+|  Size  : 387x516                           |
++----------------------------------------------+
+
+
++--------------+----------------+--------+-------------+--------+--------------+
+|                  Canny Pipeline - Performance Results                        |
+|                    (average over 100 runs)                                    |
++--------------+----------------+--------+-------------+--------+--------------+
+| Stage        | Cycles         |  %     | Time (us)   |  %     | Bottleneck?  |
++--------------+----------------+--------+-------------+--------+--------------+
+| Gaussian     |       80938312 |  55.0% |   33097.850 |  55.0% | < HOT        |
+| Sobel        |       28119878 |  19.1% |   11499.010 |  19.1% |              |
+| Magnitude    |       18718636 |  12.7% |    7654.572 |  12.7% |              |
+| Direction    |        5020692 |   3.4% |    2053.123 |   3.4% |              |
+| NMS          |        7032416 |   4.8% |    2875.778 |   4.8% |              |
+| Threshold    |        2600595 |   1.8% |    1063.544 |   1.8% |              |
+| Hysteresis   |        4659493 |   3.2% |    1905.479 |   3.2% |              |
++--------------+----------------+--------+-------------+--------+--------------+
+| TOTAL        |      147090022 | 100.0% |   60149.356 | 100.0% |              |
++--------------+----------------+--------+-------------+--------+--------------+
+| Cycles = RISC-V rdcycle CSR (instruction-count proxy, not wall time)         |
+| Time   = host wall-clock via clock_gettime(CLOCK_MONOTONIC), real seconds    |
++--------------------------------------------------------------------------------+
+
+
+>>> [SWEEP] Running -Ofast <<<
+
++----------------------------------------------+
+|        Canny Edge Detection Pipeline         |
+|        Running on RISC-V via QEMU            |
++----------------------------------------------+
+|  Input : ./test_input.raw                   |
+|  Output: ./out_Ofast.raw                    |
+|  Size  : 387x516                           |
++----------------------------------------------+
+
+
++--------------+----------------+--------+-------------+--------+--------------+
+|                  Canny Pipeline - Performance Results                        |
+|                    (average over 100 runs)                                    |
++--------------+----------------+--------+-------------+--------+--------------+
+| Stage        | Cycles         |  %     | Time (us)   |  %     | Bottleneck?  |
++--------------+----------------+--------+-------------+--------+--------------+
+| Gaussian     |       25869821 |  39.4% |   10579.064 |  39.4% | < HOT        |
+| Sobel        |        6743878 |  10.3% |    2757.892 |  10.3% |              |
+| Magnitude    |       17760380 |  27.0% |    7262.837 |  27.0% |              |
+| Direction    |        4156670 |   6.3% |    1699.855 |   6.3% |              |
+| NMS          |        5780435 |   8.8% |    2363.923 |   8.8% |              |
+| Threshold    |        1831226 |   2.8% |     748.907 |   2.8% |              |
+| Hysteresis   |        3582240 |   5.5% |    1465.021 |   5.5% |              |
++--------------+----------------+--------+-------------+--------+--------------+
+| TOTAL        |       65724650 | 100.0% |   26877.499 | 100.0% |              |
++--------------+----------------+--------+-------------+--------+--------------+
+| Cycles = RISC-V rdcycle CSR (instruction-count proxy, not wall time)         |
+| Time   = host wall-clock via clock_gettime(CLOCK_MONOTONIC), real seconds    |
++--------------------------------------------------------------------------------+
+
+g++ -std=c++17 -O2 -Wall -I src -I include src/summary.cpp -o build_host/summary
+
+Phase 4: Optimization Sweep Results
+===================================
+The following table summarizes the impact of compiler optimization flags on binary size, runtime, and vectorization behavior for the Canny Edge pipeline:
+
++--------------+-------------+--------------+-----------+---------------------+
+| Optimization | Binary Size | Cycles       | Time (ms) | Vectorization Notes |
++--------------+-------------+--------------+-----------+---------------------+
+| -O0          | 314K        | 310414324    | 126.937   | None                |
++--------------+-------------+--------------+-----------+---------------------+
+| -O2          | 292K        | 171941554    | 70.312    | Some loops          |
++--------------+-------------+--------------+-----------+---------------------+
+| -O3          | 292K        | 66117994     | 27.038    | More aggressive     |
++--------------+-------------+--------------+-----------+---------------------+
+| -Os          | 288K        | 147090022    | 60.149    | Size-focused        |
++--------------+-------------+--------------+-----------+---------------------+
+| -Ofast       | 292K        | 65724650     | 26.877    | Max speed           |
++--------------+-------------+--------------+-----------+---------------------+
+
+
++-----------------------+
+|  Binary Size Summary  |
++----------+------------+
+| Flag     | Size       |
++----------+------------+
+| -O0      | 314K       |
+| -O2      | 292K       |
+| -O3      | 292K       |
+| -Os      | 288K       |
+| -Ofast   | 292K       |
++----------+------------+
+
+  Amdahl's Law — Where to focus RVV optimization (based on -Ofast):
+  ──────────────────────────────────────────────────────────────
+  Gaussian     39.4% of total   << HIGH PRIORITY: vectorize with RVV!
+  Sobel        10.3% of total      LOW: small gain, skip
+  Magnitude    27.0% of total   <  MEDIUM: worth vectorizing
+  Direction     6.3% of total      LOW: small gain, skip
+  NMS           8.8% of total      LOW: small gain, skip
+  Threshold     2.8% of total      LOW: small gain, skip
+  Hysteresis    5.5% of total      LOW: small gain, skip
+
