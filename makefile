@@ -30,7 +30,7 @@ H     ?= $(word 2,$(_SIZE))
 VLEN ?= 128
 
 # ─── Default target ──────────────────────────────────────────────────────────
-.PHONY: all run sweep sweep_O0 sweep_O2 sweep_O3 sweep_Os sweep_Ofast clean help test_all test_legacy test_gtest test_legacy_single test_gtest_single convert view sizes verify table rvv vlen_128 vlen_256 vlen_512 vlen_sweep view_rvv view_rvv_128 view_rvv_256 view_rvv_512 view_all
+.PHONY: all run sweep sweep_O0 sweep_O2 sweep_O3 sweep_Os sweep_Ofast vect vect-asm clean help test_all test_legacy test_gtest test_legacy_single test_gtest_single convert view sizes verify table rvv vlen_128 vlen_256 vlen_512 vlen_sweep view_rvv view_rvv_128 view_rvv_256 view_rvv_512 view_all
 
 all: build_rv/canny_rv
 
@@ -144,6 +144,48 @@ sizes:
 	@printf "| -Os      | %-10s |\n" $$(ls -lh build_rv/canny_Os 2>/dev/null | awk '{print $$5}')
 	@printf "| -Ofast   | %-10s |\n" $$(ls -lh build_rv/canny_Ofast 2>/dev/null | awk '{print $$5}')
 	@echo "+----------+------------+"
+
+# ─── Phase 4: Auto-Vectorization Report ──────────────────────────────────────
+VECT_SRCS = $(filter-out src/main.cpp, $(SRCS))
+
+vect:
+	@mkdir -p build_rv
+	@echo "\n[ BUILD ] Compiling with -fopt-info-vec-all (vectorization report)..."
+	@$(RV_CXX) -std=c++17 -O3 -march=rv64gcv -mabi=lp64d \
+	  -ftree-vectorize -fopt-info-vec-all \
+	  -I src -I include \
+	  $(VECT_SRCS) -o build_rv/canny_vect 2> vec_report.txt; \
+	  true
+	@echo "[ OK    ] Report saved to vec_report.txt ($$(wc -l < vec_report.txt) lines)"
+	@echo ""
+	@echo "+----------------------------------------------------------------+"
+	@echo "|              Auto-Vectorization Schedule (per function)        |"
+	@echo "+----------------------------------------------------------------+"
+	@for f in gaussian sobel magnitude direction nms_threshold; do \
+		count=$$(grep -c "note: vectorized" vec_report.txt 2>/dev/null); \
+		line=$$(grep "$$f.*note: vectorized" vec_report.txt | head -1); \
+		if [ -n "$$line" ]; then \
+			n=$$(echo "$$line" | grep -oE "vectorized [0-9]+ loops"); \
+			printf "| %-14s | %-46s |\n" "$$f" "$$n in function"; \
+		else \
+			printf "| %-14s | %-46s |\n" "$$f" "(no report line found)"; \
+		fi; \
+	done
+	@echo "+----------------------------------------------------------------+"
+	@echo ""
+	@echo "[ INFO  ] Full diagnostic detail: less vec_report.txt"
+	@echo "[ INFO  ] Filter one stage:       grep gaussian.ipp vec_report.txt"
+	@echo "[ INFO  ] Confirm in disassembly: make vect-asm FUNC=<mangled_name>"
+
+# ─── Confirm vectorization in actual disassembly for one function ───────────
+vect-asm: build_rv/canny_vect
+	@if [ -z "$(FUNC)" ]; then \
+		echo "ERROR: Set FUNC=<mangled_name>. Find names with:"; \
+		echo "  riscv64-unknown-elf-nm build_rv/canny_vect | grep -iE 'gaussian|sobel|magnitude|direction'"; \
+		exit 1; \
+	fi
+	@echo "\n[ ASM   ] RVV instructions found in $(FUNC):"
+	@riscv64-unknown-elf-objdump -d --disassemble=$(FUNC) build_rv/canny_vect | grep -P '\tv[a-z]' || echo "  (none found — fully scalar)"
 
 # ─── Image Utils ─────────────────────────────────────────────────────────────
 convert:
